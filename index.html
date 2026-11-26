@@ -4,13 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <meta name="theme-color" content="#0f766e" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <title>وصلة الفيوم | متاجر • خدمات • توصيل ذكي</title>
-  <link id="pwaManifest" rel="manifest" />
+  <title>وصلة الفيوم | متاجر • خدمات • توصيل</title>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <style>
     :root {
       --primary: #0f766e;
@@ -25,518 +20,92 @@
       --danger: #dc2626;
       --success: #16a34a;
       --whatsapp: #25d366;
-      --shadow: 0 4px 18px rgba(15, 23, 42, 0.05);
     }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: 'Cairo', sans-serif;
-      -webkit-tap-highlight-color: transparent;
-    }
-
-    body {
-      background: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-      padding-bottom: 86px;
-    }
-
-    /* الشريط العلوي */
-    header {
-      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-      color: #fff;
-      padding: 0.8rem 1rem;
-      position: sticky;
-      top: 0;
-      z-index: 60;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.1);
-    }
-
-    .header-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 0.45rem;
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      cursor: pointer;
-      user-select: none;
-    }
-
-    .brand-icon {
-      width: 38px;
-      height: 38px;
-      background: var(--accent);
-      color: #fff;
-      border-radius: 12px;
-      display: grid;
-      place-items: center;
-      font-weight: 800;
-      font-size: 1.25rem;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
-    }
-
-    .brand h1 {
-      font-size: 1.08rem;
-      font-weight: 800;
-      line-height: 1.2;
-    }
-
-    .brand span {
-      font-size: 0.67rem;
-      opacity: 0.9;
-      display: block;
-    }
-
-    .village-picker {
-      background: rgba(255,255,255,0.16);
-      color: #fff;
-      border: 1px solid rgba(255,255,255,0.3);
-      border-radius: 10px;
-      padding: 0.35rem 0.55rem;
-      font-size: 0.76rem;
-      font-weight: 700;
-      outline: none;
-      max-width: 145px;
-    }
-
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Cairo', sans-serif; -webkit-tap-highlight-color: transparent; }
+    body { background: var(--bg); color: var(--text); min-height: 100vh; padding-bottom: 86px; }
+    header { background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: #fff; padding: 0.8rem 1rem; position: sticky; top: 0; z-index: 60; box-shadow: 0 2px 12px rgba(0,0,0,0.1); }
+    .header-top { display: flex; justify-content: space-between; align-items: center; gap: 0.45rem; }
+    .brand { display: flex; align-items: center; gap: 0.5rem; cursor: pointer; }
+    .brand-icon { width: 38px; height: 38px; background: var(--accent); color: #fff; border-radius: 12px; display: grid; place-items: center; font-weight: 800; font-size: 1.25rem; }
+    .brand h1 { font-size: 1.08rem; font-weight: 800; line-height: 1.2; }
+    .brand span { font-size: 0.67rem; opacity: 0.9; display: block; }
+    .village-picker { background: rgba(255,255,255,0.16); color: #fff; border: 1px solid rgba(255,255,255,0.3); border-radius: 10px; padding: 0.35rem 0.55rem; font-size: 0.76rem; font-weight: 700; max-width: 145px; }
     .village-picker option { color: var(--text); background: #fff; }
-
-    .header-icon-btn {
-      background: rgba(255,255,255,0.16);
-      border: 1px solid rgba(255,255,255,0.28);
-      color: #fff;
-      border-radius: 10px;
-      padding: 0.38rem 0.6rem;
-      font-size: 0.78rem;
-      font-weight: 700;
-      cursor: pointer;
-    }
-
-    /* الحاوية والشاشات */
-    .container {
-      width: 100%;
-      max-width: 780px;
-      margin: 0 auto;
-      padding: 1rem;
-    }
-
-    .screen { animation: fadeIn 0.2s ease; }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(4px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
+    .header-icon-btn { background: rgba(255,255,255,0.16); border: 1px solid rgba(255,255,255,0.28); color: #fff; border-radius: 10px; padding: 0.38rem 0.6rem; font-size: 0.78rem; font-weight: 700; cursor: pointer; }
+    .container { width: 100%; max-width: 780px; margin: 0 auto; padding: 1rem; }
     .hidden { display: none !important; }
-
-    /* شريط الأخبار */
-    .ticker-bar {
-      background: #fffbeb;
-      border: 1px solid #fde68a;
-      color: #92400e;
-      border-radius: 12px;
-      padding: 0.6rem 0.85rem;
-      font-size: 0.82rem;
-      font-weight: 700;
-      margin-bottom: 1rem;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    /* بانر الراعي */
-    .sponsor-card {
-      background: linear-gradient(135deg, #0f766e, #0d9488);
-      color: #fff;
-      border-radius: 16px;
-      padding: 1.15rem;
-      margin-bottom: 1.15rem;
-      box-shadow: var(--shadow);
-    }
-
-    .sponsor-tag {
-      display: inline-block;
-      background: rgba(255,255,255,0.2);
-      padding: 0.15rem 0.55rem;
-      border-radius: 999px;
-      font-size: 0.7rem;
-      font-weight: 700;
-      margin-bottom: 0.4rem;
-    }
-
-    .section-title {
-      font-size: 1rem;
-      font-weight: 800;
-      color: var(--text);
-      margin-bottom: 0.75rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    /* شبكة الأقسام الكبرى */
-    .categories-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 0.75rem;
-      margin-bottom: 1.25rem;
-    }
-
-    .cat-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 1.1rem 0.85rem;
-      text-align: center;
-      cursor: pointer;
-      transition: 0.2s;
-      box-shadow: var(--shadow);
-    }
-
-    .cat-card:active { transform: scale(0.98); border-color: var(--primary); }
-
-    .cat-icon {
-      width: 50px;
-      height: 50px;
-      border-radius: 14px;
-      background: var(--primary-soft);
-      color: var(--primary);
-      display: grid;
-      place-items: center;
-      font-size: 1.65rem;
-      margin: 0 auto 0.55rem;
-    }
-
+    .ticker-bar { background: #fffbeb; border: 1px solid #fde68a; color: #92400e; border-radius: 12px; padding: 0.6rem 0.85rem; font-size: 0.82rem; font-weight: 700; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; }
+    .sponsor-card { background: linear-gradient(135deg, #0f766e, #0d9488); color: #fff; border-radius: 16px; padding: 1.15rem; margin-bottom: 1.15rem; }
+    .sponsor-tag { display: inline-block; background: rgba(255,255,255,0.2); padding: 0.15rem 0.55rem; border-radius: 999px; font-size: 0.7rem; font-weight: 700; margin-bottom: 0.4rem; }
+    .section-title { font-size: 1rem; font-weight: 800; margin-bottom: 0.75rem; display: flex; justify-content: space-between; align-items: center; }
+    .categories-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.75rem; margin-bottom: 1.25rem; }
+    .cat-card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 1.1rem 0.85rem; text-align: center; cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.04); }
+    .cat-card:active { transform: scale(0.97); border-color: var(--primary); }
+    .cat-icon { width: 50px; height: 50px; border-radius: 14px; background: var(--primary-soft); display: grid; place-items: center; font-size: 1.65rem; margin: 0 auto 0.55rem; }
     .cat-title { font-weight: 800; font-size: 0.92rem; margin-bottom: 0.15rem; }
     .cat-sub { font-size: 0.74rem; color: var(--muted); }
-
-    .subpage-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 0.6rem;
-      margin-bottom: 1rem;
-      background: var(--card);
-      padding: 0.75rem 1rem;
-      border-radius: 14px;
-      border: 1px solid var(--border);
-    }
-
-    .back-btn {
-      background: var(--primary-soft);
-      color: var(--primary-dark);
-      border: none;
-      border-radius: 10px;
-      padding: 0.45rem 0.8rem;
-      font-weight: 800;
-      font-size: 0.82rem;
-      cursor: pointer;
-    }
-
-    .card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 1.15rem;
-      box-shadow: var(--shadow);
-      margin-bottom: 1rem;
-    }
-
-    /* المتاجر والمنتجات */
-    .store-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      overflow: hidden;
-      margin-bottom: 1rem;
-      box-shadow: var(--shadow);
-      cursor: pointer;
-    }
-
-    .store-cover {
-      width: 100%;
-      height: 145px;
-      object-fit: cover;
-      background: #e2e8f0;
-      display: block;
-    }
-
+    .subpage-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; background: var(--card); padding: 0.75rem 1rem; border-radius: 14px; border: 1px solid var(--border); }
+    .back-btn { background: var(--primary-soft); color: var(--primary-dark); border: none; border-radius: 10px; padding: 0.45rem 0.8rem; font-weight: 800; font-size: 0.82rem; cursor: pointer; }
+    .card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 1.15rem; margin-bottom: 1rem; box-shadow: 0 4px 12px rgba(0,0,0,0.04); }
+    .store-card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; margin-bottom: 1rem; cursor: pointer; }
+    .store-cover { width: 100%; height: 140px; object-fit: cover; background: #e2e8f0; display: block; }
     .store-body { padding: 0.95rem; }
-
-    .products-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 0.75rem;
-    }
-
-    .product-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      box-shadow: var(--shadow);
-    }
-
-    .product-img {
-      width: 100%;
-      height: 120px;
-      object-fit: cover;
-      background: #f1f5f9;
-    }
-
-    .product-info {
-      padding: 0.75rem;
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-
-    /* شريط السلة العائم داخل المتجر */
-    .cart-bar {
-      position: sticky;
-      bottom: 78px;
-      background: var(--primary-dark);
-      color: #fff;
-      border-radius: 14px;
-      padding: 0.8rem 1rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      box-shadow: 0 8px 24px rgba(15, 118, 110, 0.35);
-      margin-top: 1rem;
-      z-index: 50;
-    }
-
-    .item-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-right: 4px solid var(--primary);
-      border-radius: 14px;
-      padding: 0.95rem;
-      margin-bottom: 0.85rem;
-      box-shadow: var(--shadow);
-    }
-
+    .products-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.7rem; }
+    .product-card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; display: flex; flex-direction: column; }
+    .product-img { width: 100%; height: 115px; object-fit: cover; background: #f1f5f9; }
+    .product-info { padding: 0.7rem; flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
+    .cart-bar { position: sticky; bottom: 78px; background: var(--primary-dark); color: #fff; border-radius: 14px; padding: 0.8rem 1rem; display: flex; justify-content: space-between; align-items: center; margin-top: 1rem; z-index: 50; }
+    .item-card { background: var(--card); border: 1px solid var(--border); border-right: 4px solid var(--primary); border-radius: 14px; padding: 0.95rem; margin-bottom: 0.85rem; }
     .item-card.vip { border-right-color: var(--accent); background: #fffbeb; }
     .item-card.urgent { border-right-color: var(--danger); background: #fef2f2; }
-
-    /* صور البروفايل وسابق الأعمال */
-    .avatar-img {
-      width: 56px;
-      height: 56px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 2px solid var(--primary);
-      background: #e2e8f0;
-      flex-shrink: 0;
-    }
-
-    .work-gallery {
-      display: flex;
-      gap: 0.45rem;
-      overflow-x: auto;
-      margin: 0.55rem 0;
-    }
-
-    .work-thumb {
-      width: 78px;
-      height: 78px;
-      border-radius: 10px;
-      object-fit: cover;
-      border: 1px solid var(--border);
-      flex-shrink: 0;
-    }
-
-    /* شريط مراحل التوصيل الـ 4 والخريطة */
-    .tracker-steps {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 0.3rem;
-      margin: 0.75rem 0;
-      text-align: center;
-    }
-
-    .t-step {
-      background: #f1f5f9;
-      color: var(--muted);
-      padding: 0.4rem 0.2rem;
-      border-radius: 8px;
-      font-size: 0.68rem;
-      font-weight: 700;
-    }
-
-    .t-step.done {
-      background: #dcfce7;
-      color: #15803d;
-      border: 1px solid #86efac;
-    }
-
-    .live-map-box {
-      width: 100%;
-      height: 195px;
-      border-radius: 12px;
-      border: 1.5px solid var(--primary);
-      margin: 0.65rem 0;
-      z-index: 1;
-    }
-
-    /* الأزرار والشارات */
-    .btn {
-      border: none;
-      border-radius: 10px;
-      padding: 0.65rem 1rem;
-      font-weight: 700;
-      font-size: 0.88rem;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.35rem;
-      text-decoration: none;
-      transition: 0.15s;
-    }
-
+    .avatar-img { width: 54px; height: 54px; border-radius: 50%; object-fit: cover; border: 2px solid var(--primary); background: #e2e8f0; flex-shrink: 0; }
+    .work-gallery { display: flex; gap: 0.45rem; overflow-x: auto; margin: 0.55rem 0; }
+    .work-thumb { width: 75px; height: 75px; border-radius: 10px; object-fit: cover; border: 1px solid var(--border); }
+    .tracker-steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.3rem; margin: 0.75rem 0; text-align: center; }
+    .t-step { background: #f1f5f9; color: var(--muted); padding: 0.4rem 0.2rem; border-radius: 8px; font-size: 0.68rem; font-weight: 700; }
+    .t-step.done { background: #dcfce7; color: #15803d; border: 1px solid #86efac; }
+    .btn { border: none; border-radius: 10px; padding: 0.65rem 1rem; font-weight: 700; font-size: 0.88rem; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 0.35rem; text-decoration: none; }
     .btn-primary { background: var(--primary); color: #fff; width: 100%; }
-    .btn-primary:active { background: var(--primary-dark); }
     .btn-sm { padding: 0.42rem 0.72rem; font-size: 0.77rem; width: auto; }
     .btn-whatsapp { background: var(--whatsapp); color: #fff; }
     .btn-danger { background: var(--danger); color: #fff; }
     .btn-success { background: var(--success); color: #fff; }
     .btn-soft { background: var(--primary-soft); color: var(--primary-dark); }
-
-    .badge {
-      display: inline-block;
-      padding: 0.18rem 0.55rem;
-      border-radius: 999px;
-      font-size: 0.7rem;
-      font-weight: 700;
-    }
-
+    .badge { display: inline-block; padding: 0.18rem 0.55rem; border-radius: 999px; font-size: 0.7rem; font-weight: 700; }
     .badge-green { background: #dcfce7; color: #15803d; }
     .badge-amber { background: #fef3c7; color: #b45309; }
     .badge-blue { background: #e0f2fe; color: #0369a1; }
     .badge-red { background: #fee2e2; color: #b91c1c; }
-
-    /* النماذج */
     .form-group { margin-bottom: 0.85rem; }
     label { display: block; font-weight: 700; font-size: 0.82rem; margin-bottom: 0.3rem; }
-    input, select, textarea {
-      width: 100%;
-      padding: 0.66rem 0.85rem;
-      border: 1.5px solid var(--border);
-      border-radius: 10px;
-      font-size: 0.9rem;
-      background: #fff;
-      outline: none;
-    }
-    input:focus, select:focus, textarea:focus { border-color: var(--primary); }
-
+    input, select, textarea { width: 100%; padding: 0.66rem 0.85rem; border: 1.5px solid var(--border); border-radius: 10px; font-size: 0.9rem; background: #fff; }
     .row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0.65rem; }
-
-    .pill-tabs {
-      display: flex;
-      gap: 0.4rem;
-      overflow-x: auto;
-      padding-bottom: 0.4rem;
-      margin-bottom: 0.9rem;
-    }
-
-    .pill-tab {
-      background: #fff;
-      border: 1px solid var(--border);
-      color: var(--muted);
-      padding: 0.45rem 0.85rem;
-      border-radius: 999px;
-      font-size: 0.8rem;
-      font-weight: 700;
-      white-space: nowrap;
-      cursor: pointer;
-    }
-
-    .pill-tab.active {
-      background: var(--primary);
-      color: #fff;
-      border-color: var(--primary);
-    }
-
-    /* الشريط السفلي الثابت */
-    .bottom-nav {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: #fff;
-      border-top: 1px solid var(--border);
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      padding: 0.45rem 0.25rem;
-      z-index: 80;
-      box-shadow: 0 -2px 12px rgba(0,0,0,0.05);
-    }
-
-    .b-nav-item {
-      text-align: center;
-      color: var(--muted);
-      cursor: pointer;
-      padding: 0.2rem;
-      border-radius: 10px;
-    }
-
+    .pill-tabs { display: flex; gap: 0.4rem; overflow-x: auto; padding-bottom: 0.4rem; margin-bottom: 0.9rem; }
+    .pill-tab { background: #fff; border: 1px solid var(--border); color: var(--muted); padding: 0.45rem 0.85rem; border-radius: 999px; font-size: 0.8rem; font-weight: 700; white-space: nowrap; cursor: pointer; }
+    .pill-tab.active { background: var(--primary); color: #fff; border-color: var(--primary); }
+    .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: #fff; border-top: 1px solid var(--border); display: grid; grid-template-columns: repeat(4, 1fr); padding: 0.45rem 0.25rem; z-index: 80; box-shadow: 0 -2px 12px rgba(0,0,0,0.06); }
+    .b-nav-item { text-align: center; color: var(--muted); cursor: pointer; padding: 0.2rem; }
     .b-nav-item.active { color: var(--primary); font-weight: 800; }
-    .b-nav-icon { font-size: 1.3rem; display: block; line-height: 1.2; }
-    .b-nav-label { font-size: 0.72rem; display: block; margin-top: 0.1rem; }
-
-    .modal-backdrop {
-      position: fixed;
-      inset: 0;
-      background: rgba(15, 23, 42, 0.65);
-      display: grid;
-      place-items: center;
-      padding: 1rem;
-      z-index: 120;
-    }
-
-    .modal-box {
-      background: #fff;
-      border-radius: 16px;
-      padding: 1.3rem;
-      width: 100%;
-      max-width: 440px;
-      max-height: 90vh;
-      overflow-y: auto;
-    }
-
-    @media (max-width: 480px) {
-      .products-grid { grid-template-columns: 1fr 1fr; gap: 0.55rem; }
-      .row-2 { grid-template-columns: 1fr; }
-    }
+    .b-nav-icon { font-size: 1.3rem; display: block; }
+    .b-nav-label { font-size: 0.72rem; display: block; }
+    .modal-backdrop { position: fixed; inset: 0; background: rgba(15, 23, 42, 0.65); display: grid; place-items: center; padding: 1rem; z-index: 120; }
+    .modal-box { background: #fff; border-radius: 16px; padding: 1.3rem; width: 100%; max-width: 440px; max-height: 90vh; overflow-y: auto; }
+    @media (max-width: 480px) { .row-2 { grid-template-columns: 1fr; } }
   </style>
 </head>
 <body>
 
-  <!-- الشريط العلوي -->
   <header>
     <div class="header-top">
-      <div class="brand" id="brandLogo">
+      <div class="brand" onclick="handleBrandTap()">
         <div class="brand-icon">و</div>
         <div>
           <h1>وصلة الفيوم</h1>
           <span id="offlineStatus">متاجر • خدمات • توصيل</span>
         </div>
       </div>
-
       <div style="display:flex; align-items:center; gap:0.35rem;">
-        <select id="globalVillageSelect" class="village-picker" title="اختر قريتك">
+        <select id="globalVillageSelect" class="village-picker" onchange="onVillageChange()">
           <option value="all">📍 كل الفيوم</option>
           <option value="الكعابي الجديدة">الكعابي الجديدة</option>
           <option value="الكعابي القديمة">الكعابي القديمة</option>
@@ -552,75 +121,59 @@
           <option value="أبشواي">أبشواي</option>
           <option value="يوسف الصديق">يوسف الصديق</option>
         </select>
-        <button class="header-icon-btn" id="openSupportModalBtn">⚠️</button>
+        <button type="button" class="header-icon-btn" onclick="toggleModal('supportModal', true)">⚠️</button>
       </div>
     </div>
   </header>
 
   <main class="container">
 
-    <!-- ================================================= -->
-    <!-- الشاشة 1: الرئيسية                                 -->
-    <!-- ================================================= -->
+    <!-- الشاشة 1: الرئيسية -->
     <section id="screenHome" class="screen">
-
       <div class="ticker-bar">
         <span>📢</span>
         <div id="newsTickerText">أهلاً بك في وصلة الفيوم — دليلك الشامل لكل خدمات ومتاجر وتوصيل قرى ومراكز الفيوم.</div>
       </div>
 
-      <div id="sponsorBannerBox" class="sponsor-card">
+      <div class="sponsor-card">
         <span class="sponsor-tag">⭐ شريك وصلة الفيوم</span>
         <h3 id="sponsorTitle" style="font-size:1.05rem; margin-bottom:0.25rem;">أعلن عن محلك أو عيادتك هنا لأهل قريتك</h3>
         <p id="sponsorDesc" style="font-size:0.82rem; opacity:0.92; margin-bottom:0.65rem;">وصول مباشر لآلاف المستخدمين في قريتك ومركزك يومياً.</p>
         <a id="sponsorActionBtn" href="https://wa.me/201125964054" target="_blank" class="btn btn-sm" style="background:#fff; color:var(--primary-dark);">تواصل معنا الآن</a>
       </div>
 
-      <div id="installAppCard" class="card hidden" style="display:flex; justify-content:space-between; align-items:center; gap:0.6rem; background:var(--primary-soft); border-color:var(--primary);">
-        <div>
-          <strong style="font-size:0.86rem; color:var(--primary-dark);">📲 ثبّت "وصلة الفيوم" على شاشة موبايلك</strong>
-          <p style="font-size:0.74rem; color:var(--muted);">يفتح كتطبيق أندرويد ويعمل بدون إنترنت للأرقام المهمة</p>
-        </div>
-        <button id="installAppBtn" class="btn btn-primary btn-sm">تثبيت</button>
-      </div>
-
       <div class="section-title">
         <span>تصفح الأقسام</span>
-        <span style="font-size:0.75rem; color:var(--muted); font-weight:600;">اختر القسم المناسب</span>
+        <span style="font-size:0.75rem; color:var(--muted);">اختر القسم المناسب</span>
       </div>
 
       <div class="categories-grid">
-        <div class="cat-card" data-nav="stores">
+        <div class="cat-card" onclick="goScreen('screenStores')">
           <div class="cat-icon">🏪</div>
           <div class="cat-title">المتاجر والمنتجات</div>
           <div class="cat-sub">محلات، مطاعم، سلة طلبات</div>
         </div>
-
-        <div class="cat-card" data-sub="crafts">
+        <div class="cat-card" onclick="openSub('crafts')">
           <div class="cat-icon">🛠️</div>
           <div class="cat-title">دليل الصنايعية</div>
           <div class="cat-sub">نجار، سباك، صور سابق الأعمال</div>
         </div>
-
-        <div class="cat-card" data-sub="medical">
+        <div class="cat-card" onclick="openSub('medical')">
           <div class="cat-icon">💊</div>
           <div class="cat-title">الطب والصيدليات</div>
           <div class="cat-sub">مواعيد العيادات، حجز، روشتات</div>
         </div>
-
-        <div class="cat-card" data-sub="realestate">
+        <div class="cat-card" onclick="openSub('realestate')">
           <div class="cat-icon">🏢</div>
           <div class="cat-title">العقارات والأراضي</div>
           <div class="cat-sub">شقق، محلات، وأراضي</div>
         </div>
-
-        <div class="cat-card" data-sub="education">
+        <div class="cat-card" onclick="openSub('education')">
           <div class="cat-icon">📚</div>
           <div class="cat-title">المدرسين والخدمات</div>
           <div class="cat-sub">دروس، نقل، زراعة ومواشي</div>
         </div>
-
-        <div class="cat-card" data-sub="community">
+        <div class="cat-card" onclick="openSub('community')">
           <div class="cat-icon">📢</div>
           <div class="cat-title">مجتمع أهل البلد</div>
           <div class="cat-sub">سوق المستعمل، مفقودات، دم</div>
@@ -629,73 +182,59 @@
 
       <div class="card" style="display:flex; justify-content:space-between; align-items:center; gap:0.75rem;">
         <div>
-          <strong style="font-size:0.95rem;">🛵 توصيل سريع وتتبّع حي على الخريطة</strong>
+          <strong style="font-size:0.95rem;">🛵 توصيل سريع وتتبّع حي للكابتن</strong>
           <p style="font-size:0.78rem; color:var(--muted);">اطلب مشوارك أو صوّر الروشتة وتابع الكابتن لحظة بلحظة</p>
         </div>
-        <button class="btn btn-primary btn-sm" data-nav="delivery">اطلب الآن</button>
+        <button type="button" class="btn btn-primary btn-sm" onclick="goScreen('screenDelivery')">اطلب الآن</button>
       </div>
     </section>
 
-    <!-- ================================================= -->
-    <!-- الشاشة 2: المتاجر وسلة المشتريات الذكية            -->
-    <!-- ================================================= -->
+    <!-- الشاشة 2: المتاجر -->
     <section id="screenStores" class="screen hidden">
       <div id="storesListView">
-        <div class="section-title">
-          <span>🏪 المتاجر والمطاعم والعروض</span>
-        </div>
+        <div class="section-title"><span>🏪 المتاجر والمطاعم والعروض</span></div>
         <div class="form-group">
-          <input type="text" id="searchStoresInput" placeholder="🔍 ابحث عن محل، مطعم، أو صيدلية..." />
+          <input type="text" id="searchStoresInput" oninput="renderStores()" placeholder="🔍 ابحث عن محل، مطعم، أو صيدلية..." />
         </div>
-        <div id="storesContainer">جاري تحميل المتاجر...</div>
+        <div id="storesContainer"><div class="card" style="text-align:center; color:var(--muted);">جاري تحميل المتاجر...</div></div>
       </div>
 
       <div id="singleStoreView" class="hidden">
         <div class="subpage-header">
-          <button class="back-btn" id="backToStoresBtn">← كل المتاجر</button>
+          <button type="button" class="back-btn" onclick="backToStores()">← كل المتاجر</button>
           <strong id="singleStoreHeaderTitle" style="font-size:0.95rem;">تفاصيل المتجر</strong>
         </div>
         <div id="singleStoreDetails"></div>
-        <div class="section-title" style="margin-top:0.8rem;">
-          <span>🛍️ المنتجات والعروض المتاحة</span>
-        </div>
+        <div class="section-title" style="margin-top:0.8rem;"><span>🛍️ المنتجات والعروض المتاحة</span></div>
         <div id="singleStoreProducts" class="products-grid"></div>
-
-        <!-- شريط السلة الذكية -->
         <div id="storeCartBar" class="cart-bar hidden">
           <div>
             <strong id="cartSummaryText" style="font-size:0.9rem;">0 أصناف • 0 ج.م</strong>
             <span style="display:block; font-size:0.72rem; opacity:0.9;">اضغط لإرسال الطلب للتوصيل</span>
           </div>
-          <button id="checkoutCartBtn" class="btn btn-sm" style="background:#fff; color:var(--primary-dark);">إتمام الطلب ←</button>
+          <button type="button" onclick="checkoutCart()" class="btn btn-sm" style="background:#fff; color:var(--primary-dark);">إتمام الطلب ←</button>
         </div>
       </div>
     </section>
 
-    <!-- ================================================= -->
-    <!-- الشاشة 3: الأقسام المستقلة                         -->
-    <!-- ================================================= -->
+    <!-- الشاشة 3: الأقسام الفرعية -->
     <section id="screenSubpage" class="screen hidden">
       <div class="subpage-header">
-        <button class="back-btn" id="backToHomeBtn">← الرئيسية</button>
+        <button type="button" class="back-btn" onclick="goScreen('screenHome')">← الرئيسية</button>
         <strong id="subpageTitle" style="font-size:0.95rem;">القسم</strong>
       </div>
-
       <div class="form-group">
-        <input type="text" id="subpageSearchInput" placeholder="🔍 ابحث بالاسم أو التخصص أو القرية..." />
+        <input type="text" id="subpageSearchInput" oninput="refreshSubpage()" placeholder="🔍 ابحث بالاسم أو التخصص أو القرية..." />
       </div>
-
       <div id="subpageActionArea"></div>
       <div id="subpageContent"></div>
     </section>
 
-    <!-- ================================================= -->
-    <!-- الشاشة 4: التوصيل، صوّر الروشتة، والتتبع الحي      -->
-    <!-- ================================================= -->
+    <!-- الشاشة 4: التوصيل -->
     <section id="screenDelivery" class="screen hidden">
       <div class="card">
         <h3 style="font-size:1.05rem; margin-bottom:0.25rem;">🛵 اطلب توصيل أو صوّر الروشتة</h3>
-        <p style="font-size:0.8rem; color:var(--muted); margin-bottom:0.9rem;">تتبّع الكابتن بالصورة والموقع الحي حتى باب منزلك</p>
+        <p style="font-size:0.8rem; color:var(--muted); margin-bottom:0.9rem;">تظهر لك صورة الكابتن وموقعه الحي فور قبول الطلب</p>
 
         <div class="form-group">
           <label>نوع الخدمة</label>
@@ -707,83 +246,45 @@
             <option value="مشوار خاص">🛵 مشوار خاص</option>
           </select>
         </div>
-
         <div class="row-2">
-          <div class="form-group">
-            <label>من (مكان الاستلام)</label>
-            <input type="text" id="delPickup" placeholder="القرية / اسم المحل أو الصيدلية" />
-          </div>
-          <div class="form-group">
-            <label>إلى (مكان التسليم)</label>
-            <input type="text" id="delDropoff" placeholder="عنوانك بالتفصيل" />
-          </div>
+          <div class="form-group"><label>من (مكان الاستلام)</label><input type="text" id="delPickup" placeholder="القرية / اسم المحل" /></div>
+          <div class="form-group"><label>إلى (مكان التسليم)</label><input type="text" id="delDropoff" placeholder="عنوانك بالتفصيل" /></div>
         </div>
-
-        <div class="form-group">
-          <label>تفاصيل الطلب</label>
-          <textarea id="delDetails" rows="2" placeholder="اكتب الأصناف أو تفاصيل المشوار..."></textarea>
-        </div>
-
+        <div class="form-group"><label>تفاصيل الطلب</label><textarea id="delDetails" rows="2" placeholder="اكتب الأصناف أو تفاصيل المشوار..."></textarea></div>
         <div class="row-2">
-          <div class="form-group">
-            <label>📸 صوّر الروشتة أو الطلب (اختياري)</label>
-            <input type="file" id="delPhotoFile" accept="image/*" />
-          </div>
-          <div class="form-group">
-            <label>🎁 كود خصم (إن وجد)</label>
-            <input type="text" id="delPromoInput" placeholder="مثال: FAYOUM20" />
-          </div>
+          <div class="form-group"><label>📸 صوّر الروشتة (اختياري)</label><input type="file" id="delPhotoFile" accept="image/*" /></div>
+          <div class="form-group"><label>🎁 كود خصم (إن وجد)</label><input type="text" id="delPromoInput" placeholder="مثال: FAYOUM20" /></div>
         </div>
-
         <div class="row-2">
-          <div class="form-group">
-            <label>اسمك</label>
-            <input type="text" id="delClientName" placeholder="الاسم" />
-          </div>
-          <div class="form-group">
-            <label>رقم موبايلك</label>
-            <input type="tel" id="delClientPhone" placeholder="010xxxxxxxx" />
-          </div>
+          <div class="form-group"><label>اسمك</label><input type="text" id="delClientName" placeholder="الاسم" /></div>
+          <div class="form-group"><label>رقم موبايلك</label><input type="tel" id="delClientPhone" placeholder="010xxxxxxxx" /></div>
         </div>
-
-        <button class="btn btn-primary" id="sendDeliveryBtn">إرسال الطلب للطيارين الآن</button>
+        <button type="button" class="btn btn-primary" onclick="sendDeliveryOrder()">إرسال الطلب للطيارين الآن</button>
       </div>
 
-      <div class="section-title">
-        <span>📡 متابعة الطلبات الحية والتقييم</span>
-      </div>
-      <div id="deliveryOrdersFeed">جاري التحميل...</div>
+      <div class="section-title"><span>📡 متابعة الطلبات الحية والتقييم</span></div>
+      <div id="deliveryOrdersFeed"><div class="card" style="text-align:center; color:var(--muted);">جاري التحميل...</div></div>
     </section>
 
-    <!-- ================================================= -->
-    <!-- الشاشة 5: حسابي ولوحة التاجر والطيار والإدارة      -->
-    <!-- ================================================= -->
+    <!-- الشاشة 5: حسابي والإدارة -->
     <section id="screenAccount" class="screen hidden">
-
-      <!-- شاشة الدخول وإنشاء الحساب -->
       <div id="authBox" class="card">
         <div class="pill-tabs">
-          <div class="pill-tab active" id="tabLogin">تسجيل الدخول</div>
-          <div class="pill-tab" id="tabRegister">إنشاء حساب جديد</div>
+          <div class="pill-tab active" id="tabLogin" onclick="setAuthMode(false)">تسجيل الدخول</div>
+          <div class="pill-tab" id="tabRegister" onclick="setAuthMode(true)">إنشاء حساب جديد</div>
         </div>
 
         <div id="registerFields" class="hidden">
           <div class="form-group">
             <label>نوع الحساب</label>
-            <select id="regRole">
+            <select id="regRole" onchange="onRegRoleChange()">
               <option value="merchant">🏪 صاحب محل / مطعم / مكتب عقارات</option>
               <option value="pilot">🛵 طيار / مندوب توصيل (يتطلب صورة شخصية)</option>
               <option value="client">👤 عميل / مستخدم</option>
             </select>
           </div>
-          <div class="form-group">
-            <label>الاسم بالكامل (أو اسم المحل)</label>
-            <input type="text" id="regName" placeholder="مثال: أحمد محمود" />
-          </div>
-          <div class="form-group">
-            <label>رقم الهاتف (واتساب)</label>
-            <input type="tel" id="regPhone" placeholder="010xxxxxxxx" />
-          </div>
+          <div class="form-group"><label>الاسم بالكامل (أو اسم المحل)</label><input type="text" id="regName" placeholder="الاسم" /></div>
+          <div class="form-group"><label>رقم الهاتف (واتساب)</label><input type="tel" id="regPhone" placeholder="010xxxxxxxx" /></div>
           <div class="form-group">
             <label>القرية / المركز</label>
             <select id="regVillage">
@@ -808,51 +309,39 @@
           </div>
         </div>
 
-        <div class="form-group">
-          <label>البريد الإلكتروني (Gmail)</label>
-          <input type="email" id="authEmail" placeholder="example@gmail.com" />
-        </div>
-        <div class="form-group">
-          <label>كلمة المرور</label>
-          <input type="password" id="authPass" placeholder="6 أحرف أو أرقام على الأقل" />
-        </div>
-
-        <button class="btn btn-primary" id="authSubmitBtn">دخول</button>
+        <div class="form-group"><label>البريد الإلكتروني (Gmail)</label><input type="email" id="authEmail" placeholder="example@gmail.com" /></div>
+        <div class="form-group"><label>كلمة المرور</label><input type="password" id="authPass" placeholder="6 أحرف أو أرقام على الأقل" /></div>
+        <button type="button" class="btn btn-primary" id="authSubmitBtn" onclick="submitAuth()">دخول</button>
       </div>
 
-      <!-- لوحة المستخدم بعد تسجيل الدخول -->
       <div id="loggedUserBox" class="hidden">
         <div class="card" style="display:flex; justify-content:space-between; align-items:center; gap:0.6rem;">
           <div style="display:flex; align-items:center; gap:0.65rem;">
-            <img id="loggedUserAvatar" class="avatar-img" src="" alt="صورة الحساب" />
+            <img id="loggedUserAvatar" class="avatar-img" src="" alt="صورة" />
             <div>
               <strong id="loggedUserName" style="font-size:1rem; display:block;">مرحباً</strong>
               <span id="loggedUserRoleBadge" class="badge badge-green">حساب نشط</span>
             </div>
           </div>
-          <button class="btn btn-danger btn-sm" id="logoutBtn">خروج</button>
+          <button type="button" class="btn btn-danger btn-sm" onclick="doLogout()">خروج</button>
         </div>
 
-        <!-- تحديث الصورة الشخصية لأي مستخدم -->
         <div class="card" style="display:flex; align-items:center; justify-content:space-between; gap:0.5rem; flex-wrap:wrap;">
           <div style="flex:1; min-width:180px;">
             <label style="margin-bottom:0.2rem;">📸 تحديث صورتك الشخصية</label>
             <input type="file" id="updateAvatarFile" accept="image/*" style="padding:0.4rem;" />
           </div>
-          <button id="saveNewAvatarBtn" class="btn btn-soft btn-sm">حفظ الصورة</button>
+          <button type="button" onclick="saveUpdatedAvatar()" class="btn btn-soft btn-sm">حفظ الصورة</button>
         </div>
 
-        <!-- 1. لوحة صاحب المحل -->
+        <!-- لوحة التاجر -->
         <div id="merchantPanel" class="hidden">
           <div class="card">
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.75rem;">
               <h3 style="font-size:1rem;">🏪 إعدادات واجهة محلك</h3>
-              <button id="toggleStoreOpenBtn" class="btn btn-success btn-sm">🟢 المحل مفتوح الآن</button>
+              <button type="button" id="toggleStoreOpenBtn" onclick="toggleStoreOpen()" class="btn btn-success btn-sm">🟢 المحل مفتوح الآن</button>
             </div>
-            <div class="form-group">
-              <label>اسم المحل / النشاط</label>
-              <input type="text" id="mStoreName" placeholder="مثال: مطعم ومشويات الأمل" />
-            </div>
+            <div class="form-group"><label>اسم المحل</label><input type="text" id="mStoreName" placeholder="مثال: مطعم الأمل" /></div>
             <div class="row-2">
               <div class="form-group">
                 <label>التصنيف</label>
@@ -866,39 +355,21 @@
                   <option value="أخرى">أخرى</option>
                 </select>
               </div>
-              <div class="form-group">
-                <label>العنوان بالتفصيل</label>
-                <input type="text" id="mStoreAddress" placeholder="القرية - بجوار..." />
-              </div>
+              <div class="form-group"><label>العنوان بالتفصيل</label><input type="text" id="mStoreAddress" placeholder="القرية - بجوار..." /></div>
             </div>
-            <div class="form-group">
-              <label>صورة واجهة المحل أو اللوجو</label>
-              <input type="file" id="mStoreImgFile" accept="image/*" />
-            </div>
-            <button class="btn btn-primary" id="saveStoreProfileBtn">حفظ بيانات المحل</button>
+            <div class="form-group"><label>صورة واجهة المحل</label><input type="file" id="mStoreImgFile" accept="image/*" /></div>
+            <button type="button" class="btn btn-primary" onclick="saveStoreProfile()">حفظ بيانات المحل</button>
           </div>
 
           <div class="card">
             <h3 style="font-size:1rem; margin-bottom:0.75rem;">➕ أضف منتج جديد بالصورة والسعر</h3>
-            <div class="form-group">
-              <label>اسم المنتج / الوجبة / العقار</label>
-              <input type="text" id="mProdName" placeholder="مثال: وجبة شاورما عربي كبيرة" />
-            </div>
+            <div class="form-group"><label>اسم المنتج</label><input type="text" id="mProdName" placeholder="اسم المنتج" /></div>
             <div class="row-2">
-              <div class="form-group">
-                <label>السعر (بالجنيه)</label>
-                <input type="number" id="mProdPrice" placeholder="85" />
-              </div>
-              <div class="form-group">
-                <label>صورة المنتج</label>
-                <input type="file" id="mProdImgFile" accept="image/*" />
-              </div>
+              <div class="form-group"><label>السعر (جنيه)</label><input type="number" id="mProdPrice" placeholder="85" /></div>
+              <div class="form-group"><label>صورة المنتج</label><input type="file" id="mProdImgFile" accept="image/*" /></div>
             </div>
-            <div class="form-group">
-              <label>وصف المنتج</label>
-              <textarea id="mProdDesc" rows="2" placeholder="اكتب المكونات أو التفاصيل..."></textarea>
-            </div>
-            <button class="btn btn-primary" id="addProductBtn">نشر المنتج في متجرك</button>
+            <div class="form-group"><label>وصف المنتج</label><textarea id="mProdDesc" rows="2"></textarea></div>
+            <button type="button" class="btn btn-primary" onclick="addNewProduct()">نشر المنتج في متجرك</button>
           </div>
 
           <div class="card">
@@ -907,35 +378,35 @@
           </div>
         </div>
 
-        <!-- 2. لوحة الطيار -->
+        <!-- لوحة الطيار -->
         <div id="pilotPanel" class="hidden">
-          <div class="card" style="background:var(--primary-soft); border-color:var(--primary);">
-            <h3 style="font-size:1rem; margin-bottom:0.25rem;">🛵 لوحة الكابتن / الطيار</h3>
-            <p style="font-size:0.8rem; color:var(--primary-dark);">صورتك الشخصية تظهر للعميل عند قبول الطلب، وموقعك يتحدث تلقائياً على الخريطة أثناء المشوار.</p>
+          <div class="card" style="background:var(--primary-soft);">
+            <h3 style="font-size:1rem;">🛵 لوحة الكابتن / الطيار</h3>
+            <p style="font-size:0.8rem; color:var(--primary-dark);">صورتك الشخصية تظهر للعميل عند قبول الطلب، وموقعك يتحدث تلقائياً أثناء المشوار.</p>
           </div>
           <div id="pilotOrdersList"></div>
         </div>
 
-        <!-- 3. لوحة الإدارة والمشرفين (محمية برقم PIN) -->
+        <!-- بوابة PIN الإدارة -->
         <div id="adminPinGate" class="card hidden" style="text-align:center;">
           <h3 style="margin-bottom:0.35rem;">🔐 بوابة الإدارة المحمية</h3>
           <p style="font-size:0.82rem; color:var(--muted); margin-bottom:0.85rem;">أدخل الرقم السري (PIN) لفتح لوحة التحكم (الافتراضي: 1234)</p>
           <input type="password" id="adminPinInput" placeholder="****" style="max-width:200px; text-align:center; font-size:1.2rem; letter-spacing:4px; margin:0 auto 0.75rem;" />
-          <button id="unlockAdminBtn" class="btn btn-primary" style="max-width:200px;">فتح اللوحة</button>
+          <button type="button" onclick="unlockAdmin()" class="btn btn-primary" style="max-width:200px;">فتح اللوحة</button>
         </div>
 
+        <!-- لوحة الإدارة -->
         <div id="adminPanel" class="hidden">
           <div class="card" style="border-top:4px solid var(--accent);">
             <h3 style="font-size:1.05rem; margin-bottom:0.75rem;">🛡️ لوحة تحكم الإدارة العليا</h3>
-            <div class="pill-tabs" id="adminSubTabs">
-              <div class="pill-tab active" data-atab="admDir">➕ الدليل والعيادات</div>
-              <div class="pill-tab" data-atab="admStores">🏪 المتاجر</div>
-              <div class="pill-tab" data-atab="admNews">📢 الأخبار والخصومات</div>
-              <div class="pill-tab" data-atab="admTeam">👥 المشرفين والأمان</div>
-              <div class="pill-tab" data-atab="admComplaints">🚨 الشكاوى (<span id="compBadgeCount">0</span>)</div>
+            <div class="pill-tabs">
+              <div class="pill-tab active" onclick="switchAdminTab(this, 'admDir')">➕ الدليل والعيادات</div>
+              <div class="pill-tab" onclick="switchAdminTab(this, 'admStores')">🏪 المتاجر</div>
+              <div class="pill-tab" onclick="switchAdminTab(this, 'admNews')">📢 الأخبار والخصومات</div>
+              <div class="pill-tab" onclick="switchAdminTab(this, 'admTeam')">👥 المشرفين والأمان</div>
+              <div class="pill-tab" onclick="switchAdminTab(this, 'admComplaints')">🚨 الشكاوى (<span id="compBadgeCount">0</span>)</div>
             </div>
 
-            <!-- تبويب 1: إضافة للدليل (مع صور سابق الأعمال وأيام العيادات) -->
             <div id="admDir" class="admin-tab-content">
               <div class="row-2">
                 <div class="form-group">
@@ -967,97 +438,46 @@
                 </div>
               </div>
               <div class="row-2">
-                <div class="form-group">
-                  <label>الاسم</label>
-                  <input type="text" id="admName" placeholder="مثال: د. محمد أحمد / الأسطى علي" />
-                </div>
-                <div class="form-group">
-                  <label>التخصص / الصفة</label>
-                  <input type="text" id="admSpec" placeholder="مثال: سباك / أطفال / مدرس رياضة" />
-                </div>
+                <div class="form-group"><label>الاسم</label><input type="text" id="admName" placeholder="الاسم" /></div>
+                <div class="form-group"><label>التخصص</label><input type="text" id="admSpec" placeholder="التخصص" /></div>
               </div>
               <div class="row-2">
-                <div class="form-group">
-                  <label>رقم الهاتف</label>
-                  <input type="tel" id="admPhone" placeholder="010xxxxxxxx" />
-                </div>
-                <div class="form-group">
-                  <label>أيام التواجد / المواعيد / سعر الكشف</label>
-                  <input type="text" id="admNote" placeholder="مثال: الإثنين والخميس من 5 م - الكشف 100 ج" />
-                </div>
+                <div class="form-group"><label>رقم الهاتف</label><input type="tel" id="admPhone" placeholder="010xxxxxxxx" /></div>
+                <div class="form-group"><label>أيام التواجد / المواعيد / سعر الكشف</label><input type="text" id="admNote" placeholder="المواعيد أو الملاحظات" /></div>
               </div>
-              <div class="form-group">
-                <label>📸 صور سابق أعمال الصنايعي أو المكان (اختياري - حتى 3 صور)</label>
-                <input type="file" id="admWorkFiles" accept="image/*" multiple />
-              </div>
+              <div class="form-group"><label>📸 صور سابق أعمال الصنايعي (حتى 3 صور)</label><input type="file" id="admWorkFiles" accept="image/*" multiple /></div>
               <div class="form-group" style="display:flex; align-items:center; gap:0.5rem;">
                 <input type="checkbox" id="admVip" style="width:18px; height:18px;" />
-                <label for="admVip" style="margin:0;">⭐ تمييز كـ VIP (أعلى القائمة)</label>
+                <label for="admVip" style="margin:0;">⭐ تمييز كـ VIP</label>
               </div>
-              <button class="btn btn-primary" id="admSaveItemBtn">حفظ ونشر في الدليل</button>
+              <button type="button" class="btn btn-primary" onclick="saveDirectoryItem()">حفظ ونشر في الدليل</button>
               <hr style="margin:1rem 0; border:none; border-top:1px solid var(--border);" />
               <div id="admDirectoryManageList"></div>
             </div>
 
-            <!-- تبويب 2: إدارة المتاجر -->
-            <div id="admStores" class="admin-tab-content hidden">
-              <div id="admStoresManageList"></div>
-            </div>
+            <div id="admStores" class="admin-tab-content hidden"><div id="admStoresManageList"></div></div>
 
-            <!-- تبويب 3: الأخبار، الراعي، وأكواد الخصم -->
             <div id="admNews" class="admin-tab-content hidden">
-              <div class="form-group">
-                <label>📢 نص شريط أخبار القرية المتحرك</label>
-                <input type="text" id="admTickerInput" placeholder="اكتب الخبر أو التنبيه..." />
-              </div>
-              <div class="form-group">
-                <label>⭐ عنوان بانر الراعي الرسمي</label>
-                <input type="text" id="admSponsorTitleInput" placeholder="عنوان الإعلان" />
-              </div>
-              <div class="form-group">
-                <label>وصف إعلان الراعي</label>
-                <input type="text" id="admSponsorDescInput" placeholder="التفاصيل" />
-              </div>
-              <div class="form-group">
-                <label>رقم واتساب الراعي</label>
-                <input type="tel" id="admSponsorPhoneInput" placeholder="2010xxxxxxxx" />
-              </div>
+              <div class="form-group"><label>📢 شريط أخبار القرية</label><input type="text" id="admTickerInput" /></div>
+              <div class="form-group"><label>⭐ عنوان بانر الراعي</label><input type="text" id="admSponsorTitleInput" /></div>
+              <div class="form-group"><label>وصف الراعي</label><input type="text" id="admSponsorDescInput" /></div>
+              <div class="form-group"><label>رقم واتساب الراعي</label><input type="tel" id="admSponsorPhoneInput" /></div>
               <div class="row-2">
-                <div class="form-group">
-                  <label>🎁 كود خصم نشط للعملاء</label>
-                  <input type="text" id="admPromoCodeInput" placeholder="مثال: FAYOUM20" />
-                </div>
-                <div class="form-group">
-                  <label>قيمة الخصم (بالجنيه)</label>
-                  <input type="number" id="admPromoValInput" placeholder="10" />
-                </div>
+                <div class="form-group"><label>🎁 كود خصم</label><input type="text" id="admPromoCodeInput" placeholder="FAYOUM20" /></div>
+                <div class="form-group"><label>قيمة الخصم (جنيه)</label><input type="number" id="admPromoValInput" placeholder="10" /></div>
               </div>
-              <button class="btn btn-primary" id="admSaveSettingsBtn">حفظ التحديثات فوراً</button>
+              <button type="button" class="btn btn-primary" onclick="saveAdminSettings()">حفظ التحديثات</button>
             </div>
 
-            <!-- تبويب 4: تعيين مشرفين للقرى + تغيير PIN + ملخص العمولات -->
             <div id="admTeam" class="admin-tab-content hidden">
-              <div class="card" style="background:var(--primary-soft);">
-                <strong>💰 إجمالي الطلبات المنفذة: <span id="admCompletedCount">0</span> طلب</strong>
-                <p style="font-size:0.78rem; color:var(--muted);">يمكنك متابعة نشاط الطيارين والمحلات وتحصيل اشتراكاتك الشهرية بسهولة.</p>
-              </div>
-              <div class="form-group">
-                <label>👮‍♂️ تعيين مشرف لقرية (أدخل إيميل المشرف المسجل)</label>
-                <input type="email" id="subAdminEmailInput" placeholder="subadmin@gmail.com" />
-              </div>
-              <button class="btn btn-soft btn-sm" id="addSubAdminBtn" style="margin-bottom:1rem;">منح صلاحية مشرف</button>
-
-              <div class="form-group">
-                <label>🔐 تغيير الرقم السري للوحة الإدارة (PIN)</label>
-                <input type="text" id="newAdminPinInput" placeholder="أدخل 4 أرقام جديدة" />
-              </div>
-              <button class="btn btn-primary btn-sm" id="saveNewPinBtn">تحديث الرقم السري</button>
+              <div class="card" style="background:var(--primary-soft);"><strong>💰 الطلبات المنفذة: <span id="admCompletedCount">0</span> طلب</strong></div>
+              <div class="form-group"><label>👮‍♂️ تعيين مشرف لقرية (الإيميل المسجل)</label><input type="email" id="subAdminEmailInput" /></div>
+              <button type="button" class="btn btn-soft btn-sm" onclick="addSubAdmin()" style="margin-bottom:1rem;">منح صلاحية مشرف</button>
+              <div class="form-group"><label>🔐 تغيير الرقم السري (PIN)</label><input type="text" id="newAdminPinInput" placeholder="4 أرقام" /></div>
+              <button type="button" class="btn btn-primary btn-sm" onclick="saveNewPin()">تحديث الرقم السري</button>
             </div>
 
-            <!-- تبويب 5: الشكاوى -->
-            <div id="admComplaints" class="admin-tab-content hidden">
-              <div id="admComplaintsList"></div>
-            </div>
+            <div id="admComplaints" class="admin-tab-content hidden"><div id="admComplaintsList"></div></div>
           </div>
         </div>
       </div>
@@ -1067,45 +487,36 @@
 
   <!-- الشريط السفلي الثابت -->
   <nav class="bottom-nav">
-    <div class="b-nav-item active" data-screen="screenHome">
+    <div class="b-nav-item active" id="nav_screenHome" onclick="goScreen('screenHome')">
       <span class="b-nav-icon">🏠</span>
       <span class="b-nav-label">الرئيسية</span>
     </div>
-    <div class="b-nav-item" data-screen="screenStores">
+    <div class="b-nav-item" id="nav_screenStores" onclick="goScreen('screenStores')">
       <span class="b-nav-icon">🏪</span>
       <span class="b-nav-label">المتاجر</span>
     </div>
-    <div class="b-nav-item" data-screen="screenDelivery">
+    <div class="b-nav-item" id="nav_screenDelivery" onclick="goScreen('screenDelivery')">
       <span class="b-nav-icon">🛵</span>
       <span class="b-nav-label">التوصيل</span>
     </div>
-    <div class="b-nav-item" data-screen="screenAccount">
+    <div class="b-nav-item" id="nav_screenAccount" onclick="goScreen('screenAccount')">
       <span class="b-nav-icon">👤</span>
       <span class="b-nav-label">حسابي</span>
     </div>
   </nav>
 
-  <!-- نافذة الدعم والشكاوى -->
+  <!-- نافذة الشكاوى والدعم -->
   <div id="supportModal" class="modal-backdrop hidden">
     <div class="modal-box">
       <h3 style="font-size:1rem; margin-bottom:0.3rem;">⚠️ الدعم الفني وتقديم الشكاوى</h3>
-      <p style="font-size:0.8rem; color:var(--muted); margin-bottom:0.9rem;">تواصل مباشرة مع إدارة وصلة الفيوم لحل أي مشكلة فوراً.</p>
-      <a href="https://wa.me/201125964054?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%D8%8C%20%D9%85%D8%AD%D8%AA%D8%A7%D8%AC%20%D8%AF%D8%B9%D9%85%20%D9%85%D9%86%20%D8%A5%D8%AF%D8%A7%D8%B1%D8%A9%20%D9%88%D8%B5%D9%84%D8%A9%20%D8%A7%D9%84%D9%81%D9%8A%D9%88%D9%85" target="_blank" class="btn btn-whatsapp" style="width:100%; margin-bottom:1rem;">💬 واتساب الإدارة المباشر</a>
-      <div class="form-group">
-        <label>الطرف المشكو في حقه</label>
-        <input type="text" id="compTarget" placeholder="اسم المحل / الصنايعي / الطيار" />
-      </div>
-      <div class="form-group">
-        <label>اسمك ورقم تليفونك</label>
-        <input type="text" id="compReporter" placeholder="الاسم ورقم الموبايل" />
-      </div>
-      <div class="form-group">
-        <label>تفاصيل المشكلة</label>
-        <textarea id="compDetails" rows="2"></textarea>
-      </div>
+      <p style="font-size:0.8rem; color:var(--muted); margin-bottom:0.9rem;">تواصل مباشرة مع إدارة وصلة الفيوم لحل أي مشكلة.</p>
+      <a href="https://wa.me/201125964054" target="_blank" class="btn btn-whatsapp" style="width:100%; margin-bottom:1rem;">💬 واتساب الإدارة المباشر</a>
+      <div class="form-group"><label>الطرف المشكو في حقه</label><input type="text" id="compTarget" /></div>
+      <div class="form-group"><label>اسمك ورقم تليفونك</label><input type="text" id="compReporter" /></div>
+      <div class="form-group"><label>تفاصيل المشكلة</label><textarea id="compDetails" rows="2"></textarea></div>
       <div style="display:flex; gap:0.5rem;">
-        <button class="btn btn-danger" id="submitCompBtn" style="flex:1;">إرسال الشكوى</button>
-        <button class="btn" id="closeSupportModalBtn" style="background:#e2e8f0;">إغلاق</button>
+        <button type="button" class="btn btn-danger" onclick="submitComplaint()" style="flex:1;">إرسال الشكوى</button>
+        <button type="button" class="btn" onclick="toggleModal('supportModal', false)" style="background:#e2e8f0;">إغلاق</button>
       </div>
     </div>
   </div>
@@ -1122,54 +533,89 @@
           <option value="نداء دم عاجل">🆘 نداء تبرع بالدم / استغاثة</option>
         </select>
       </div>
-      <div class="form-group">
-        <label>العنوان</label>
-        <input type="text" id="commTitle" placeholder="مثال: مطلوب فصيلة دم O- / موبايل للبيع" />
-      </div>
-      <div class="form-group">
-        <label>القرية / المكان</label>
-        <input type="text" id="commVillage" placeholder="مثال: الكعابي الجديدة" />
-      </div>
-      <div class="form-group">
-        <label>رقم التواصل</label>
-        <input type="tel" id="commPhone" placeholder="010xxxxxxxx" />
-      </div>
-      <div class="form-group">
-        <label>التفاصيل</label>
-        <textarea id="commDetails" rows="2"></textarea>
-      </div>
+      <div class="form-group"><label>العنوان</label><input type="text" id="commTitle" /></div>
+      <div class="form-group"><label>القرية / المكان</label><input type="text" id="commVillage" /></div>
+      <div class="form-group"><label>رقم التواصل</label><input type="tel" id="commPhone" /></div>
+      <div class="form-group"><label>التفاصيل</label><textarea id="commDetails" rows="2"></textarea></div>
       <div style="display:flex; gap:0.5rem;">
-        <button class="btn btn-primary" id="saveCommBtn" style="flex:1;">نشر الآن</button>
-        <button class="btn" id="closeCommModalBtn" style="background:#e2e8f0;">إلغاء</button>
+        <button type="button" class="btn btn-primary" onclick="saveCommunityPost()" style="flex:1;">نشر الآن</button>
+        <button type="button" class="btn" onclick="toggleModal('communityModal', false)" style="background:#e2e8f0;">إلغاء</button>
       </div>
     </div>
   </div>
 
+  <!-- سكربت التنقل الفوري المستقل (يعمل في 0.01 ثانية بدون انتظار) -->
+  <script>
+    var currentSubCategory = null;
+    var logoTaps = 0;
+
+    function goScreen(id) {
+      var screens = document.querySelectorAll(".screen");
+      for (var i = 0; i < screens.length; i++) screens[i].classList.add("hidden");
+      var target = document.getElementById(id);
+      if (target) target.classList.remove("hidden");
+
+      var navs = document.querySelectorAll(".b-nav-item");
+      for (var j = 0; j < navs.length; j++) navs[j].classList.remove("active");
+      var activeNav = document.getElementById("nav_" + id);
+      if (activeNav) activeNav.classList.add("active");
+      window.scrollTo(0, 0);
+    }
+
+    function openSub(cat) {
+      currentSubCategory = cat;
+      goScreen("screenSubpage");
+      if (window.renderSubpage) window.renderSubpage(cat);
+    }
+
+    function refreshSubpage() {
+      if (currentSubCategory && window.renderSubpage) window.renderSubpage(currentSubCategory);
+    }
+
+    function toggleModal(id, show) {
+      var el = document.getElementById(id);
+      if (!el) return;
+      if (show) el.classList.remove("hidden");
+      else el.classList.add("hidden");
+    }
+
+    function handleBrandTap() {
+      logoTaps++;
+      if (logoTaps >= 5) {
+        logoTaps = 0;
+        goScreen("screenAccount");
+      }
+    }
+
+    function onVillageChange() {
+      var val = document.getElementById("globalVillageSelect").value;
+      try { localStorage.setItem("wasla_village", val); } catch (e) {}
+      if (window.renderStores) window.renderStores();
+      if (currentSubCategory && window.renderSubpage) window.renderSubpage(currentSubCategory);
+    }
+
+    function switchAdminTab(tabEl, contentId) {
+      var tabs = document.querySelectorAll("#adminPanel .pill-tab");
+      for (var i = 0; i < tabs.length; i++) tabs[i].classList.remove("active");
+      tabEl.classList.add("active");
+      var boxes = document.querySelectorAll(".admin-tab-content");
+      for (var j = 0; j < boxes.length; j++) boxes[j].classList.add("hidden");
+      document.getElementById(contentId).classList.remove("hidden");
+    }
+
+    (function initSavedVillage() {
+      try {
+        var sv = localStorage.getItem("wasla_village");
+        if (sv) document.getElementById("globalVillageSelect").value = sv;
+      } catch (e) {}
+    })();
+  </script>
+
+  <!-- سكربت Firebase والبيانات الحية -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
-    import {
-      getAuth,
-      createUserWithEmailAndPassword,
-      signInWithEmailAndPassword,
-      onAuthStateChanged,
-      signOut
-    } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
-    import {
-      getFirestore,
-      doc,
-      setDoc,
-      getDoc,
-      getDocs,
-      collection,
-      addDoc,
-      updateDoc,
-      deleteDoc,
-      onSnapshot,
-      query,
-      where,
-      orderBy,
-      serverTimestamp
-    } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+    import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
+    import { getFirestore, doc, setDoc, getDoc, getDocs, collection, addDoc, updateDoc, deleteDoc, onSnapshot, query, where, orderBy, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyD2g2KPdwraJ9NwdeNAl77B5_U8e4t5z_0",
@@ -1189,65 +635,22 @@
     const auth = getAuth(app);
     const db = getFirestore(app);
 
-    // ==========================================
-    // 1. PWA Manifest & صوت التنبيه الفوري
-    // ==========================================
-    const manifestData = {
-      name: "وصلة الفيوم",
-      short_name: "وصلة الفيوم",
-      start_url: location.href,
-      display: "standalone",
-      background_color: "#f8fafc",
-      theme_color: "#0f766e",
-      icons: [{
-        src: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%230f766e'/><text x='50' y='68' font-size='58' font-weight='bold' text-anchor='middle' fill='%23f59e0b'>و</text></svg>",
-        sizes: "192x192",
-        type: "image/svg+xml"
-      }]
-    };
-    document.getElementById("pwaManifest").href =
-      "data:application/manifest+json;charset=utf-8," + encodeURIComponent(JSON.stringify(manifestData));
+    let allDirectory = [];
+    let allStores = [];
+    let allProducts = [];
+    let allCommunity = [];
+    let appSettings = { adminPin: "1234", promoCode: "", promoVal: 0 };
+    let storeCart = [];
+    let activeStoreForCart = null;
+    let isReg = false;
+    let currentUser = null;
+    let currentUserData = {};
+    let adminUnlocked = false;
+    let storeIsOpenState = true;
+    let gpsWatchId = null;
 
-    let deferredPrompt;
-    window.addEventListener("beforeinstallprompt", (e) => {
-      e.preventDefault();
-      deferredPrompt = e;
-      document.getElementById("installAppCard").classList.remove("hidden");
-    });
-    document.getElementById("installAppBtn").addEventListener("click", async () => {
-      if (deferredPrompt) {
-        deferredPrompt.prompt();
-        await deferredPrompt.userChoice;
-        deferredPrompt = null;
-        document.getElementById("installAppCard").classList.add("hidden");
-      }
-    });
-
-    function playNotificationTone() {
-      try {
-        const ctx = new (window.AudioContext || window.webkitAudioContext)();
-        const osc = ctx.createOscillator();
-        const gain = ctx.createGain();
-        osc.type = "sine";
-        osc.frequency.setValueAtTime(880, ctx.currentTime);
-        gain.gain.setValueAtTime(0.15, ctx.currentTime);
-        osc.connect(gain);
-        gain.connect(ctx.destination);
-        osc.start();
-        osc.stop(ctx.currentTime + 0.25);
-      } catch (e) {}
-    }
-
-    // ==========================================
-    // 2. دوال مساعدة (الأمان، الأرقام، ضغط الصور)
-    // ==========================================
     function esc(str = "") {
-      return String(str)
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#39;");
+      return String(str).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;");
     }
 
     function formatPhones(raw = "") {
@@ -1258,7 +661,7 @@
       return { callPhone: d, waPhone: d.startsWith("0") ? "2" + d : d };
     }
 
-    function compressImage(file, maxWidth = 520, quality = 0.7) {
+    function compressImage(file, maxWidth = 500, quality = 0.7) {
       return new Promise((resolve) => {
         if (!file) return resolve("");
         const reader = new FileReader();
@@ -1269,8 +672,7 @@
             const scale = Math.min(1, maxWidth / img.width);
             canvas.width = img.width * scale;
             canvas.height = img.height * scale;
-            const ctx = canvas.getContext("2d");
-            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+            canvas.getContext("2d").drawImage(img, 0, 0, canvas.width, canvas.height);
             resolve(canvas.toDataURL("image/jpeg", quality));
           };
           img.src = e.target.result;
@@ -1279,72 +681,176 @@
       });
     }
 
-    // ==========================================
-    // 3. التنقل وحفظ القرية
-    // ==========================================
-    const globalVillageSelect = document.getElementById("globalVillageSelect");
-    const savedVillage = localStorage.getItem("wasla_village");
-    if (savedVillage) globalVillageSelect.value = savedVillage;
-
-    globalVillageSelect.addEventListener("change", () => {
-      localStorage.setItem("wasla_village", globalVillageSelect.value);
-      renderStores();
-      if (currentSubCategory) renderSubpage(currentSubCategory);
-    });
-
-    function switchMainScreen(screenId) {
-      document.querySelectorAll(".screen").forEach(s => s.classList.add("hidden"));
-      document.getElementById(screenId).classList.remove("hidden");
-      document.querySelectorAll(".b-nav-item").forEach(item => {
-        item.classList.toggle("active", item.dataset.screen === screenId);
-      });
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }
-
-    document.querySelectorAll(".b-nav-item").forEach(item => {
-      item.addEventListener("click", () => switchMainScreen(item.dataset.screen));
-    });
-
-    document.querySelectorAll("[data-nav]").forEach(el => {
-      el.addEventListener("click", () => {
-        if (el.dataset.nav === "stores") switchMainScreen("screenStores");
-        if (el.dataset.nav === "delivery") switchMainScreen("screenDelivery");
-      });
-    });
-
-    let logoTaps = 0;
-    document.getElementById("brandLogo").addEventListener("click", () => {
-      logoTaps++;
-      if (logoTaps >= 5) {
-        logoTaps = 0;
-        switchMainScreen("screenAccount");
-      }
-    });
-
-    // ==========================================
-    // 4. البيانات الحية + الإعدادات + الكاش
-    // ==========================================
-    let allDirectory = JSON.parse(localStorage.getItem("wasla_cache_dir") || "[]");
-    let allStores = JSON.parse(localStorage.getItem("wasla_cache_stores") || "[]");
-    let allProducts = JSON.parse(localStorage.getItem("wasla_cache_products") || "[]");
-    let allCommunity = [];
-    let appSettings = { adminPin: "1234", promoCode: "", promoVal: 0 };
-    let currentSubCategory = null;
-    let storeCart = [];
-    let activeStoreForCart = null;
-
-    window.addEventListener("offline", () => {
-      document.getElementById("offlineStatus").textContent = "بدون إنترنت (أرقام محفوظة)";
-    });
-    window.addEventListener("online", () => {
-      document.getElementById("offlineStatus").textContent = "متاجر • خدمات • توصيل";
-    });
-
     onSnapshot(doc(db, "settings", "general"), (snap) => {
       if (snap.exists()) {
         appSettings = { ...appSettings, ...snap.data() };
         if (appSettings.ticker) document.getElementById("newsTickerText").textContent = appSettings.ticker;
         if (appSettings.sponsorTitle) document.getElementById("sponsorTitle").textContent = appSettings.sponsorTitle;
         if (appSettings.sponsorDesc) document.getElementById("sponsorDesc").textContent = appSettings.sponsorDesc;
-        if (appSettings.sponsorPhone) {
-     
+        if (appSettings.sponsorPhone) document.getElementById("sponsorActionBtn").href = `https://wa.me/${formatPhones(appSettings.sponsorPhone).waPhone}`;
+      }
+    });
+
+    onSnapshot(collection(db, "stores"), (snap) => {
+      allStores = [];
+      snap.forEach(d => allStores.push({ id: d.id, ...d.data() }));
+      window.renderStores();
+      renderAdminStores();
+    });
+
+    onSnapshot(collection(db, "products"), (snap) => {
+      allProducts = [];
+      snap.forEach(d => allProducts.push({ id: d.id, ...d.data() }));
+      if (currentUser) renderMerchantProducts(currentUser.uid);
+    });
+
+    onSnapshot(query(collection(db, "directory"), orderBy("createdAt", "desc")), (snap) => {
+      allDirectory = [];
+      snap.forEach(d => allDirectory.push({ id: d.id, ...d.data() }));
+      if (window.currentSubCategory && window.currentSubCategory !== "community") window.renderSubpage(window.currentSubCategory);
+      renderAdminDirectoryList();
+    });
+
+    onSnapshot(query(collection(db, "community"), orderBy("createdAt", "desc")), (snap) => {
+      allCommunity = [];
+      snap.forEach(d => allCommunity.push({ id: d.id, ...d.data() }));
+      if (window.currentSubCategory === "community") window.renderSubpage("community");
+    });
+
+    window.renderStores = function() {
+      const box = document.getElementById("storesContainer");
+      const v = document.getElementById("globalVillageSelect").value;
+      const q = document.getElementById("searchStoresInput").value.trim().toLowerCase();
+      const filtered = allStores.filter(s => (v === "all" || s.village === v) && (!q || (s.name && s.name.toLowerCase().includes(q)) || (s.category && s.category.toLowerCase().includes(q))));
+
+      if (filtered.length === 0) {
+        box.innerHTML = `<div class="card" style="text-align:center; color:var(--muted);">لا توجد متاجر مسجلة في هذه القرية بعد.</div>`;
+        return;
+      }
+
+      const defaultCover = "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 150'><rect width='400' height='150' fill='%230f766e'/><text x='200' y='85' font-size='26' font-family='sans-serif' text-anchor='middle' fill='%23ffffff'>🏪 متجر وصلة الفيوم</text></svg>";
+      box.innerHTML = filtered.map(s => {
+        const count = allProducts.filter(p => p.storeId === s.ownerId).length;
+        const isOpen = s.isOpen !== false;
+        return `
+          <div class="store-card" onclick="openSingleStore('${s.ownerId}')">
+            <img src="${s.cover || defaultCover}" class="store-cover" />
+            <div class="store-body">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.3rem;">
+                <strong style="font-size:1.05rem;">${esc(s.name)}</strong>
+                <span class="badge ${isOpen ? "badge-green" : "badge-red"}">${isOpen ? "🟢 مفتوح الآن" : "🔴 مغلق"}</span>
+              </div>
+              <p style="font-size:0.82rem; color:var(--muted);">📍 ${esc(s.village)} — ${esc(s.address || "")}</p>
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-top:0.65rem;">
+                <span class="badge badge-amber">🛍️ ${count} منتج</span>
+                <span style="font-size:0.8rem; font-weight:800; color:var(--primary);">تصفح المنتجات ←</span>
+              </div>
+            </div>
+          </div>`;
+      }).join("");
+    };
+
+    window.openSingleStore = function(ownerId) {
+      const store = allStores.find(s => s.ownerId === ownerId);
+      if (!store) return;
+      activeStoreForCart = store;
+      storeCart = [];
+      updateCartUI();
+
+      document.getElementById("storesListView").classList.add("hidden");
+      document.getElementById("singleStoreView").classList.remove("hidden");
+      document.getElementById("singleStoreHeaderTitle").textContent = store.name;
+
+      const { callPhone, waPhone } = formatPhones(store.phone || "");
+      document.getElementById("singleStoreDetails").innerHTML = `
+        <div class="card">
+          <h3 style="font-size:1.1rem; margin-bottom:0.25rem;">${esc(store.name)}</h3>
+          <p style="font-size:0.84rem; color:var(--muted); margin-bottom:0.75rem;">📍 ${esc(store.village)} — ${esc(store.address || "")}</p>
+          <div style="display:flex; gap:0.45rem;">
+            ${callPhone ? `<a href="tel:${callPhone}" class="btn btn-primary btn-sm">📞 اتصال</a>` : ""}
+            ${waPhone ? `<a href="https://wa.me/${waPhone}" target="_blank" class="btn btn-whatsapp btn-sm">💬 واتساب</a>` : ""}
+          </div>
+        </div>`;
+
+      const prods = allProducts.filter(p => p.storeId === ownerId);
+      const grid = document.getElementById("singleStoreProducts");
+      const defImg = "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 140'><rect width='200' height='140' fill='%23f1f5f9'/><text x='100' y='78' font-size='32' text-anchor='middle'>🛍️</text></svg>";
+
+      if (prods.length === 0) {
+        grid.innerHTML = `<div class="card" style="grid-column:1/-1; text-align:center; color:var(--muted);">لا توجد منتجات مضافة بعد.</div>`;
+        return;
+      }
+
+      grid.innerHTML = prods.map((p, idx) => `
+        <div class="product-card">
+          <img src="${p.image || defImg}" class="product-img" />
+          <div class="product-info">
+            <div>
+              <strong style="font-size:0.9rem; display:block;">${esc(p.name)}</strong>
+              <p style="font-size:0.75rem; color:var(--muted); margin-bottom:0.4rem;">${esc(p.desc || "")}</p>
+            </div>
+            <div>
+              <div style="font-weight:800; color:var(--primary-dark); margin-bottom:0.4rem;">${esc(p.price)} ج.م</div>
+              <button type="button" class="btn btn-primary btn-sm" onclick="addToCart('${esc(p.name)}', ${Number(p.price) || 0})" style="width:100%;">➕ أضف للسلة</button>
+            </div>
+          </div>
+        </div>`).join("");
+    };
+
+    window.backToStores = function() {
+      document.getElementById("singleStoreView").classList.add("hidden");
+      document.getElementById("storesListView").classList.remove("hidden");
+    };
+
+    window.addToCart = function(name, price) {
+      storeCart.push({ name, price });
+      updateCartUI();
+    };
+
+    function updateCartUI() {
+      const bar = document.getElementById("storeCartBar");
+      if (storeCart.length === 0) return bar.classList.add("hidden");
+      bar.classList.remove("hidden");
+      const total = storeCart.reduce((s, i) => s + i.price, 0);
+      document.getElementById("cartSummaryText").textContent = `${storeCart.length} أصناف • الإجمالي: ${total} ج.م`;
+    }
+
+    window.checkoutCart = function() {
+      if (!activeStoreForCart || storeCart.length === 0) return;
+      const total = storeCart.reduce((s, i) => s + i.price, 0);
+      document.getElementById("delPickup").value = `${activeStoreForCart.name} (${activeStoreForCart.village})`;
+      document.getElementById("delDetails").value = `سلة مشتريات: ${storeCart.map(i => `${i.name} (${i.price} ج)`).join(" + ")} | الإجمالي: ${total} ج.م`;
+      window.goScreen("screenDelivery");
+    };
+
+    const catTitles = { crafts: "🛠️ دليل الصنايعية", medical: "💊 الطب والصيدليات", realestate: "🏢 العقارات والأراضي", education: "📚 المدرسين والخدمات", community: "📢 مجتمع أهل البلد" };
+
+    window.renderSubpage = function(cat) {
+      document.getElementById("subpageTitle").textContent = catTitles[cat] || "القسم";
+      const content = document.getElementById("subpageContent");
+      const actionArea = document.getElementById("subpageActionArea");
+      const v = document.getElementById("globalVillageSelect").value;
+      const q = document.getElementById("subpageSearchInput").value.trim().toLowerCase();
+
+      if (cat === "community") {
+        actionArea.innerHTML = `<button type="button" class="btn btn-primary" onclick="toggleModal('communityModal', true)" style="margin-bottom:0.9rem;">➕ أضف منشور (مستعمل / مفقودات / نداء دم)</button>`;
+        const list = allCommunity.filter(c => !q || (c.title && c.title.toLowerCase().includes(q)));
+        if (list.length === 0) { content.innerHTML = `<div class="card" style="text-align:center; color:var(--muted);">لا توجد منشورات حالياً.</div>`; return; }
+        content.innerHTML = list.map(c => {
+          const { callPhone, waPhone } = formatPhones(c.phone);
+          return `
+            <div class="item-card ${c.type && c.type.includes("دم") ? "urgent" : ""}">
+              <div style="display:flex; justify-content:space-between; margin-bottom:0.35rem;"><strong>${esc(c.title)}</strong><span class="badge badge-amber">${esc(c.type)}</span></div>
+              <p style="font-size:0.82rem; color:var(--muted);">📍 ${esc(c.village)}</p>
+              <p style="font-size:0.85rem; margin:0.3rem 0 0.6rem;">${esc(c.details || "")}</p>
+              <div style="display:flex; gap:0.45rem;">
+                <a href="tel:${callPhone}" class="btn btn-primary btn-sm">📞 اتصال</a>
+                <a href="https://wa.me/${waPhone}" target="_blank" class="btn btn-whatsapp btn-sm">واتساب</a>
+              </div>
+            </div>`;
+        }).join("");
+        return;
+      }
+
+      actionArea.innerHTML = "";
+      const list = allDirectory.filter(i => i.category === cat && (v === "all" || i.village === v) && (!q || (i.name && i.name.toLowerCase().includes(q)) || (i.spe
