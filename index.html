@@ -2,1430 +2,1604 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <meta name="theme-color" content="#FF5A00" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <title>وصلّي الفيوم | طلباتك وعقاراتك ومشاويرك</title>
-  <link rel="manifest" id="pwaManifest" />
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>وصلة الفيوم | توصيل ودليل خدمات قرى ومراكز الفيوم</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
-      --primary: #FF5A00;
-      --primary-dark: #E04E00;
-      --primary-light: #FFF1E8;
-      --bg: #F6F7F9;
-      --white: #FFFFFF;
-      --text: #1E2329;
-      --muted: #6C757D;
-      --border: #E9ECEF;
-      --success: #16A34A;
-      --danger: #DC2626;
-      --shadow: 0 4px 14px rgba(0,0,0,0.06);
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Cairo', sans-serif; -webkit-tap-highlight-color: transparent; }
-    body { background: var(--bg); color: var(--text); padding-bottom: 85px; overflow-x: hidden; }
-
-    #pwaBanner {
-      background: #1E2329; color: #fff; padding: 9px 12px; display: flex;
-      align-items: center; justify-content: space-between; gap: 8px; font-size: 12px;
-    }
-    #pwaBanner .install-btn {
-      background: var(--primary); color: #fff; border: none; padding: 5px 10px;
-      border-radius: 8px; font-weight: 700; cursor: pointer; white-space: nowrap;
-    }
-    #pwaBanner .dismiss-btn {
-      background: transparent; color: #94A3B8; border: none; font-size: 16px; cursor: pointer; padding: 0 4px;
+      --primary: #0f766e;
+      --primary-dark: #115e59;
+      --accent: #f59e0b;
+      --bg: #f8fafc;
+      --card: #ffffff;
+      --text: #0f172a;
+      --muted: #64748b;
+      --border: #e2e8f0;
+      --danger: #dc2626;
+      --success: #16a34a;
+      --whatsapp: #25d366;
     }
 
-    .header {
-      background: var(--primary); color: var(--white); padding: 14px 16px 18px;
-      border-bottom-left-radius: 22px; border-bottom-right-radius: 22px;
-      position: sticky; top: 0; z-index: 50; box-shadow: 0 4px 16px rgba(255,90,0,0.25);
-    }
-    .header-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
-    .brand { font-size: 20px; font-weight: 900; display: flex; align-items: center; gap: 6px; }
-    .area-select {
-      background: rgba(255,255,255,0.2); color: #fff; border: 1px solid rgba(255,255,255,0.4);
-      padding: 6px 12px; border-radius: 20px; font-size: 13px; font-weight: 700; outline: none;
-    }
-    .area-select option { color: var(--text); background: #fff; }
-    .search-box {
-      background: var(--white); border-radius: 14px; display: flex; align-items: center;
-      padding: 8px 14px; gap: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-    }
-    .search-box input { border: none; outline: none; width: 100%; font-size: 14px; color: var(--text); }
-
-    .container { max-width: 600px; margin: 0 auto; padding: 14px; }
-
-    .hero-slider { position: relative; overflow: hidden; border-radius: 18px; margin-bottom: 16px; box-shadow: var(--shadow); }
-    .slides { display: flex; transition: transform 0.4s ease; }
-    .slide {
-      min-width: 100%; padding: 20px; color: #fff;
-      background: linear-gradient(135deg, #FF5A00 0%, #FF8C00 100%);
-      display: flex; flex-direction: column; justify-content: space-between; min-height: 145px;
-    }
-    .slide.alt1 { background: linear-gradient(135deg, #1E293B 0%, #334155 100%); }
-    .slide.alt2 { background: linear-gradient(135deg, #0F766E 0%, #14B8A6 100%); }
-    .slide-badge {
-      background: rgba(255,255,255,0.22); align-self: flex-start; padding: 2px 10px;
-      border-radius: 20px; font-size: 11px; font-weight: 700; margin-bottom: 6px;
-    }
-    .slide h3 { font-size: 18px; font-weight: 800; margin-bottom: 4px; }
-    .slide p { font-size: 13px; opacity: 0.92; margin-bottom: 10px; }
-    .slide-btn {
-      background: #fff; color: var(--primary); border: none; padding: 6px 14px;
-      border-radius: 10px; font-weight: 800; font-size: 12px; align-self: flex-start; cursor: pointer;
-    }
-    .slider-dots { position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%); display: flex; gap: 5px; }
-    .dot { width: 7px; height: 7px; border-radius: 50%; background: rgba(255,255,255,0.45); }
-    .dot.active { background: #fff; width: 16px; border-radius: 4px; }
-
-    .mersal-card {
-      background: linear-gradient(135deg, #FFF7ED 0%, #FFEDD5 100%);
-      border: 1.5px solid #FDBA74; border-radius: 16px; padding: 14px;
-      display: flex; align-items: center; justify-content: space-between; gap: 12px;
-      margin-bottom: 18px; cursor: pointer;
-    }
-    .mersal-card h4 { color: #9A3412; font-size: 15px; font-weight: 800; }
-    .mersal-card p { color: #C2410C; font-size: 12px; }
-    .mersal-btn {
-      background: var(--primary); color: #fff; padding: 8px 14px;
-      border-radius: 12px; font-weight: 800; font-size: 12px; white-space: nowrap; display: inline-block;
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Cairo', sans-serif;
     }
 
-    .section-title { font-size: 16px; font-weight: 800; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; }
-    .cats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 18px; }
-    .cat-item {
-      background: var(--white); border-radius: 14px; padding: 10px 6px; text-align: center;
-      box-shadow: var(--shadow); cursor: pointer; border: 2px solid transparent; transition: 0.2s;
+    body {
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      padding-bottom: 75px;
     }
-    .cat-item.active { border-color: var(--primary); background: var(--primary-light); }
-    .cat-icon { font-size: 24px; margin-bottom: 4px; }
-    .cat-name { font-size: 11px; font-weight: 700; color: var(--text); line-height: 1.2; }
 
-    .mid-ad {
-      background: var(--white); border-radius: 14px; padding: 12px 14px; margin-bottom: 18px;
-      border-right: 4px solid var(--primary); box-shadow: var(--shadow);
-      display: flex; justify-content: space-between; align-items: center; gap: 10px;
+    header {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: #fff;
+      padding: 0.9rem 1.25rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+      position: sticky;
+      top: 0;
+      z-index: 50;
     }
-    .sponsored-tag { font-size: 10px; color: var(--muted); background: #F1F5F9; padding: 2px 6px; border-radius: 6px; }
 
-    .store-card {
-      background: var(--white); border-radius: 16px; padding: 14px; margin-bottom: 12px;
-      box-shadow: var(--shadow); display: flex; gap: 12px; align-items: center; cursor: pointer;
-      position: relative; border: 1px solid var(--border);
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      cursor: pointer;
+      user-select: none;
     }
-    .store-card.featured { border: 1.5px solid var(--primary); background: #FFFDFB; }
-    .featured-badge {
-      position: absolute; top: 10px; left: 10px; background: var(--primary); color: #fff;
-      font-size: 10px; font-weight: 800; padding: 2px 8px; border-radius: 8px;
-    }
-    .store-avatar {
-      width: 62px; height: 62px; border-radius: 14px; background: var(--primary-light);
-      display: flex; align-items: center; justify-content: center; font-size: 30px; flex-shrink: 0;
-    }
-    .store-info { flex: 1; }
-    .store-name { font-size: 15px; font-weight: 800; margin-bottom: 2px; }
-    .store-meta { font-size: 12px; color: var(--muted); display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
 
-    .offer-card {
-      background: var(--white); border-radius: 16px; padding: 14px; margin-bottom: 12px;
-      box-shadow: var(--shadow); border: 1px solid #FED7AA;
+    .brand-icon {
+      width: 38px;
+      height: 38px;
+      background: var(--accent);
+      color: #fff;
+      border-radius: 10px;
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+      font-size: 1.2rem;
     }
-    .offer-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
-    .discount-pill { background: #FEE2E2; color: var(--danger); font-weight: 800; font-size: 11px; padding: 3px 8px; border-radius: 8px; }
-    .price-row { display: flex; align-items: center; gap: 10px; margin: 8px 0; }
-    .new-price { color: var(--primary); font-size: 18px; font-weight: 900; }
-    .old-price { color: var(--muted); text-decoration: line-through; font-size: 13px; }
+
+    .brand h1 {
+      font-size: 1.15rem;
+      font-weight: 800;
+    }
+
+    .brand span {
+      display: block;
+      font-size: 0.7rem;
+      opacity: 0.85;
+      font-weight: 400;
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 0.45rem;
+      align-items: center;
+    }
 
     .btn {
-      background: var(--primary); color: #fff; border: none; padding: 11px 16px;
-      border-radius: 12px; font-weight: 800; font-size: 14px; cursor: pointer; width: 100%;
+      border: none;
+      border-radius: 10px;
+      padding: 0.65rem 1.1rem;
+      font-weight: 700;
+      font-size: 0.92rem;
+      cursor: pointer;
+      transition: 0.2s;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      text-decoration: none;
     }
-    .btn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+    .btn-primary {
+      background: var(--primary);
+      color: #fff;
+      width: 100%;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-dark);
+    }
+
     .btn-outline {
-      background: #fff; color: var(--primary); border: 1.5px solid var(--primary);
-      padding: 9px 14px; border-radius: 12px; font-weight: 700; font-size: 13px; cursor: pointer;
+      background: rgba(255,255,255,0.15);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.3);
+      padding: 0.42rem 0.75rem;
+      font-size: 0.78rem;
     }
-    .btn-sm { padding: 6px 12px; font-size: 12px; width: auto; }
-    .input-group { margin-bottom: 10px; }
-    .input-group label { display: block; font-size: 12px; font-weight: 700; margin-bottom: 4px; color: var(--text); }
-    .input-group input, .input-group select, .input-group textarea {
-      width: 100%; padding: 10px 12px; border: 1.5px solid var(--border); border-radius: 12px;
-      font-size: 14px; outline: none; background: #fff;
-    }
-    .input-group input:focus, .input-group select:focus { border-color: var(--primary); }
 
-    .bottom-nav {
-      position: fixed; bottom: 0; left: 0; right: 0; background: var(--white);
-      border-top: 1px solid var(--border); display: flex; justify-content: space-around;
-      padding: 8px 0 10px; z-index: 60; box-shadow: 0 -2px 10px rgba(0,0,0,0.04);
+    .btn-danger {
+      background: var(--danger);
+      color: #fff;
     }
-    .nav-item {
-      display: flex; flex-direction: column; align-items: center; gap: 2px;
-      color: var(--muted); font-size: 11px; font-weight: 700; cursor: pointer; border: none; background: none;
-    }
-    .nav-item.active { color: var(--primary); }
-    .nav-icon { font-size: 20px; }
 
-    .floating-cart {
-      position: fixed; bottom: 68px; left: 16px; right: 16px; max-width: 568px; margin: 0 auto;
-      background: var(--primary); color: #fff; padding: 12px 16px; border-radius: 14px;
-      display: flex; justify-content: space-between; align-items: center; font-weight: 800;
-      box-shadow: 0 6px 20px rgba(255,90,0,0.35); cursor: pointer; z-index: 55;
+    .btn-warning-soft {
+      background: #fef2f2;
+      color: var(--danger);
+      border: 1px solid #fecaca;
+      padding: 0.4rem 0.65rem;
+      font-size: 0.78rem;
+    }
+
+    .btn-success {
+      background: var(--success);
+      color: #fff;
+    }
+
+    .btn-whatsapp {
+      background: var(--whatsapp);
+      color: #fff;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 1.25rem;
+      flex: 1;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.35rem;
+      box-shadow: 0 4px 20px rgba(15, 23, 42, 0.04);
+      margin-bottom: 1.25rem;
+    }
+
+    .main-nav {
+      display: flex;
+      gap: 0.6rem;
+      margin-bottom: 1.25rem;
+      background: #fff;
+      padding: 0.45rem;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+    }
+
+    .nav-pill {
+      flex: 1;
+      text-align: center;
+      padding: 0.65rem 0.5rem;
+      border-radius: 10px;
+      font-weight: 800;
+      font-size: 0.88rem;
+      cursor: pointer;
+      color: var(--muted);
+      transition: 0.2s;
+    }
+
+    .nav-pill.active {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    .hero-banner {
+      text-align: center;
+      margin-bottom: 1.25rem;
+    }
+
+    .hero-banner h2 {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: var(--primary-dark);
+      margin-bottom: 0.3rem;
+    }
+
+    .hero-banner p {
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+
+    .role-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.75rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .role-card {
+      border: 2px solid var(--border);
+      border-radius: 14px;
+      padding: 0.9rem 0.5rem;
+      text-align: center;
+      cursor: pointer;
+      transition: 0.2s;
+      background: #fff;
+    }
+
+    .role-card.active {
+      border-color: var(--primary);
+      background: #f0fdfa;
+    }
+
+    .role-card .icon {
+      font-size: 1.65rem;
+      margin-bottom: 0.3rem;
+      display: block;
+    }
+
+    .role-card .title {
+      font-weight: 700;
+      font-size: 0.88rem;
+      display: block;
+    }
+
+    .role-card .desc {
+      font-size: 0.72rem;
+      color: var(--muted);
+      display: block;
+      margin-top: 0.15rem;
+    }
+
+    .tabs {
+      display: flex;
+      background: #f1f5f9;
+      padding: 0.3rem;
+      border-radius: 12px;
+      margin-bottom: 1.25rem;
+    }
+
+    .tab {
+      flex: 1;
+      text-align: center;
+      padding: 0.55rem;
+      border-radius: 9px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      cursor: pointer;
+      color: var(--muted);
+      transition: 0.2s;
+    }
+
+    .tab.active {
+      background: #fff;
+      color: var(--primary);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+    }
+
+    .form-group {
+      margin-bottom: 1rem;
+    }
+
+    .filter-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+    }
+
+    label {
+      display: block;
+      font-weight: 700;
+      font-size: 0.85rem;
+      margin-bottom: 0.35rem;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 0.7rem 0.9rem;
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      font-size: 0.92rem;
+      outline: none;
+      transition: 0.2s;
+      background: #fff;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--primary);
+    }
+
+    .alert {
+      padding: 0.85rem 1rem;
+      border-radius: 10px;
+      font-size: 0.88rem;
+      margin-bottom: 1rem;
+      font-weight: 600;
+      display: none;
+    }
+
+    .alert.error {
+      background: #fef2f2;
+      color: var(--danger);
+      border: 1px solid #fecaca;
+      display: block;
+    }
+
+    .alert.success {
+      background: #f0fdf4;
+      color: var(--success);
+      border: 1px solid #bbf7d0;
+      display: block;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 0.2rem 0.6rem;
+      border-radius: 999px;
+      font-size: 0.74rem;
+      font-weight: 700;
+    }
+
+    .badge-pending { background: #fef3c7; color: #b45309; }
+    .badge-active { background: #dcfce7; color: #15803d; }
+    .badge-done { background: #e0f2fe; color: #0369a1; }
+    .badge-vip { background: #fef08a; color: #854d0e; border: 1px solid #facc15; }
+
+    .order-item {
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1rem;
+      margin-bottom: 0.85rem;
+      background: #fff;
+    }
+
+    .order-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.5rem;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .pro-card {
+      border: 1px solid var(--border);
+      border-right: 4px solid var(--primary);
+      border-radius: 12px;
+      padding: 1rem;
+      margin-bottom: 0.85rem;
+      background: #fff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    .pro-card.vip {
+      border-right-color: var(--accent);
+      background: #fffbeb;
+    }
+
+    .pro-actions {
+      display: flex;
+      gap: 0.45rem;
+      flex-wrap: wrap;
+    }
+
+    .pro-actions .btn {
+      padding: 0.45rem 0.75rem;
+      font-size: 0.8rem;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 0.75rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .stat-box {
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 0.85rem;
+      text-align: center;
+    }
+
+    .stat-box h3 {
+      font-size: 1.35rem;
+      color: var(--primary);
+      font-weight: 800;
+    }
+
+    .stat-box p {
+      font-size: 0.76rem;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .floating-support {
+      position: fixed;
+      bottom: 16px;
+      left: 16px;
+      background: var(--whatsapp);
+      color: #fff;
+      padding: 0.65rem 1rem;
+      border-radius: 999px;
+      font-weight: 800;
+      font-size: 0.85rem;
+      text-decoration: none;
+      box-shadow: 0 6px 20px rgba(37, 211, 102, 0.35);
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      z-index: 90;
     }
 
     .modal-backdrop {
-      position: fixed; inset: 0; background: rgba(0,0,0,0.55); z-index: 100;
-      display: flex; align-items: flex-end; justify-content: center;
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.6);
+      display: grid;
+      place-items: center;
+      padding: 1rem;
+      z-index: 100;
     }
-    .modal-backdrop.center { align-items: center; padding: 16px; z-index: 200; }
-    .modal-box {
-      background: var(--white); width: 100%; max-width: 560px; max-height: 90vh;
-      overflow-y: auto; border-top-left-radius: 22px; border-top-right-radius: 22px; padding: 18px;
-    }
-    .modal-backdrop.center .modal-box { border-radius: 20px; }
-    .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; border-bottom: 1px solid var(--border); padding-bottom: 10px; }
-    .close-btn { background: #F1F5F9; border: none; width: 32px; height: 32px; border-radius: 50%; font-weight: 900; cursor: pointer; }
 
-    .admin-tabs { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 8px; margin-bottom: 12px; }
-    .admin-tab {
-      background: #F1F5F9; border: none; padding: 7px 12px; border-radius: 10px;
-      font-size: 12px; font-weight: 700; white-space: nowrap; cursor: pointer;
+    .modal-box {
+      background: #fff;
+      border-radius: 16px;
+      padding: 1.4rem;
+      width: 100%;
+      max-width: 440px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
     }
-    .admin-tab.active { background: var(--primary); color: #fff; }
-    .stat-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 14px; }
-    .stat-box { background: #F8FAFC; border: 1px solid var(--border); padding: 12px; border-radius: 12px; text-align: center; }
-    .stat-val { font-size: 18px; font-weight: 900; color: var(--primary); }
-    .stat-lbl { font-size: 11px; color: var(--muted); }
-    .hidden { display: none !important; }
-    .badge { padding: 2px 8px; border-radius: 6px; font-size: 11px; font-weight: 700; }
-    .badge-orange { background: #FFEDD5; color: var(--primary); }
-    .doc-preview { width: 100%; max-height: 150px; object-fit: cover; border-radius: 8px; margin-top: 6px; border: 1px solid var(--border); }
+
+    footer {
+      text-align: center;
+      padding: 1rem;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    @media (max-width: 600px) {
+      .role-grid, .filter-row {
+        grid-template-columns: 1fr;
+      }
+      .role-card {
+        display: flex;
+        align-items: center;
+        gap: 0.85rem;
+        text-align: right;
+        padding: 0.8rem 1rem;
+      }
+      .role-card .icon {
+        margin-bottom: 0;
+      }
+    }
   </style>
 </head>
 <body>
 
-  <div id="pwaBanner">
-    <div>📲 <b>ثبّت تطبيق وصلّي الفيوم</b> على شاشة موبايلك!</div>
-    <div style="display:flex; align-items:center; gap:6px;">
-      <button class="install-btn" onclick="installAppPrompt()">تثبيت الآن</button>
-      <button class="dismiss-btn" onclick="document.getElementById('pwaBanner').style.display='none'">✕</button>
-    </div>
-  </div>
-
-  <!-- Mandatory Registration Gate -->
-  <div id="authGate" class="modal-backdrop center hidden" style="background:rgba(15,23,42,0.92);">
-    <div class="modal-box">
-      <div style="text-align:center; margin-bottom:14px;">
-        <div style="font-size:38px;">🛵</div>
-        <h2 style="color:var(--primary); font-weight:900;">أهلاً بك في وصلّي الفيوم</h2>
-        <p style="font-size:12px; color:var(--muted);">سجّل بياناتك مرة واحدة لضمان جدية الطلبات وحماية المحلات</p>
-      </div>
-      <div class="input-group">
-        <label>الاسم بالكامل *</label>
-        <input type="text" id="regName" placeholder="مثال: أحمد محمود علي" />
-      </div>
-      <div class="input-group">
-        <label>رقم الموبايل (واتساب) *</label>
-        <input type="tel" id="regPhone" placeholder="010xxxxxxxx" />
-      </div>
-      <div class="input-group">
-        <label>البريد الإلكتروني (Gmail) *</label>
-        <input type="email" id="regEmail" placeholder="example@gmail.com" />
-      </div>
-      <div class="input-group">
-        <label>القرية / المنطقة *</label>
-        <select id="regArea"></select>
-      </div>
-      <button class="btn" onclick="registerCustomer()">دخول وتصفح المحلات والعروض 🚀</button>
-    </div>
-  </div>
-
-  <div class="header">
-    <div class="header-top">
-      <div class="brand">🛵 وصلّي الفيوم</div>
-      <select id="areaSelector" class="area-select" onchange="changeArea()"></select>
-    </div>
-    <div class="search-box">
-      <span>🔍</span>
-      <input type="text" id="searchInput" placeholder="ابحث عن مطعم، فراخ، أدوات منزلية، ميكب، عقارات..." oninput="renderMain()" />
-    </div>
-  </div>
-
-  <div id="tabHome" class="container">
-    <div class="hero-slider">
-      <div class="slides" id="heroSlides"></div>
-      <div class="slider-dots" id="sliderDots"></div>
-    </div>
-
-    <div class="mersal-card" onclick="openMersalModal()">
+  <header>
+    <div class="brand" id="brandLogo">
+      <div class="brand-icon">و</div>
       <div>
-        <h4>🛵 مشوار خاص / مرسال الفيوم</h4>
-        <p>ابعت أمانة أو اطلب أي حاجة من أي مكان وتسعيرتنا بالكيلو!</p>
-      </div>
-      <span class="mersal-btn">احسب المشوار</span>
-    </div>
-
-    <div class="section-title">
-      <span>الأقسام والخدمات</span>
-      <span style="font-size:12px; color:var(--primary); cursor:pointer;" onclick="selectedCat='all'; renderMain();">عرض الكل</span>
-    </div>
-    <div class="cats-grid" id="catsGrid"></div>
-
-    <div id="midAdContainer"></div>
-
-    <div class="section-title">
-      <span id="storesTitle">المحلات والخدمات المتاحة</span>
-      <span id="storesCount" style="font-size:12px; color:var(--muted);"></span>
-    </div>
-    <div id="storesList"></div>
-  </div>
-
-  <div id="tabOffers" class="container hidden">
-    <div class="section-title">
-      <span>🔥 عروض وتخفيضات اليوم</span>
-      <span class="badge badge-orange">تحديث يومي</span>
-    </div>
-    <p style="font-size:12px; color:var(--muted); margin-bottom:12px;">أقوى عروض المحلات في <b id="offersAreaName"></b> بأسعار حصرية.</p>
-    <div id="offersList"></div>
-  </div>
-
-  <div id="tabOrders" class="container hidden">
-    <div class="section-title"><span>📦 طلباتي ومشاويري الموثقة</span></div>
-    <div id="myOrdersList"></div>
-  </div>
-
-  <div id="tabAccount" class="container hidden">
-    <div style="background:#fff; padding:16px; border-radius:16px; box-shadow:var(--shadow); margin-bottom:14px;">
-      <h3 style="font-size:16px; margin-bottom:6px;">👤 بيانات حسابي</h3>
-      <div id="userProfileInfo" style="font-size:13px; color:var(--muted); line-height:1.8;"></div>
-      <button class="btn-outline btn-sm" style="margin-top:8px;" onclick="logoutUser()">تعديل البيانات / تسجيل خروج</button>
-    </div>
-
-    <div style="background:#FFF7ED; border:1.5px solid #FDBA74; padding:16px; border-radius:16px; margin-bottom:14px;">
-      <h3 style="font-size:15px; color:#9A3412; margin-bottom:4px;">🛵 اشتغل كابتن توصيل (طيار)</h3>
-      <p style="font-size:12px; color:#C2410C; margin-bottom:10px;">معاك موتوسيكل؟ سجّل بياناتك وصورة البطاقة والرخصة وابدأ استقبل أوردرات ومشاوير في بلدك.</p>
-      <div style="display:flex; gap:8px;">
-        <button class="btn btn-sm" onclick="openDriverRegModal()">تسجيل كابتن جديد</button>
-        <button class="btn-outline btn-sm" onclick="openDriverDashboard()">دخول الكباتن</button>
+        <h1>وصلة الفيوم</h1>
+        <span>دليل قرى الفيوم • توصيل • دعم وحماية</span>
       </div>
     </div>
-
-    <div style="background:#fff; padding:16px; border-radius:16px; box-shadow:var(--shadow); text-align:center;">
-      <p style="font-size:12px; color:var(--muted); margin-bottom:8px;">خاص بإدارة المنصة وأصحاب المحلات</p>
-      <button class="btn-outline" style="width:100%;" onclick="openAdminPinModal()">🔐 بوابة الإدارة والتجار (PIN)</button>
+    <div class="header-actions">
+      <button class="btn btn-outline" id="openComplaintModalBtn">⚠️ شكوى / دعم</button>
+      <button class="btn btn-outline hidden" id="logoutBtn">خروج</button>
     </div>
-  </div>
+  </header>
 
-  <div id="floatingCart" class="floating-cart hidden" onclick="openCartModal()">
-    <div>🛒 السلة (<span id="cartCount">0</span>)</div>
-    <div><span id="cartTotal">0</span> ج.م • إتمام الطلب ⬅️</div>
-  </div>
+  <main class="container">
 
-  <div class="bottom-nav">
-    <button id="navHome" class="nav-item active" onclick="switchTab('Home', this)"><span class="nav-icon">🏠</span>الرئيسية</button>
-    <button id="navOffers" class="nav-item" onclick="switchTab('Offers', this)"><span class="nav-icon">🔥</span>العروض</button>
-    <button id="navOrders" class="nav-item" onclick="switchTab('Orders', this)"><span class="nav-icon">📦</span>طلباتي</button>
-    <button id="navAccount" class="nav-item" onclick="switchTab('Account', this)"><span class="nav-icon">👤</span>حسابي</button>
-  </div>
-
-  <div id="storeModal" class="modal-backdrop hidden" onclick="if(event.target===this) closeModal('storeModal')">
-    <div class="modal-box">
-      <div class="modal-header">
-        <h3 id="modalStoreName">اسم المحل</h3>
-        <button class="close-btn" onclick="closeModal('storeModal')">✕</button>
-      </div>
-      <div id="modalStoreBody"></div>
+    <div class="main-nav">
+      <div class="nav-pill active" id="navDirectory">🛠️ دليل الصنايعية والخدمات</div>
+      <div class="nav-pill" id="navApp">🛵 التوصيل وحسابي</div>
     </div>
-  </div>
 
-  <div id="cartModal" class="modal-backdrop hidden" onclick="if(event.target===this) closeModal('cartModal')">
-    <div class="modal-box">
-      <div class="modal-header">
-        <h3>🛒 مراجعة وتأكيد الطلب</h3>
-        <button class="close-btn" onclick="closeModal('cartModal')">✕</button>
+    <section id="directorySection">
+      <div class="hero-banner">
+        <h2>دليل صنايعية وخدمات قرى ومراكز الفيوم 🧰</h2>
+        <p>اختار قريتك أو مركزك والتخصص، وكلم الصنايعي مباشرة — وبإشراف إدارة التطبيق</p>
       </div>
-      <div id="cartItemsList"></div>
-      <div class="input-group" style="margin-top:12px;">
-        <label>العنوان بالتفصيل للتوصيل *</label>
-        <input type="text" id="checkoutAddress" placeholder="مثال: بجوار المسجد الكبير - شارع المدرسة" />
-      </div>
-      <div class="input-group">
-        <label>ملاحظات إضافية (اختياري)</label>
-        <input type="text" id="checkoutNotes" placeholder="مثال: الرن على الجرس، بدون شطة..." />
-      </div>
-      <button class="btn" id="btnSubmitOrder" onclick="submitOrder()">تأكيد وإرسال الطلب الموثق ✅</button>
-    </div>
-  </div>
 
-  <div id="mersalModal" class="modal-backdrop hidden" onclick="if(event.target===this) closeModal('mersalModal')">
-    <div class="modal-box">
-      <div class="modal-header">
-        <h3>🛵 اطلب مشوار خاص / مرسال</h3>
-        <button class="close-btn" onclick="closeModal('mersalModal')">✕</button>
-      </div>
-      <p style="font-size:12px; color:var(--muted); margin-bottom:10px;">
-        التسعيرة الحالية: فتح عداد <b id="lblBaseFare">10</b> ج.م + <b id="lblKmRate">3</b> ج.م لكل كيلومتر.
-      </p>
-      <div class="input-group">
-        <label>نقطة الانطلاق (منين؟) *</label>
-        <select id="mersalFrom" onchange="calcMersalPrice()"></select>
-      </div>
-      <div class="input-group">
-        <label>نقطة الوصول (لفين؟) *</label>
-        <select id="mersalTo" onchange="calcMersalPrice()"></select>
-      </div>
-      <div class="input-group">
-        <label>تفاصيل المشوار أو الطلب *</label>
-        <textarea id="mersalDesc" rows="2" placeholder="مثال: استلام شنطة أوراق من سنورس وتوصيلها للكعابي الجديدة..."></textarea>
-      </div>
-      <div style="background:var(--primary-light); padding:12px; border-radius:12px; margin-bottom:12px; text-align:center;">
-        <div style="font-size:12px; color:var(--muted);">المسافة التقديرية: <b id="mersalDist">2</b> كم</div>
-        <div style="font-size:20px; font-weight:900; color:var(--primary);">التكلفة التقديرية: <span id="mersalPrice">16</span> ج.م</div>
-      </div>
-      <button class="btn" onclick="submitMersal()">طلب كابتن للمشوار الآن 🛵</button>
-    </div>
-  </div>
-
-  <div id="driverRegModal" class="modal-backdrop hidden" onclick="if(event.target===this) closeModal('driverRegModal')">
-    <div class="modal-box">
-      <div class="modal-header">
-        <h3>🛵 تسجيل كابتن توصيل جديد</h3>
-        <button class="close-btn" onclick="closeModal('driverRegModal')">✕</button>
-      </div>
-      <div class="input-group"><label>الاسم ثلاثي *</label><input type="text" id="drvName" /></div>
-      <div class="input-group"><label>رقم الموبايل *</label><input type="tel" id="drvPhone" /></div>
-      <div class="input-group"><label>القرية / المركز *</label><select id="drvArea"></select></div>
-      <div class="input-group"><label>نوع وموديل الموتوسيكل *</label><input type="text" id="drvBike" placeholder="مثال: هوجن 4 / دايون 2023" /></div>
-      <div class="input-group"><label>صورة البطاقة الشخصية (وش وضهر) *</label><input type="file" id="drvIdImg" accept="image/*" /></div>
-      <div class="input-group"><label>صورة رخصة الموتوسيكل / القيادة *</label><input type="file" id="drvLicImg" accept="image/*" /></div>
-      <button class="btn" id="btnSubmitDrv" onclick="submitDriverReg()">إرسال الأوراق للمراجعة ✅</button>
-    </div>
-  </div>
-
-  <div id="driverDashModal" class="modal-backdrop hidden" onclick="if(event.target===this) closeModal('driverDashModal')">
-    <div class="modal-box">
-      <div class="modal-header">
-        <h3>🛵 لوحة الكابتن (الطيار)</h3>
-        <button class="close-btn" onclick="closeModal('driverDashModal')">✕</button>
-      </div>
-      <div class="input-group">
-        <label>أدخل رقم موبايلك المسجل ككابتن:</label>
-        <div style="display:flex; gap:6px;">
-          <input type="tel" id="driverLoginPhone" placeholder="010xxxxxxxx" />
-          <button class="btn btn-sm" onclick="renderDriverDash()">دخول</button>
-        </div>
-      </div>
-      <div id="driverDashBody"></div>
-    </div>
-  </div>
-
-  <div id="pinModal" class="modal-backdrop center hidden" onclick="if(event.target===this) closeModal('pinModal')">
-    <div class="modal-box" style="text-align:center;">
-      <div class="modal-header">
-        <h3>🔐 دخول الإدارة والتجار</h3>
-        <button class="close-btn" onclick="closeModal('pinModal')">✕</button>
-      </div>
-      <p style="font-size:12px; color:var(--muted); margin-bottom:10px;">أدخل الرقم السري للإدارة</p>
-      <div class="input-group"><input type="password" id="pinInput" placeholder="****" style="text-align:center; font-size:20px; letter-spacing:6px;" /></div>
-      <button class="btn" onclick="verifyPin()">دخول اللوحة</button>
-    </div>
-  </div>
-
-  <div id="adminModal" class="modal-backdrop hidden" onclick="if(event.target===this) closeModal('adminModal')">
-    <div class="modal-box" style="max-width:600px;">
-      <div class="modal-header">
-        <h3>⚙️ لوحة إدارة وصلّي الفيوم</h3>
-        <button class="close-btn" onclick="closeModal('adminModal')">✕</button>
-      </div>
-      <div class="admin-tabs">
-        <button class="admin-tab active" onclick="switchAdminTab('Stats', this)">📊 الأرباح والإعدادات</button>
-        <button class="admin-tab" onclick="switchAdminTab('Stores', this)">🏪 المحلات والمنتجات</button>
-        <button class="admin-tab" onclick="switchAdminTab('Offers', this)">🔥 العروض والإعلانات</button>
-        <button class="admin-tab" onclick="switchAdminTab('Drivers', this)">🛵 الطيارين والمحفظة</button>
-        <button class="admin-tab" onclick="switchAdminTab('Users', this)">👥 العملاء والحظر</button>
-      </div>
-      <div id="adminContent"></div>
-    </div>
-  </div>
-
-<script>
-  // ضع رابط قاعدة بيانات Firebase Realtime Database المجانية هنا ليظهر التحديث عند جميع المستخدمين فوراً
-  const CLOUD_DB_URL = "";
-
-  (function initManifest() {
-    const svgIcon = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192"><rect width="192" height="192" rx="42" fill="#FF5A00"/><text x="50%" y="56%" font-size="96" text-anchor="middle" dominant-baseline="middle">🛵</text></svg>`;
-    const iconUrl = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svgIcon);
-    const manifest = {
-      name: "وصلّي الفيوم",
-      short_name: "وصلّي الفيوم",
-      start_url: ".",
-      display: "standalone",
-      background_color: "#F6F7F9",
-      theme_color: "#FF5A00",
-      icons: [{ src: iconUrl, sizes: "192x192", type: "image/svg+xml" }]
-    };
-    const manifestEl = document.getElementById("pwaManifest");
-    if (manifestEl) {
-      manifestEl.setAttribute("href", "data:application/manifest+json;charset=utf-8," + encodeURIComponent(JSON.stringify(manifest)));
-    }
-  })();
-
-  const defaultState = {
-    pin: "1234",
-    firebaseUrl: CLOUD_DB_URL,
-    fleetActive: false,
-    baseFare: 10,
-    kmRate: 3,
-    driverCommission: 4,
-    platformProfit: 0,
-    midAdTitle: "عايز إعلانك يظهر هنا لكل أهالي قريتك؟",
-    midAdSub: "اشترك في باقة الظهور الأسبوعي الآن",
-    areas: ["الكعابي الجديدة", "بيهمو", "سنورس", "مدينة الفيوم", "إطسا", "طامية", "أبشواي"],
-    categories: [
-      { id: "poultry", name: "دواجن ولحوم", icon: "🍗" },
-      { id: "restaurants", name: "مطاعم وأكل", icon: "🍔" },
-      { id: "supermarket", name: "سوبر ماركت", icon: "🛒" },
-      { id: "homeware", name: "أدوات منزلية", icon: "🍳" },
-      { id: "makeup", name: "ميكب وإكسسوار", icon: "💄" },
-      { id: "clothes", name: "ملابس وأحذية", icon: "👕" },
-      { id: "pharmacy", name: "صيدليات", icon: "💊" },
-      { id: "realestate", name: "عقارات البلد", icon: "🏠" }
-    ],
-    ads: [
-      { id: 1, title: "افتتاح عروض الجمعة في الكعابي 🎉", desc: "خصومات تصل لـ 30% على الأدوات المنزلية والميكب", cta: "تصفح العروض", style: "" },
-      { id: 2, title: "عايز توصل أي مشوار في الفيوم؟ 🛵", desc: "اطلب مرسال وصلّي الفيوم وتسعيرتنا بالكيلو!", cta: "اطلب الآن", style: "alt1" },
-      { id: 3, title: "أعلن لمحلك هنا بـ 100ج أسبوعياً 📢", desc: "اوصل لكل بيت في الكعابي وبيهمو وسنورس", cta: "تواصل للإعلان", style: "alt2" }
-    ],
-    stores: [
-      {
-        id: 101, name: "البركة للأدوات المنزلية", cat: "homeware", area: "الكعابي الجديدة",
-        phone: "201000000001", icon: "🍳", rating: "4.9", time: "25 دقيقة", featured: true, active: true,
-        items: [
-          { id: 1, name: "طقم حلل جرانيت تركي 10 قطع", price: 3200 },
-          { id: 2, name: "طقم توابل دوار 12 قطعة", price: 450 },
-          { id: 3, name: "طقم كاسات كريستال 6 قطع", price: 220 }
-        ]
-      },
-      {
-        id: 102, name: "جمالك للميكب والإكسسوارات", cat: "makeup", area: "الكعابي الجديدة",
-        phone: "201000000002", icon: "💄", rating: "4.8", time: "20 دقيقة", featured: true, active: true,
-        items: [
-          { id: 4, name: "بوكس هدايا ميكب متكامل", price: 380 },
-          { id: 5, name: "طقم إكسسوارات مطلي دهب", price: 190 },
-          { id: 6, name: "باليت آيشادو ألوان ترابية", price: 145 }
-        ]
-      },
-      {
-        id: 103, name: "طيور الخير الطازجة", cat: "poultry", area: "الكعابي الجديدة",
-        phone: "201000000003", icon: "🍗", rating: "4.7", time: "30 دقيقة", featured: false, active: true,
-        items: [
-          { id: 7, name: "كيلو فراخ بيضاء طازة", price: 92 },
-          { id: 8, name: "كيلو بانيه شرائح", price: 195 },
-          { id: 9, name: "كيلو وراك مخلي", price: 115 }
-        ]
-      },
-      {
-        id: 104, name: "مكتب النور للعقارات", cat: "realestate", area: "الكعابي الجديدة",
-        phone: "201000000004", icon: "🏠", rating: "5.0", time: "معاينة فورية", featured: false, active: true,
-        items: [
-          { id: 10, name: "شقة 120م تشطيب سوبر لوكس - الكعابي", price: 450000 },
-          { id: 11, name: "محل تجاري للإيجار شارع رئيسي", price: 2500 }
-        ]
-      }
-    ],
-    offers: [
-      { id: 201, storeName: "البركة للأدوات المنزلية", area: "الكعابي الجديدة", title: "عرض جهاز العروسة الاقتصادي (طقم حلل + طقم توزيع)", oldPrice: 3800, newPrice: 3150, expires: "ينتهي خلال 48 ساعة", phone: "201000000001" },
-      { id: 202, storeName: "جمالك للميكب والإكسسوارات", area: "الكعابي الجديدة", title: "اشتري 2 روج ثابت وخدي التالت هدية", oldPrice: 300, newPrice: 190, expires: "حتى نفاد الكمية", phone: "201000000002" }
-    ],
-    drivers: [
-      { id: 301, name: "محمود سعيد (كابتن معتمد)", phone: "01012345678", area: "الكعابي الجديدة", bike: "هوجن 4", status: "approved", wallet: 50, idDoc: "", licDoc: "" }
-    ],
-    users: [],
-    orders: []
-  };
-
-  let state = JSON.parse(localStorage.getItem("wasally_fayoum_final_v1")) || JSON.parse(JSON.stringify(defaultState));
-  if (CLOUD_DB_URL && !state.firebaseUrl) state.firebaseUrl = CLOUD_DB_URL;
-  let currentUser = JSON.parse(localStorage.getItem("wasally_user_final_v1")) || null;
-  let selectedArea = state.areas[0];
-  let selectedCat = "all";
-  let cart = [];
-  let slideIdx = 0;
-
-  function escapeHtml(str) {
-    return String(str || "")
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;")
-      .replace(/"/g, "&quot;")
-      .replace(/'/g, "&#039;");
-  }
-
-  function normalizeArabic(text) {
-    return String(text || "")
-      .toLowerCase()
-      .replace(/[أإآ]/g, "ا")
-      .replace(/ة/g, "ه")
-      .replace(/ى/g, "ي")
-      .trim();
-  }
-
-  async function saveState() {
-    try {
-      localStorage.setItem("wasally_fayoum_final_v1", JSON.stringify(state));
-      const url = state.firebaseUrl || CLOUD_DB_URL;
-      if (url && url.startsWith("https://")) {
-        const cleanUrl = url.replace(/\/$/, "") + "/wasally_db.json";
-        await fetch(cleanUrl, {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(state)
-        });
-      }
-    } catch (e) {
-      console.warn("Storage/Cloud sync notice:", e);
-    }
-  }
-
-  async function syncFromCloud() {
-    const url = state.firebaseUrl || CLOUD_DB_URL;
-    if (!url || !url.startsWith("https://")) return;
-    try {
-      const cleanUrl = url.replace(/\/$/, "") + "/wasally_db.json";
-      const res = await fetch(cleanUrl);
-      const cloudData = await res.json();
-      if (cloudData && Array.isArray(cloudData.stores) && cloudData.stores.length > 0) {
-        state = {
-          ...defaultState,
-          ...cloudData,
-          areas: Array.isArray(cloudData.areas) && cloudData.areas.length ? cloudData.areas : defaultState.areas,
-          categories: Array.isArray(cloudData.categories) && cloudData.categories.length ? cloudData.categories : defaultState.categories,
-          ads: Array.isArray(cloudData.ads) && cloudData.ads.length ? cloudData.ads : defaultState.ads,
-          stores: cloudData.stores,
-          offers: Array.isArray(cloudData.offers) ? cloudData.offers : [],
-          drivers: Array.isArray(cloudData.drivers) ? cloudData.drivers : [],
-          users: Array.isArray(cloudData.users) ? cloudData.users : [],
-          orders: Array.isArray(cloudData.orders) ? cloudData.orders : []
-        };
-        localStorage.setItem("wasally_fayoum_final_v1", JSON.stringify(state));
-        populateAreas();
-        renderHeroSlider();
-        renderMain();
-        renderOffers();
-        renderMyOrders();
-        if (!document.getElementById("driverDashModal").classList.contains("hidden")) {
-          renderDriverDash();
-        }
-      }
-    } catch (e) {
-      console.warn("Cloud fetch skipped:", e);
-    }
-  }
-
-  function formatWhatsAppPhone(phone) {
-    let clean = String(phone || "").replace(/\D/g, "");
-    if (clean.startsWith("2001")) clean = "20" + clean.slice(3);
-    if (clean.startsWith("01")) return "2" + clean;
-    if (clean.startsWith("1") && clean.length === 10) return "20" + clean;
-    return clean;
-  }
-
-  function checkBlocked() {
-    if (!currentUser) return false;
-    const dbUser = state.users.find(u => u.phone === currentUser.phone || u.email.toLowerCase() === currentUser.email.toLowerCase());
-    if (dbUser && dbUser.blocked) {
-      document.body.innerHTML = "<div style='text-align:center;padding:60px 20px;'><h2 style='color:#DC2626;'>هذا الحساب محظور من استخدام التطبيق 🚫</h2><p style='margin-top:10px;color:#6C757D;'>يرجى التواصل مع إدارة وصلّي الفيوم.</p></div>";
-      return true;
-    }
-    return false;
-  }
-
-  window.onload = async () => {
-    await syncFromCloud();
-    populateAreas();
-    if (!currentUser) {
-      document.getElementById("authGate").classList.remove("hidden");
-    } else {
-      if (checkBlocked()) return;
-      selectedArea = currentUser.area || state.areas[0];
-      document.getElementById("areaSelector").value = selectedArea;
-    }
-    const savedDrvPhone = localStorage.getItem("wasally_drv_phone");
-    if (savedDrvPhone && document.getElementById("driverLoginPhone")) {
-      document.getElementById("driverLoginPhone").value = savedDrvPhone;
-    }
-    renderHeroSlider();
-    renderMain();
-    renderOffers();
-    renderMyOrders();
-    renderProfile();
-    setInterval(() => {
-      if (state.ads.length > 1) {
-        slideIdx = (slideIdx + 1) % state.ads.length;
-        updateSlider();
-      }
-    }, 4500);
-    setInterval(() => {
-      if (document.getElementById("adminModal").classList.contains("hidden")) {
-        syncFromCloud();
-      }
-    }, 15000);
-  };
-
-  function populateAreas() {
-    const html = state.areas.map(a => `<option value="${escapeHtml(a)}">${escapeHtml(a)}</option>`).join("");
-    ["areaSelector", "regArea", "drvArea", "mersalFrom"].forEach(id => {
-      const el = document.getElementById(id);
-      if (el) el.innerHTML = html;
-    });
-    const mTo = document.getElementById("mersalTo");
-    if (mTo) mTo.innerHTML = state.areas.map((a, i) => `<option value="${escapeHtml(a)}" ${i===1?'selected':''}>${escapeHtml(a)}</option>`).join("");
-    const areaSel = document.getElementById("areaSelector");
-    if (areaSel && state.areas.includes(selectedArea)) areaSel.value = selectedArea;
-  }
-
-  function registerCustomer() {
-    const name = document.getElementById("regName").value.trim();
-    const phone = document.getElementById("regPhone").value.replace(/\D/g, "");
-    const email = document.getElementById("regEmail").value.trim().toLowerCase();
-    const area = document.getElementById("regArea").value;
-    if (!name || phone.length < 10 || !email.includes("@")) {
-      return alert("من فضلك أدخل الاسم ورقم الموبايل الصحيح والبريد الإلكتروني للمتابعة.");
-    }
-    const existing = state.users.find(u => u.phone === phone || u.email.toLowerCase() === email);
-    if (existing && existing.blocked) {
-      return alert("عذراً، هذا الرقم أو البريد محظور من استخدام التطبيق.");
-    }
-    currentUser = { id: Date.now(), name, phone, email, area, blocked: false };
-    if (!existing) {
-      state.users.push(currentUser);
-      saveState();
-    }
-    localStorage.setItem("wasally_user_final_v1", JSON.stringify(currentUser));
-    selectedArea = area;
-    document.getElementById("areaSelector").value = area;
-    document.getElementById("authGate").classList.add("hidden");
-    renderProfile();
-    renderMain();
-    renderOffers();
-  }
-
-  function logoutUser() {
-    localStorage.removeItem("wasally_user_final_v1");
-    currentUser = null;
-    document.getElementById("authGate").classList.remove("hidden");
-  }
-
-  function changeArea() {
-    selectedArea = document.getElementById("areaSelector").value;
-    renderMain();
-    renderOffers();
-  }
-
-  function renderHeroSlider() {
-    const slidesEl = document.getElementById("heroSlides");
-    const dotsEl = document.getElementById("sliderDots");
-    slidesEl.innerHTML = state.ads.map(ad => `
-      <div class="slide ${escapeHtml(ad.style)}">
-        <div>
-          <span class="slide-badge">إعلان مميز ⭐</span>
-          <h3>${escapeHtml(ad.title)}</h3>
-          <p>${escapeHtml(ad.desc)}</p>
-        </div>
-        <button class="slide-btn" onclick="switchTab('Offers', document.getElementById('navOffers'))">${escapeHtml(ad.cta)}</button>
-      </div>
-    `).join("");
-    dotsEl.innerHTML = state.ads.map((_, i) => `<div class="dot ${i===0?'active':''}"></div>`).join("");
-  }
-
-  function updateSlider() {
-    const slidesEl = document.getElementById("heroSlides");
-    if (!slidesEl) return;
-    slidesEl.style.transform = `translateX(${slideIdx * 100}%)`;
-    document.querySelectorAll(".dot").forEach((d, i) => d.classList.toggle("active", i === slideIdx));
-  }
-
-  function toggleCategory(catId) {
-    selectedCat = (selectedCat === catId) ? "all" : catId;
-    renderMain();
-  }
-
-  function renderMain() {
-    document.getElementById("catsGrid").innerHTML = state.categories.map(c => `
-      <div class="cat-item ${selectedCat===c.id?'active':''}" onclick="toggleCategory('${c.id}')">
-        <div class="cat-icon">${c.icon}</div>
-        <div class="cat-name">${escapeHtml(c.name)}</div>
-      </div>
-    `).join("");
-
-    document.getElementById("midAdContainer").innerHTML = `
-      <div class="mid-ad">
-        <div>
-          <span class="sponsored-tag">إعلان ممول</span>
-          <div style="font-weight:800; font-size:14px; margin-top:2px;">${escapeHtml(state.midAdTitle)}</div>
-          <div style="font-size:11px; color:var(--muted);">${escapeHtml(state.midAdSub)}</div>
-        </div>
-        <button class="btn-outline btn-sm" onclick="switchTab('Offers', document.getElementById('navOffers'))">التفاصيل</button>
-      </div>
-    `;
-
-    const q = normalizeArabic(document.getElementById("searchInput").value);
-    let filtered = state.stores.filter(s => s.active && (s.area === selectedArea || selectedArea === "مدينة الفيوم"));
-    const titleEl = document.getElementById("storesTitle");
-    if (selectedCat !== "all") {
-      filtered = filtered.filter(s => s.cat === selectedCat);
-      const catObj = state.categories.find(c => c.id === selectedCat);
-      titleEl.innerText = catObj ? `قسم: ${catObj.name}` : "المحلات والخدمات المتاحة";
-    } else {
-      titleEl.innerText = "المحلات والخدمات المتاحة";
-    }
-    if (q) {
-      filtered = filtered.filter(s =>
-        normalizeArabic(s.name).includes(q) ||
-        s.items.some(i => normalizeArabic(i.name).includes(q))
-      );
-    }
-    filtered.sort((a, b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0));
-
-    document.getElementById("storesCount").innerText = `${filtered.length} متاح`;
-    document.getElementById("storesList").innerHTML = filtered.length ? filtered.map(s => `
-      <div class="store-card ${s.featured?'featured':''}" onclick="openStore(${s.id})">
-        ${s.featured ? '<span class="featured-badge">مُموّل ⭐</span>' : ''}
-        <div class="store-avatar">${s.icon}</div>
-        <div class="store-info">
-          <div class="store-name">${escapeHtml(s.name)}</div>
-          <div style="font-size:12px; color:var(--muted);">${s.items.slice(0,2).map(i=>escapeHtml(i.name)).join(" • ") || "تصفح المنتجات"}</div>
-          <div class="store-meta">
-            <span>⭐ ${escapeHtml(s.rating)}</span>
-            <span>⏱️ ${escapeHtml(s.time)}</span>
-            <span>📍 ${escapeHtml(s.area)}</span>
-          </div>
-        </div>
-      </div>
-    `).join("") : `<div style="text-align:center; padding:30px; color:var(--muted);">لا توجد محلات مطابقة في ${escapeHtml(selectedArea)} حالياً.</div>`;
-  }
-
-  function openStore(id) {
-    const store = state.stores.find(s => s.id === id);
-    if (!store) return;
-    document.getElementById("modalStoreName").innerText = `${store.icon} ${store.name}`;
-    document.getElementById("modalStoreBody").innerHTML = `
-      <p style="font-size:12px; color:var(--muted); margin-bottom:12px;">📍 ${escapeHtml(store.area)} • ⏱️ التوصيل: ${escapeHtml(store.time)}</p>
-      ${store.items.length ? store.items.map(item => `
-        <div style="display:flex; justify-content:space-between; align-items:center; padding:10px 0; border-bottom:1px solid var(--border);">
+      <div class="card">
+        <div class="filter-row">
           <div>
-            <div style="font-weight:700; font-size:14px;">${escapeHtml(item.name)}</div>
-            <div style="color:var(--primary); font-weight:800; font-size:13px;">${item.price} ج.م</div>
+            <label>📍 اختر القرية أو المركز</label>
+            <select id="filterVillage">
+              <option value="all">كل قرى ومراكز الفيوم</option>
+              <option value="الكعابي الجديدة">الكعابي الجديدة</option>
+              <option value="الكعابي القديمة">الكعابي القديمة</option>
+              <option value="بهمو">بهمو</option>
+              <option value="سنورس">سنورس</option>
+              <option value="الإعلام">الإعلام</option>
+              <option value="ترسا">ترسا</option>
+              <option value="جرفس">جرفس</option>
+              <option value="سنهور القبلية والبحرية">سنهور القبلية والبحرية</option>
+              <option value="بندر الفيوم (المسلة / دلة)">بندر الفيوم (المسلة / دلة)</option>
+              <option value="إطسا">إطسا</option>
+              <option value="طامية">طامية</option>
+              <option value="أبشواي">أبشواي</option>
+              <option value="يوسف الصديق">يوسف الصديق</option>
+            </select>
           </div>
-          <button class="btn btn-sm" onclick="addStoreItemToCart(${store.id}, ${item.id})">+ أضف</button>
-        </div>
-      `).join("") : '<p style="font-size:13px; color:var(--muted);">لم يتم إضافة أصناف لهذا المحل بعد.</p>'}
-    `;
-    document.getElementById("storeModal").classList.remove("hidden");
-  }
 
-  function getStoreKey(name, phone) {
-    return `${String(name).trim()}_${formatWhatsAppPhone(phone)}`;
-  }
-
-  function addStoreItemToCart(storeId, itemId) {
-    if (checkBlocked()) return;
-    if (!currentUser) {
-      document.getElementById("authGate").classList.remove("hidden");
-      return;
-    }
-    const store = state.stores.find(s => s.id === storeId);
-    const item = store ? store.items.find(i => i.id === itemId) : null;
-    if (!store || !item) return;
-
-    const newKey = getStoreKey(store.name, store.phone);
-    if (cart.length && cart[0].storeKey !== newKey) {
-      if (!confirm("السلة بها منتجات من محل آخر، هل تريد إفراغها والبدء من هذا المحل؟")) return;
-      cart = [];
-    }
-    cart.push({ storeKey: newKey, storeName: store.name, storePhone: store.phone, storeArea: store.area, itemName: item.name, price: item.price });
-    updateCartUI();
-    alert(`تمت إضافة "${item.name}" إلى السلة ✅`);
-  }
-
-  function addOfferToCart(offerId) {
-    if (checkBlocked()) return;
-    if (!currentUser) {
-      document.getElementById("authGate").classList.remove("hidden");
-      return;
-    }
-    const offer = state.offers.find(o => o.id === offerId);
-    if (!offer) return;
-    const newKey = getStoreKey(offer.storeName, offer.phone);
-    if (cart.length && cart[0].storeKey !== newKey) {
-      if (!confirm("السلة بها منتجات من محل آخر، هل تريد إفراغها وطلب هذا العرض؟")) return;
-      cart = [];
-    }
-    cart.push({ storeKey: newKey, storeName: offer.storeName, storePhone: offer.phone, storeArea: offer.area, itemName: offer.title, price: offer.newPrice });
-    updateCartUI();
-    alert(`تمت إضافة العرض إلى السلة ✅`);
-  }
-
-  function updateCartUI() {
-    const fc = document.getElementById("floatingCart");
-    if (!cart.length) {
-      fc.classList.add("hidden");
-      closeModal("cartModal");
-      return;
-    }
-    fc.classList.remove("hidden");
-    document.getElementById("cartCount").innerText = cart.length;
-    document.getElementById("cartTotal").innerText = cart.reduce((sum, i) => sum + i.price, 0);
-  }
-
-  function openCartModal() {
-    if (!cart.length) return closeModal("cartModal");
-    const addrInput = document.getElementById("checkoutAddress");
-    if (!addrInput.value.trim()) addrInput.value = selectedArea + " - ";
-    document.getElementById("cartItemsList").innerHTML = cart.map((c, idx) => `
-      <div style="display:flex; justify-content:space-between; padding:6px 0; border-bottom:1px solid var(--border); font-size:13px;">
-        <span>${escapeHtml(c.itemName)}</span>
-        <b>${c.price} ج.م <span style="color:red; cursor:pointer;" onclick="cart.splice(${idx},1); updateCartUI(); if(cart.length) openCartModal();">✕</span></b>
-      </div>
-    `).join("") + `<div style="margin-top:8px; font-weight:900; color:var(--primary);">الإجمالي: ${cart.reduce((s,i)=>s+i.price,0)} ج.م</div>`;
-    document.getElementById("cartModal").classList.remove("hidden");
-  }
-
-  function submitOrder() {
-    if (checkBlocked()) return;
-    if (!currentUser) {
-      document.getElementById("authGate").classList.remove("hidden");
-      return;
-    }
-    const addr = document.getElementById("checkoutAddress").value.trim();
-    const notes = document.getElementById("checkoutNotes").value.trim();
-    if (addr.length < 5) return alert("من فضلك اكتب عنوان التوصيل بالتفصيل.");
-
-    const btn = document.getElementById("btnSubmitOrder");
-    btn.disabled = true;
-
-    const orderCode = "KAA-" + Math.floor(1000 + Math.random() * 9000);
-    const total = cart.reduce((s, i) => s + i.price, 0);
-    const storeName = cart[0].storeName;
-    const storeArea = cart[0].storeArea || selectedArea;
-    const storePhone = formatWhatsAppPhone(cart[0].storePhone);
-    const itemsLines = cart.map(i => `- ${i.itemName} (${i.price} ج.م)`).join("\n");
-
-    const orderObj = {
-      code: orderCode, type: "طلب محل", storeName, area: storeArea, total,
-      customer: currentUser.name,
-      phone: currentUser.phone,
-      address: addr + (notes ? ` (${notes})` : ""),
-      status: state.fleetActive ? "بانتظار كابتن توصيل" : "تم الإرسال للمحل",
-      date: new Date().toLocaleString("ar-EG")
-    };
-    state.orders.unshift(orderObj);
-    saveState();
-
-    const rawMsg = `طلب جديد موثق من تطبيق *وصلّي الفيوم* 🛵\nرقم الطلب: *#${orderCode}*\nالعميل: ${orderObj.customer}\nالموبايل: ${orderObj.phone}\nالعنوان: ${orderObj.address}\n---\nالطلبات:\n${itemsLines}\n---\n*الإجمالي: ${total} ج.م*`;
-    cart = [];
-    document.getElementById("checkoutNotes").value = "";
-    updateCartUI();
-    closeModal("cartModal");
-    closeModal("storeModal");
-    renderMyOrders();
-    btn.disabled = false;
-
-    if (state.fleetActive) {
-      alert(`تم تسجيل طلبك برقم #${orderCode} وإرساله لكباتن التوصيل في ${storeArea} فوراً!`);
-    } else {
-      window.open(`https://wa.me/${storePhone}?text=${encodeURIComponent(rawMsg)}`, "_blank");
-    }
-  }
-
-  function renderOffers() {
-    document.getElementById("offersAreaName").innerText = selectedArea;
-    const areaOffers = state.offers.filter(o => o.area === selectedArea || selectedArea === "مدينة الفيوم");
-    document.getElementById("offersList").innerHTML = areaOffers.length ? areaOffers.map(o => `
-      <div class="offer-card">
-        <div class="offer-header">
-          <span style="font-weight:800; font-size:13px; color:var(--primary);">🏪 ${escapeHtml(o.storeName)} (${escapeHtml(o.area)})</span>
-          <span class="discount-pill">عرض حصري 🔥</span>
-        </div>
-        <div style="font-weight:800; font-size:15px;">${escapeHtml(o.title)}</div>
-        <div class="price-row">
-          <span class="new-price">${o.newPrice} ج.م</span>
-          ${o.oldPrice ? `<span class="old-price">${o.oldPrice} ج.م</span>` : ''}
-        </div>
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px;">
-          <span style="font-size:11px; color:var(--muted);">⏳ ${escapeHtml(o.expires)}</span>
-          <button class="btn btn-sm" onclick="addOfferToCart(${o.id})">اطلب العرض</button>
-        </div>
-      </div>
-    `).join("") : `<div style="text-align:center; padding:30px; color:var(--muted);">لا توجد عروض مسجلة في ${escapeHtml(selectedArea)} حالياً.</div>`;
-  }
-
-  function openMersalModal() {
-    if (checkBlocked()) return;
-    if (!currentUser) {
-      document.getElementById("authGate").classList.remove("hidden");
-      return;
-    }
-    document.getElementById("lblBaseFare").innerText = state.baseFare;
-    document.getElementById("lblKmRate").innerText = state.kmRate;
-    calcMersalPrice();
-    document.getElementById("mersalModal").classList.remove("hidden");
-  }
-
-  function calcMersalPrice() {
-    const f = document.getElementById("mersalFrom").value;
-    const t = document.getElementById("mersalTo").value;
-    const idx1 = Math.max(0, state.areas.indexOf(f));
-    const idx2 = Math.max(0, state.areas.indexOf(t));
-    const dist = f === t ? 2 : (Math.abs(idx1 - idx2) * 4 + 3);
-    const price = state.baseFare + (dist * state.kmRate);
-    document.getElementById("mersalDist").innerText = dist;
-    document.getElementById("mersalPrice").innerText = price;
-  }
-
-  function submitMersal() {
-    const desc = document.getElementById("mersalDesc").value.trim();
-    if (!desc) return alert("اكتب تفاصيل المشوار أو الحاجة اللي عايز تبعتها.");
-    const f = document.getElementById("mersalFrom").value;
-    const t = document.getElementById("mersalTo").value;
-    const price = Number(document.getElementById("mersalPrice").innerText);
-    const code = "MRS-" + Math.floor(1000 + Math.random() * 9000);
-    state.orders.unshift({
-      code, type: "مشوار مرسال 🛵", storeName: `من ${f} إلى ${t}`, area: f, total: price,
-      customer: currentUser.name, phone: currentUser.phone,
-      address: desc, status: "بانتظار قبول كابتن", date: new Date().toLocaleString("ar-EG")
-    });
-    saveState();
-    document.getElementById("mersalDesc").value = "";
-    closeModal("mersalModal");
-    renderMyOrders();
-    alert(`تم تسجيل طلب المشوار برقم #${code} بتكلفة ${price} ج.م، وسيتم إرساله لأقرب كابتن في ${f}!`);
-  }
-
-  function compressImage(file) {
-    return new Promise((resolve) => {
-      if (!file || !file.type.startsWith("image/")) return resolve("");
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        const img = new Image();
-        img.onload = () => {
-          const canvas = document.createElement("canvas");
-          const maxW = 500;
-          const scale = Math.min(1, maxW / img.width);
-          canvas.width = img.width * scale;
-          canvas.height = img.height * scale;
-          const ctx = canvas.getContext("2d");
-          ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-          resolve(canvas.toDataURL("image/jpeg", 0.6));
-        };
-        img.onerror = () => resolve("");
-        img.src = e.target.result;
-      };
-      reader.onerror = () => resolve("");
-      reader.readAsDataURL(file);
-    });
-  }
-
-  function openDriverRegModal() { document.getElementById("driverRegModal").classList.remove("hidden"); }
-  async function submitDriverReg() {
-    const name = document.getElementById("drvName").value.trim();
-    const phone = document.getElementById("drvPhone").value.replace(/\D/g, "");
-    const area = document.getElementById("drvArea").value;
-    const bike = document.getElementById("drvBike").value.trim();
-    const idFile = document.getElementById("drvIdImg").files[0];
-    const licFile = document.getElementById("drvLicImg").files[0];
-    if (!name || phone.length < 10 || !bike || !idFile || !licFile) {
-      return alert("يجب إدخال جميع البيانات ورقم الموبايل الصحيح وإرفاق صورة البطاقة ورخصة الموتوسيكل.");
-    }
-    const existingDrv = state.drivers.find(d => d.phone === phone);
-    if (existingDrv) {
-      return alert(existingDrv.status === "approved" ? "هذا الرقم مسجل ومعتمد بالفعل ككابتن!" : "طلبك مسجل بالفعل وقيد المراجعة من الإدارة.");
-    }
-
-    const btn = document.getElementById("btnSubmitDrv");
-    btn.innerText = "جاري ضغط ورفع الصور... ⏳";
-    btn.disabled = true;
-
-    const idData = await compressImage(idFile);
-    const licData = await compressImage(licFile);
-
-    if (!idData || !licData) {
-      btn.innerText = "إرسال الأوراق للمراجعة ✅";
-      btn.disabled = false;
-      return alert("تأكد من اختيار صور صالحة للبطاقة والرخصة.");
-    }
-
-    state.drivers.push({
-      id: Date.now(), name, phone, area, bike, status: "pending", wallet: 0,
-      idDoc: idData, licDoc: licData
-    });
-    saveState();
-    btn.innerText = "إرسال الأوراق للمراجعة ✅";
-    btn.disabled = false;
-    document.getElementById("drvName").value = "";
-    document.getElementById("drvPhone").value = "";
-    document.getElementById("drvBike").value = "";
-    document.getElementById("drvIdImg").value = "";
-    document.getElementById("drvLicImg").value = "";
-    closeModal("driverRegModal");
-    alert("تم إرسال أوراقك وصور البطاقة والرخصة بنجاح! ستقوم الإدارة بمراجعتها وتفعيل حسابك قريباً.");
-  }
-
-  function openDriverDashboard() {
-    document.getElementById("driverDashModal").classList.remove("hidden");
-    if (document.getElementById("driverLoginPhone").value.trim()) renderDriverDash();
-  }
-
-  function renderDriverDash() {
-    const phoneInput = document.getElementById("driverLoginPhone").value.replace(/\D/g, "");
-    const drv = state.drivers.find(d => d.phone === phoneInput);
-    const body = document.getElementById("driverDashBody");
-    if (!drv) {
-      body.innerHTML = `<p style="color:var(--danger); font-size:13px;">رقم الموبايل غير مسجل في قائمة الكباتن.</p>`;
-      return;
-    }
-    localStorage.setItem("wasally_drv_phone", phoneInput);
-    if (drv.status !== "approved") {
-      body.innerHTML = `<p style="color:var(--primary); font-size:13px;">أهلاً كابتن ${escapeHtml(drv.name)}، أوراقك قيد المراجعة حالياً من الإدارة ⏳</p>`;
-      return;
-    }
-    const openOrders = state.orders.filter(o => o.status.includes("بانتظار") && (!o.area || o.area === drv.area || drv.area === "مدينة الفيوم"));
-    body.innerHTML = `
-      <div style="background:#F8FAFC; padding:10px; border-radius:10px; margin-bottom:10px; font-size:13px;">
-        أهلاً كابتن <b>${escapeHtml(drv.name)}</b> • منطقة: <b>${escapeHtml(drv.area)}</b><br>
-        💰 رصيد محفظتك: <b>${drv.wallet} ج.م</b> (تُخصم عمولة ${state.driverCommission} ج.م عند تسليم كل مشوار)
-      </div>
-      <h4 style="font-size:14px; margin-bottom:8px;">الأوردرات والمشاوير المتاحة في منطقتك:</h4>
-      ${openOrders.length ? openOrders.map(o => `
-        <div style="border:1px solid var(--border); padding:10px; border-radius:10px; margin-bottom:8px; font-size:12px;">
-          <b>#${escapeHtml(o.code)} - ${escapeHtml(o.storeName)}</b><br>
-          العميل: ${escapeHtml(o.customer)} (${escapeHtml(o.phone)})<br>
-          التفاصيل: ${escapeHtml(o.address)} • السعر: <b>${o.total} ج.م</b><br>
-          <button class="btn btn-sm" style="margin-top:6px;" onclick="completeOrderByDriver('${o.code}', ${drv.id})">✅ إتمام التسليم وتحصيل الأجرة</button>
-        </div>
-      `).join("") : '<p style="font-size:12px; color:var(--muted);">لا توجد مشاوير معلقة في منطقتك حالياً.</p>'}
-    `;
-  }
-
-  function completeOrderByDriver(code, drvId) {
-    const drv = state.drivers.find(d => d.id === drvId);
-    if (!drv) return;
-    if (drv.wallet < state.driverCommission) {
-      return alert("رصيد محفظتك غير كافٍ لخصم عمولة المنصة! يرجى شحن المحفظة من الإدارة.");
-    }
-    const ord = state.orders.find(o => o.code === code);
-    if (!ord) return;
-    ord.status = `تم التوصيل بواسطة الكابتن ${drv.name} ✅`;
-    drv.wallet -= state.driverCommission;
-    state.platformProfit += state.driverCommission;
-    saveState();
-    renderDriverDash();
-    renderMyOrders();
-    alert(`تم تسليم الطلب بنجاح وخصم ${state.driverCommission} ج.م عمولة المنصة من محفظتك.`);
-  }
-
-  function renderMyOrders() {
-    document.getElementById("myOrdersList").innerHTML = state.orders.length ? state.orders.map(o => `
-      <div style="background:#fff; padding:12px; border-radius:14px; margin-bottom:10px; box-shadow:var(--shadow); font-size:13px;">
-        <div style="display:flex; justify-content:space-between;"><b>#${escapeHtml(o.code)} (${escapeHtml(o.type)})</b><span class="badge badge-orange">${escapeHtml(o.status)}</span></div>
-        <div style="margin:4px 0;">${escapeHtml(o.storeName)} • <b>${o.total} ج.م</b></div>
-        <div style="font-size:11px; color:var(--muted);">${escapeHtml(o.date)}</div>
-      </div>
-    `).join("") : '<p style="text-align:center; color:var(--muted); padding:20px;">لم تقم بأي طلبات حتى الآن.</p>';
-  }
-
-  function renderProfile() {
-    if (!currentUser) return;
-    document.getElementById("userProfileInfo").innerHTML = `
-      الاسم: <b>${escapeHtml(currentUser.name)}</b><br>
-      الموبايل: <b>${escapeHtml(currentUser.phone)}</b><br>
-      البريد: <b>${escapeHtml(currentUser.email)}</b><br>
-      المنطقة: <b>${escapeHtml(currentUser.area)}</b>
-    `;
-  }
-
-  function openAdminPinModal() { document.getElementById("pinModal").classList.remove("hidden"); }
-  function verifyPin() {
-    if (document.getElementById("pinInput").value === state.pin) {
-      closeModal("pinModal");
-      document.getElementById("pinInput").value = "";
-      document.getElementById("adminModal").classList.remove("hidden");
-      switchAdminTab("Stats", document.querySelector(".admin-tab"));
-    } else {
-      alert("الرقم السري غير صحيح!");
-    }
-  }
-
-  function saveAdminSettings() {
-    const newPin = document.getElementById("admNewPin").value.trim();
-    const fbUrl = document.getElementById("admFbUrl").value.trim();
-    const base = Number(document.getElementById("admBase").value);
-    const km = Number(document.getElementById("admKm").value);
-    const comm = Number(document.getElementById("admComm").value);
-    if (newPin) state.pin = newPin;
-    state.firebaseUrl = fbUrl;
-    if (!isNaN(base)) state.baseFare = base;
-    if (!isNaN(km)) state.kmRate = km;
-    if (!isNaN(comm)) state.driverCommission = comm;
-    saveState();
-    alert("تم حفظ الإعدادات والربط السحابي بنجاح ✅");
-  }
-
-  function addNewAreaAdmin() {
-    const input = document.getElementById("newAreaName");
-    const val = input ? input.value.trim() : "";
-    if (!val) return alert("اكتب اسم القرية أولاً.");
-    if (!state.areas.includes(val)) {
-      state.areas.push(val);
-      saveState();
-      populateAreas();
-      switchAdminTab("Stores");
-      alert("تمت إضافة القرية بنجاح ✅");
-    } else {
-      alert("هذه القرية موجودة بالفعل.");
-    }
-  }
-
-  function resetDemoData() {
-    if (!confirm("هل أنت متأكد من تصفير الأرباح وسجل الطلبات التجريبية للبدء على نظافة؟")) return;
-    state.platformProfit = 0;
-    state.orders = [];
-    saveState();
-    renderMyOrders();
-    switchAdminTab("Stats");
-    alert("تم تصفير الأرباح وسجل التجارب بنجاح ✅");
-  }
-
-  function deleteStoreItemAdmin(storeIdx, itemIdx) {
-    state.stores[storeIdx].items.splice(itemIdx, 1);
-    saveState();
-    renderMain();
-    switchAdminTab("Stores");
-  }
-
-  function fillOfferStoreInfo() {
-    const sel = document.getElementById("offStoreSelect");
-    if (!sel || !sel.value) return;
-    const st = state.stores.find(s => String(s.id) === sel.value);
-    if (st) {
-      document.getElementById("offStore").value = st.name;
-      document.getElementById("offPhone").value = st.phone;
-      document.getElementById("offArea").value = st.area;
-    }
-  }
-
-  function switchAdminTab(tab, btn) {
-    document.querySelectorAll(".admin-tab").forEach(b => b.classList.remove("active"));
-    if (btn) btn.classList.add("active");
-    const box = document.getElementById("adminContent");
-
-    if (tab === "Stats") {
-      box.innerHTML = `
-        <div class="stat-grid">
-          <div class="stat-box"><div class="stat-val">${state.platformProfit} ج.م</div><div class="stat-lbl">إجمالي أرباح المنصة</div></div>
-          <div class="stat-box"><div class="stat-val">${state.orders.length}</div><div class="stat-lbl">إجمالي الطلبات والمشاوير</div></div>
-          <div class="stat-box"><div class="stat-val">${state.stores.length}</div><div class="stat-lbl">المحلات المسجلة</div></div>
-          <div class="stat-box"><div class="stat-val">${state.users.length}</div><div class="stat-lbl">العملاء الموثقين</div></div>
-        </div>
-        <div style="background:#F8FAFC; padding:12px; border-radius:12px; margin-bottom:12px;">
-          <label style="font-weight:800; font-size:13px;">🛵 نظام تشغيل الطيارين (الموتوسيكلات):</label>
-          <p style="font-size:11px; color:var(--muted); margin-bottom:8px;">الحالة الحالية: <b>${state.fleetActive ? "مُفعّل (توصيل عبر طيارين المنصة)" : "مُغلق (التوصيل عبر المحلات ذاتياً)"}</b></p>
-          <button class="btn btn-sm" onclick="state.fleetActive=!state.fleetActive; saveState(); switchAdminTab('Stats');">تبديل حالة الأسطول الآن</button>
-        </div>
-        <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px; margin-bottom:12px;">
-          <div class="input-group"><label>فتح عداد (ج.م)</label><input type="number" id="admBase" value="${state.baseFare}" /></div>
-          <div class="input-group"><label>سعر الكيلو (ج.م)</label><input type="number" id="admKm" value="${state.kmRate}" /></div>
-          <div class="input-group"><label>عمولتك/مشوار</label><input type="number" id="admComm" value="${state.driverCommission}" /></div>
-        </div>
-        <div class="input-group"><label>تغيير الرقم السري للإدارة (PIN)</label><input type="text" id="admNewPin" value="${escapeHtml(state.pin)}" /></div>
-        <div class="input-group"><label>رابط Firebase السحابي (اختياري)</label><input type="url" id="admFbUrl" value="${escapeHtml(state.firebaseUrl)}" placeholder="https://your-project-default-rtdb.firebaseio.com" /></div>
-        <button class="btn" style="margin-bottom:10px;" onclick="saveAdminSettings()">حفظ الإعدادات ✅</button>
-        <button class="btn-outline" style="width:100%; border-color:var(--danger); color:var(--danger);" onclick="resetDemoData()">🗑️ تصفير الأرباح والطلبات التجريبية</button>
-      `;
-    } else if (tab === "Stores") {
-      box.innerHTML = `
-        <h4 style="font-size:13px; margin-bottom:6px;">+ إضافة قرية أو مركز للتوسع</h4>
-        <div style="display:flex; gap:6px; margin-bottom:14px;">
-          <input type="text" id="newAreaName" placeholder="اسم قرية/مركز جديد..." style="flex:1; padding:8px; border:1px solid var(--border); border-radius:10px;" />
-          <button class="btn btn-sm" onclick="addNewAreaAdmin()">إضافة</button>
-        </div>
-
-        <h4 style="font-size:13px; margin-bottom:6px;">+ تسجيل محل / مكتب عقارات جديد</h4>
-        <div style="background:#F8FAFC; padding:10px; border-radius:12px; margin-bottom:14px;">
-          <div class="input-group"><input type="text" id="stName" placeholder="اسم المحل أو المكتب" /></div>
-          <div style="display:flex; gap:6px; margin-bottom:8px;">
-            <select id="stCat" style="flex:1; padding:8px; border-radius:10px; border:1px solid var(--border);">${state.categories.map(c=>`<option value="${c.id}">${c.icon} ${escapeHtml(c.name)}</option>`).join("")}</select>
-            <select id="stArea" style="flex:1; padding:8px; border-radius:10px; border:1px solid var(--border);">${state.areas.map(a=>`<option value="${escapeHtml(a)}">${escapeHtml(a)}</option>`).join("")}</select>
+          <div>
+            <label>🔨 اختر التخصص / المهنة</label>
+            <select id="filterCraft">
+              <option value="all">كل التخصصات</option>
+              <option value="نجار">🪚 نجار (باب وشباك / موبيليا)</option>
+              <option value="سباك">🚰 سباك (تأسيس وصيانة)</option>
+              <option value="كهربائي">⚡ كهربائي</option>
+              <option value="حداد">⚒️ حداد (كريتال / مسلح)</option>
+              <option value="بنا ومقاول عمار">🧱 بنا ومقاول عمار</option>
+              <option value="نقاش وديكورات">🎨 نقاش وديكورات</option>
+              <option value="مبيض محارة">🏗️ مبيض محارة</option>
+              <option value="سيراميك ورخام">🔲 صنايعي سيراميك ورخام</option>
+              <option value="تكييف وتبريد">❄️ فني تكييف وتبريد وغسالات</option>
+              <option value="ألوميتال">🪟 فني ألوميتال</option>
+              <option value="خدمات أخرى">🛠️ خدمات أخرى</option>
+            </select>
           </div>
-          <div class="input-group"><input type="tel" id="stPhone" placeholder="رقم واتساب المحل (مثال: 010xxxxxxxx)" /></div>
-          <button class="btn btn-sm" style="width:100%;" onclick="addNewStoreAdmin()">حفظ وإضافة المحل ✅</button>
         </div>
 
-        <h4 style="font-size:13px; margin-bottom:6px;">+ إضافة منتج / عقار لمحل موجود</h4>
-        <div style="background:#FFF7ED; padding:10px; border-radius:12px; margin-bottom:14px;">
-          <div class="input-group"><select id="prodStoreId">${state.stores.map(s=>`<option value="${s.id}">${escapeHtml(s.name)}</option>`).join("")}</select></div>
-          <div style="display:flex; gap:6px; margin-bottom:8px;">
-            <input type="text" id="prodName" placeholder="اسم الصنف أو العقار" style="flex:2; padding:8px; border-radius:10px; border:1px solid var(--border);" />
-            <input type="number" id="prodPrice" placeholder="السعر" style="flex:1; padding:8px; border-radius:10px; border:1px solid var(--border);" />
+        <div class="form-group" style="margin-bottom:0;">
+          <input type="text" id="searchProInput" placeholder="🔍 ابحث بالاسم أو القرية أو نوع الشغل..." />
+        </div>
+      </div>
+
+      <div id="directoryResults">جاري تحميل الدليل...</div>
+
+      <div class="card" style="background: #f0fdfa; border-color: var(--primary); text-align: center;">
+        <h4 style="color: var(--primary-dark); margin-bottom: 0.3rem;">هل أنت صنايعي أو صاحب مهنة في الفيوم؟</h4>
+        <p style="font-size: 0.85rem; color: var(--muted); margin-bottom: 0.75rem;">سجل اسمك ورقمك في دليل قريتك مجاناً لفترة محدودة ليصلك أهل بلدك بسهولة</p>
+        <a id="joinDirectoryWhatsapp" href="#" target="_blank" class="btn btn-primary" style="max-width: 280px;">اطلب إضافة رقمك للدليل</a>
+      </div>
+    </section>
+
+    <div id="appContainer" class="hidden">
+
+      <section id="authSection">
+        <div class="card" style="max-width: 520px; margin: 0 auto;">
+          <div class="tabs">
+            <div class="tab active" id="tabLogin">تسجيل الدخول</div>
+            <div class="tab" id="tabRegister">إنشاء حساب جديد</div>
           </div>
-          <button class="btn btn-sm" style="width:100%;" onclick="addProductAdmin()">إضافة الصنف للمحل ✅</button>
-        </div>
 
-        <h4 style="font-size:13px; margin-bottom:6px;">المحلات وأصنافها:</h4>
-        ${state.stores.map((s, idx) => `
-          <div style="border:1px solid var(--border); padding:10px; border-radius:12px; margin-bottom:8px; font-size:12px;">
-            <div style="display:flex; justify-content:space-between; align-items:center; gap:4px; margin-bottom:6px;">
-              <b>${s.icon} ${escapeHtml(s.name)} (${escapeHtml(s.area)})</b>
-              <div style="display:flex; gap:4px;">
-                <button class="btn-outline btn-sm" onclick="s.featured=!s.featured; saveState(); renderMain(); switchAdminTab('Stores');">${s.featured?'إلغاء':'تمييز ⭐'}</button>
-                <button class="btn btn-sm" onclick="showQr(${idx})">QR</button>
-                <button class="btn btn-sm" style="background:var(--danger);" onclick="if(confirm('حذف المحل؟')){state.stores.splice(${idx},1); saveState(); renderMain(); switchAdminTab('Stores');}">🗑️</button>
+          <div id="authAlert" class="alert"></div>
+
+          <div id="roleSelectorWrapper" class="hidden">
+            <label>اختر نوع حسابك:</label>
+            <div class="role-grid">
+              <div class="role-card active" data-role="client">
+                <span class="icon">🛍️</span>
+                <div>
+                  <span class="title">عميل</span>
+                  <span class="desc">اطلب توصيل أو مشوار</span>
+                </div>
+              </div>
+              <div class="role-card" data-role="pilot">
+                <span class="icon">🛵</span>
+                <div>
+                  <span class="title">طيار (مندوب)</span>
+                  <span class="desc">استلم الطلبات وحقق دخلاً</span>
+                </div>
+              </div>
+              <div class="role-card" data-role="merchant">
+                <span class="icon">🏪</span>
+                <div>
+                  <span class="title">صاحب محل / عقار</span>
+                  <span class="desc">اعرض منتجاتك أو عقاراتك</span>
+                </div>
               </div>
             </div>
-            <div style="background:#F8FAFC; padding:6px; border-radius:8px;">
-              ${s.items.length ? s.items.map((it, iIdx) => `
-                <div style="display:flex; justify-content:space-between; padding:2px 0; border-bottom:1px dashed var(--border);">
-                  <span>${escapeHtml(it.name)} (${it.price}ج)</span>
-                  <span style="color:var(--danger); cursor:pointer; font-weight:800;" onclick="deleteStoreItemAdmin(${idx}, ${iIdx})">حذف</span>
-                </div>
-              `).join("") : '<span style="color:var(--muted);">لا توجد أصناف</span>'}
+
+            <div class="form-group">
+              <label>الاسم بالكامل</label>
+              <input type="text" id="regName" placeholder="مثال: أحمد محمد" />
+            </div>
+
+            <div class="form-group">
+              <label>رقم الهاتف (واتساب)</label>
+              <input type="tel" id="regPhone" placeholder="010xxxxxxxx" />
+            </div>
+
+            <div class="form-group hidden" id="extraFieldGroup">
+              <label id="extraFieldLabel">تفاصيل النشاط</label>
+              <input type="text" id="regExtra" placeholder="" />
             </div>
           </div>
-        `).join("")}
-      `;
-    } else if (tab === "Offers") {
-      box.innerHTML = `
-        <h4 style="font-size:13px; margin-bottom:8px;">🔥 إضافة عرض جديد مدفوع (100 ج.م)</h4>
-        <div class="input-group">
-          <select id="offStoreSelect" onchange="fillOfferStoreInfo()">
-            <option value="">-- اختر محل مسجل (أو اكتب بالأسفل) --</option>
-            ${state.stores.map(s=>`<option value="${s.id}">${escapeHtml(s.name)}</option>`).join("")}
-          </select>
-        </div>
-        <div class="input-group"><input type="text" id="offStore" placeholder="اسم المحل المعلن" /></div>
-        <div class="input-group"><select id="offArea">${state.areas.map(a=>`<option value="${escapeHtml(a)}">${escapeHtml(a)}</option>`).join("")}</select></div>
-        <div class="input-group"><input type="tel" id="offPhone" placeholder="رقم واتساب المحل (010xxxxxxxx)" /></div>
-        <div class="input-group"><input type="text" id="offTitle" placeholder="تفاصيل العرض (مثال: خصم 25% على أطقم الحلل)" /></div>
-        <div class="input-group"><input type="text" id="offExpires" placeholder="مدة العرض (مثال: ينتهي خلال 48 ساعة)" value="ينتهي خلال 48 ساعة" /></div>
-        <div style="display:flex; gap:8px;">
-          <div class="input-group" style="flex:1;"><input type="number" id="offOld" placeholder="السعر قبل" /></div>
-          <div class="input-group" style="flex:1;"><input type="number" id="offNew" placeholder="السعر بعد" /></div>
-        </div>
-        <button class="btn" style="margin-bottom:14px;" onclick="addOfferAdmin()">نشر العرض وإضافة 100ج للأرباح ✅</button>
-        ${state.offers.map((o, idx) => `
-          <div style="display:flex; justify-content:space-between; padding:8px; border-bottom:1px solid var(--border); font-size:12px;">
-            <span><b>${escapeHtml(o.storeName)} (${escapeHtml(o.area)}):</b> ${escapeHtml(o.title)}</span>
-            <button style="color:red; border:none; background:none; font-weight:800; cursor:pointer;" onclick="state.offers.splice(${idx},1); saveState(); renderOffers(); switchAdminTab('Offers');">حذف</button>
-          </div>
-        `).join("")}
 
-        <h4 style="font-size:13px; margin:14px 0 8px;">📢 تعديل البانرات الإعلانية والشريط الأوسط</h4>
-        ${state.ads.map((ad, idx) => `
-          <div style="background:#F8FAFC; padding:8px; border-radius:10px; margin-bottom:8px;">
-            <input type="text" value="${escapeHtml(ad.title)}" onchange="state.ads[${idx}].title=this.value; saveState(); renderHeroSlider();" style="width:100%; padding:6px; margin-bottom:4px; border:1px solid var(--border); border-radius:8px; font-size:12px;" />
-            <input type="text" value="${escapeHtml(ad.desc)}" onchange="state.ads[${idx}].desc=this.value; saveState(); renderHeroSlider();" style="width:100%; padding:6px; border:1px solid var(--border); border-radius:8px; font-size:12px;" />
+          <div class="form-group">
+            <label>البريد الإلكتروني (Gmail)</label>
+            <input type="email" id="authEmail" placeholder="example@gmail.com" />
           </div>
-        `).join("")}
-        <div style="background:#FFF7ED; padding:8px; border-radius:10px;">
-          <small>تعديل الإعلان الأوسط:</small>
-          <input type="text" value="${escapeHtml(state.midAdTitle)}" onchange="state.midAdTitle=this.value; saveState(); renderMain();" style="width:100%; padding:6px; margin:4px 0; border:1px solid var(--border); border-radius:8px; font-size:12px;" />
-          <input type="text" value="${escapeHtml(state.midAdSub)}" onchange="state.midAdSub=this.value; saveState(); renderMain();" style="width:100%; padding:6px; border:1px solid var(--border); border-radius:8px; font-size:12px;" />
+
+          <div class="form-group">
+            <label>كلمة المرور</label>
+            <input type="password" id="authPassword" placeholder="6 أحرف أو أرقام على الأقل" />
+          </div>
+
+          <button class="btn btn-primary" id="submitAuthBtn">دخول</button>
         </div>
-      `;
-    } else if (tab === "Drivers") {
-      box.innerHTML = state.drivers.map(d => `
-        <div style="border:1px solid var(--border); padding:10px; border-radius:12px; margin-bottom:10px; font-size:12px;">
-          <b>🛵 ${escapeHtml(d.name)}</b> (${escapeHtml(d.phone)}) - ${escapeHtml(d.bike)} (${escapeHtml(d.area)})<br>
-          الحالة: <b>${d.status === 'approved' ? 'معتمد ✅' : 'بانتظار المراجعة ⏳'}</b> • المحفظة: <b>${d.wallet} ج.م</b>
-          ${d.idDoc && d.idDoc.startsWith('data:') ? `<div><small>صورة البطاقة:</small><img src="${d.idDoc}" class="doc-preview" /></div>` : ''}
-          ${d.licDoc && d.licDoc.startsWith('data:') ? `<div><small>صورة الرخصة:</small><img src="${d.licDoc}" class="doc-preview" /></div>` : ''}
-          <div style="margin-top:8px; display:flex; gap:6px;">
-            ${d.status !== 'approved' ? `<button class="btn btn-sm" onclick="d.status='approved'; d.wallet=50; saveState(); switchAdminTab('Drivers');">قبول وتفعيل (+50ج رصيد)</button>` : ''}
-            <button class="btn-outline btn-sm" onclick="d.wallet+=50; saveState(); switchAdminTab('Drivers');">+ شحن 50ج للمحفظة</button>
+      </section>
+
+      <section id="verifySection" class="hidden">
+        <div class="card" style="max-width: 480px; margin: 1rem auto; text-align: center;">
+          <div style="font-size: 3rem; margin-bottom: 0.75rem;">📩</div>
+          <h3 style="margin-bottom: 0.5rem;">يرجى تأكيد بريدك الإلكتروني</h3>
+          <p style="color: var(--muted); font-size: 0.92rem; margin-bottom: 1.25rem;">
+            أرسلنا رابط التفعيل إلى بريدك الإلكتروني (<strong id="verifyEmailText"></strong>). افتح الرسالة واضغط على الرابط، ثم عد واضغط على الزر بالأسفل.
+          </p>
+          <button class="btn btn-primary" id="checkVerifiedBtn" style="margin-bottom: 0.6rem;">تم التفعيل، دخول الآن</button>
+          <button class="btn btn-outline" id="resendVerifyBtn" style="color: var(--primary); border-color: var(--primary); width: 100%;">إعادة إرسال رابط التفعيل</button>
+        </div>
+      </section>
+
+      <section id="clientDashboard" class="hidden">
+        <div class="card">
+          <h3 style="margin-bottom: 0.3rem;">مرحباً، <span class="userNameDisplay"></span> 👋</h3>
+          <p style="color: var(--muted); font-size: 0.88rem; margin-bottom: 1.2rem;">اطلب مشوارك أو أي خدمة من المركز أو القرية في دقائق</p>
+
+          <div class="form-group">
+            <label>نوع الخدمة</label>
+            <select id="orderType">
+              <option value="توصيل طلبات ومشتريات">🛍️ توصيل طلبات ومشتريات من المركز/القرية</option>
+              <option value="علاج من صيدلية / تحليل">💊 إحضار علاج من صيدلية / تحليل</option>
+              <option value="مشوار خاص">🛵 مشوار داخل القرية أو للمركز</option>
+              <option value="استفسار عقاري">🏢 استفسار أو معاينة عقار</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>مكان الاستلام / الانطلاق</label>
+            <input type="text" id="orderPickup" placeholder="مثال: الكعابي الجديدة - بجوار..." />
+          </div>
+
+          <div class="form-group">
+            <label>مكان التسليم / الوجهة</label>
+            <input type="text" id="orderDropoff" placeholder="مثال: سنورس / بندر الفيوم..." />
+          </div>
+
+          <div class="form-group">
+            <label>تفاصيل الطلب</label>
+            <textarea id="orderDetails" rows="2" placeholder="اكتب تفاصيل الطلب أو اسم العلاج..."></textarea>
+          </div>
+
+          <button class="btn btn-primary" id="createOrderBtn">إرسال الطلب الآن</button>
+        </div>
+
+        <div class="card">
+          <h3 style="margin-bottom: 1rem;">طلباتي السابقة والحالية</h3>
+          <div id="clientOrdersList">جاري التحميل...</div>
+        </div>
+      </section>
+
+      <section id="pilotDashboard" class="hidden">
+        <div class="card">
+          <h3 style="margin-bottom: 0.3rem;">كابتن / <span class="userNameDisplay"></span> 🛵</h3>
+          <p style="color: var(--muted); font-size: 0.88rem;">الطلبات المتاحة للتوصيل في الفيوم الآن</p>
+        </div>
+        <div id="pilotOrdersList">جاري تحميل الطلبات...</div>
+      </section>
+
+      <section id="merchantDashboard" class="hidden">
+        <div class="card">
+          <h3 style="margin-bottom: 0.3rem;">أهلاً بك، <span class="userNameDisplay"></span> 🏪</h3>
+          <p style="color: var(--muted); font-size: 0.88rem; margin-bottom: 1.2rem;">أضف عرضاً جديداً أو اطلب طياراً لتوصيل أوردر لعميلك</p>
+
+          <div class="form-group">
+            <label>عنوان العرض أو الطلب</label>
+            <input type="text" id="merchantTitle" placeholder="مثال: توصيل أوردر من محل... أو شقة للإيجار" />
+          </div>
+          <div class="form-group">
+            <label>العنوان بالتفصيل</label>
+            <input type="text" id="merchantAddress" placeholder="القرية / الحي / الشارع" />
+          </div>
+          <div class="form-group">
+            <label>التفاصيل والسعر</label>
+            <textarea id="merchantDetails" rows="2" placeholder="اكتب التفاصيل كاملة..."></textarea>
+          </div>
+          <button class="btn btn-primary" id="merchantPostBtn">نشر / طلب توصيل</button>
+        </div>
+
+        <div class="card">
+          <h3 style="margin-bottom: 1rem;">نشاطاتك المسجلة</h3>
+          <div id="merchantOrdersList">جاري التحميل...</div>
+        </div>
+      </section>
+
+      <section id="adminDashboard" class="hidden">
+        <div class="card" style="border-top: 4px solid var(--accent);">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
+            <div>
+              <h3>لوحة تحكم الإدارة العليا 🛡️</h3>
+              <p style="color: var(--muted); font-size: 0.85rem;">إدارة الدليل، الشكاوى، الطلبات، والحسابات</p>
+            </div>
+            <span class="badge badge-active">وضع المالك</span>
+          </div>
+
+          <div class="stats-grid">
+            <div class="stat-box">
+              <h3 id="statPros">0</h3>
+              <p>صنايعية الدليل</p>
+            </div>
+            <div class="stat-box">
+              <h3 id="statComplaints" style="color:var(--danger);">0</h3>
+              <p>الشكاوى والبلاغات</p>
+            </div>
+            <div class="stat-box">
+              <h3 id="statUsers">0</h3>
+              <p>الحسابات المسجلة</p>
+            </div>
+            <div class="stat-box">
+              <h3 id="statOrders">0</h3>
+              <p>إجمالي الطلبات</p>
+            </div>
           </div>
         </div>
-      `).join("");
-    } else if (tab === "Users") {
-      box.innerHTML = state.users.length ? state.users.map(u => `
-        <div style="display:flex; justify-content:space-between; align-items:center; padding:8px 0; border-bottom:1px solid var(--border); font-size:12px;">
-          <div><b>${escapeHtml(u.name)}</b><br>${escapeHtml(u.phone)} • ${escapeHtml(u.email)}</div>
-          <button class="btn btn-sm" style="background:${u.blocked?'var(--success)':'var(--danger)'};" onclick="u.blocked=!u.blocked; saveState(); switchAdminTab('Users'); checkBlocked();">${u.blocked?'فك الحظر':'حظر مشاغب 🚫'}</button>
+
+        <div class="card" style="border-right: 4px solid var(--danger);">
+          <h3 style="margin-bottom: 0.3rem; color: var(--danger);">🚨 الشكاوى والبلاغات الواردة من العملاء</h3>
+          <p style="color: var(--muted); font-size: 0.84rem; margin-bottom: 1rem;">تابع أي شكوى ضد صنايعي أو محل أو طيار وتواصل مع العميل لحلها</p>
+          <div id="adminComplaintsList">جاري التحميل...</div>
         </div>
-      `).join("") : '<p style="font-size:12px; color:var(--muted);">لا يوجد عملاء مسجلون بعد.</p>';
+
+        <div class="card" style="border-right: 4px solid var(--primary);">
+          <h3 style="margin-bottom: 0.3rem;">➕ إضافة صنايعي / خدمة إلى الدليل</h3>
+          <p style="color: var(--muted); font-size: 0.84rem; margin-bottom: 1rem;">سجل بيانات الصنايعي هنا ليظهر فوراً لأهل قريته في الدليل</p>
+
+          <div class="filter-row">
+            <div>
+              <label>القرية / المركز</label>
+              <select id="adminProVillage">
+                <option value="الكعابي الجديدة">الكعابي الجديدة</option>
+                <option value="الكعابي القديمة">الكعابي القديمة</option>
+                <option value="بهمو">بهمو</option>
+                <option value="سنورس">سنورس</option>
+                <option value="الإعلام">الإعلام</option>
+                <option value="ترسا">ترسا</option>
+                <option value="جرفس">جرفس</option>
+                <option value="سنهور القبلية والبحرية">سنهور القبلية والبحرية</option>
+                <option value="بندر الفيوم (المسلة / دلة)">بندر الفيوم (المسلة / دلة)</option>
+                <option value="إطسا">إطسا</option>
+                <option value="طامية">طامية</option>
+                <option value="أبشواي">أبشواي</option>
+                <option value="يوسف الصديق">يوسف الصديق</option>
+              </select>
+            </div>
+
+            <div>
+              <label>التخصص / المهنة</label>
+              <select id="adminProCraft">
+                <option value="نجار">نجار</option>
+                <option value="سباك">سباك</option>
+                <option value="كهربائي">كهربائي</option>
+                <option value="حداد">حداد</option>
+                <option value="بنا ومقاول عمار">بنا ومقاول عمار</option>
+                <option value="نقاش وديكورات">نقاش وديكورات</option>
+                <option value="مبيض محارة">مبيض محارة</option>
+                <option value="سيراميك ورخام">سيراميك ورخام</option>
+                <option value="تكييف وتبريد">تكييف وتبريد</option>
+                <option value="ألوميتال">ألوميتال</option>
+                <option value="خدمات أخرى">خدمات أخرى</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="filter-row">
+            <div>
+              <label>اسم الصنايعي / الأسطى</label>
+              <input type="text" id="adminProName" placeholder="مثال: الأسطى محمود النجار" />
+            </div>
+            <div>
+              <label>رقم الهاتف (للاتصال والواتساب)</label>
+              <input type="tel" id="adminProPhone" placeholder="010xxxxxxxx" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>ملاحظة / تفاصيل إضافية (اختياري)</label>
+            <input type="text" id="adminProNote" placeholder="مثال: بجوار المسجد الكبير - تأسيس وصيانة جميع الأعمال" />
+          </div>
+
+          <div class="form-group" style="display:flex; align-items:center; gap:0.5rem;">
+            <input type="checkbox" id="adminProVip" style="width:18px; height:18px;" />
+            <label for="adminProVip" style="margin:0; cursor:pointer;">⭐ تمييز كـ "موثق / VIP" (يظهر في أعلى القائمة)</label>
+          </div>
+
+          <button class="btn btn-primary" id="addProBtn">حفظ ونشر في الدليل فوراً</button>
+        </div>
+
+        <div class="card">
+          <h3 style="margin-bottom: 1rem;">📋 الصنايعية المسجلين حالياً في الدليل</h3>
+          <div id="adminProsList">جاري التحميل...</div>
+        </div>
+
+        <div class="card">
+          <h3 style="margin-bottom: 1rem;">📦 جميع طلبات التوصيل</h3>
+          <div id="adminOrdersList">جاري التحميل...</div>
+        </div>
+
+        <div class="card">
+          <h3 style="margin-bottom: 1rem;">👥 الحسابات المسجلة</h3>
+          <div id="adminUsersList">جاري التحميل...</div>
+        </div>
+      </section>
+
+    </div>
+
+  </main>
+
+  <a id="floatingSupportBtn" href="#" target="_blank" class="floating-support">
+    💬 دعم وصلة الفيوم
+  </a>
+
+  <div id="complaintModal" class="modal-backdrop hidden">
+    <div class="modal-box">
+      <h3 style="margin-bottom: 0.3rem;">⚠️ تقديم شكوى أو بلاغ لإدارة التطبيق</h3>
+      <p style="font-size: 0.84rem; color: var(--muted); margin-bottom: 1rem;">
+        لو واجهتك مشكلة مع صنايعي أو محل أو طيار، اكتب التفاصيل وهنتواصل معاك فوراً لحلها.
+      </p>
+
+      <div class="form-group">
+        <label>الطرف المشكو في حقه (اسم الصنايعي / المحل / الطيار)</label>
+        <input type="text" id="compTarget" placeholder="مثال: الأسطى فلان - نجار الكعابي" />
+      </div>
+
+      <div class="form-group">
+        <label>اسمك ورقم تليفونك للتواصل</label>
+        <input type="text" id="compReporter" placeholder="مثال: محمد علي - 010xxxxxxxx" />
+      </div>
+
+      <div class="form-group">
+        <label>تفاصيل المشكلة</label>
+        <textarea id="compDetails" rows="3" placeholder="اشرح اللي حصل بالتفصيل..."></textarea>
+      </div>
+
+      <div style="display:flex; gap:0.5rem;">
+        <button class="btn btn-danger" id="submitComplaintBtn" style="flex:1;">إرسال الشكوى للإدارة</button>
+        <button class="btn" id="closeComplaintModalBtn" style="background:#e2e8f0; color:var(--text);">إلغاء</button>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    وصلة الفيوم © 2026 — دليل خدمات وتوصيل أهل الفيوم
+  </footer>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+    import {
+      getAuth,
+      createUserWithEmailAndPassword,
+      signInWithEmailAndPassword,
+      sendEmailVerification,
+      onAuthStateChanged,
+      signOut
+    } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
+    import {
+      getFirestore,
+      doc,
+      setDoc,
+      getDoc,
+      collection,
+      addDoc,
+      updateDoc,
+      deleteDoc,
+      onSnapshot,
+      query,
+      orderBy,
+      serverTimestamp
+    } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyD2g2KPdwraJ9NwdeNAl77B5_U8e4t5z_0",
+      authDomain: "wasally-fayoum-15e81.firebaseapp.com",
+      projectId: "wasally-fayoum-15e81",
+      storageBucket: "wasally-fayoum-15e81.firebasestorage.app",
+      messagingSenderId: "689409464064",
+      appId: "1:689409464064:web:55f204e5786fac634f45e5",
+      measurementId: "G-WG228RX678"
+    };
+
+    const SUPPORT_WHATSAPP = "201125964054";
+    const ADMIN_EMAIL = "freedomar621@gmail.com";
+
+    function escapeHTML(str = "") {
+      return String(str)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#39;");
     }
-  }
 
-  function addNewStoreAdmin() {
-    const name = document.getElementById("stName").value.trim();
-    const catId = document.getElementById("stCat").value;
-    const area = document.getElementById("stArea").value;
-    const phone = document.getElementById("stPhone").value.replace(/\D/g, "");
-    if (!name || phone.length < 10) return alert("اكتب اسم المحل ورقم واتساب صحيح مكون من 11 رقم.");
-    const catObj = state.categories.find(c => c.id === catId);
-    state.stores.unshift({
-      id: Date.now(), name, cat: catId, area, phone,
-      icon: catObj ? catObj.icon : "🏪", rating: "5.0", time: "25 دقيقة",
-      featured: false, active: true, items: []
+    function formatPhones(rawPhone = "") {
+      let digits = String(rawPhone).replace(/\D/g, "");
+      if (digits.startsWith("0020")) digits = digits.slice(4);
+      else if (digits.startsWith("20") && digits.length === 12) digits = digits.slice(2);
+      if (!digits.startsWith("0") && digits.length === 10) digits = "0" + digits;
+      const callPhone = digits;
+      const waPhone = digits.startsWith("0") ? "2" + digits : digits;
+      return { callPhone, waPhone };
+    }
+
+    document.getElementById("floatingSupportBtn").href =
+      `https://wa.me/${SUPPORT_WHATSAPP}?text=${encodeURIComponent("السلام عليكم، محتاج مساعدة أو دعم من إدارة وصلة الفيوم")}`;
+    document.getElementById("joinDirectoryWhatsapp").href =
+      `https://wa.me/${SUPPORT_WHATSAPP}?text=${encodeURIComponent("السلام عليكم، عايز أسجل اسمي ورقمي في دليل صنايعية وصلة الفيوم")}`;
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    let activeListeners = [];
+    function clearActiveListeners() {
+      activeListeners.forEach(unsub => {
+        if (typeof unsub === "function") unsub();
+      });
+      activeListeners = [];
+    }
+
+    const navDirectory = document.getElementById("navDirectory");
+    const navApp = document.getElementById("navApp");
+    const directorySection = document.getElementById("directorySection");
+    const appContainer = document.getElementById("appContainer");
+
+    navDirectory.addEventListener("click", () => {
+      navDirectory.classList.add("active");
+      navApp.classList.remove("active");
+      directorySection.classList.remove("hidden");
+      appContainer.classList.add("hidden");
     });
-    saveState();
-    renderMain();
-    switchAdminTab("Stores");
-    alert("تمت إضافة المحل بنجاح! تقدر تضيفله منتجات دلوقتي.");
-  }
 
-  function addProductAdmin() {
-    const sId = Number(document.getElementById("prodStoreId").value);
-    const pName = document.getElementById("prodName").value.trim();
-    const pPrice = Number(document.getElementById("prodPrice").value);
-    if (!pName || !pPrice) return alert("اكتب اسم الصنف والسعر");
-    const st = state.stores.find(s => s.id === sId);
-    if (st) {
-      st.items.push({ id: Date.now(), name: pName, price: pPrice });
-      saveState();
-      renderMain();
-      switchAdminTab("Stores");
-      alert(`تمت إضافة "${pName}" داخل ${st.name} بنجاح ✅`);
+    navApp.addEventListener("click", () => {
+      navApp.classList.add("active");
+      navDirectory.classList.remove("active");
+      appContainer.classList.remove("hidden");
+      directorySection.classList.add("hidden");
+    });
+
+    const complaintModal = document.getElementById("complaintModal");
+    window.openComplaintWithTarget = (targetText = "") => {
+      document.getElementById("compTarget").value = targetText;
+      complaintModal.classList.remove("hidden");
+    };
+
+    document.getElementById("openComplaintModalBtn").addEventListener("click", () => {
+      window.openComplaintWithTarget("");
+    });
+
+    document.getElementById("closeComplaintModalBtn").addEventListener("click", () => {
+      complaintModal.classList.add("hidden");
+    });
+
+    document.getElementById("submitComplaintBtn").addEventListener("click", async () => {
+      const target = document.getElementById("compTarget").value.trim();
+      const reporter = document.getElementById("compReporter").value.trim();
+      const details = document.getElementById("compDetails").value.trim();
+
+      if (!target || !reporter || !details) {
+        return alert("يرجى ملء جميع خانات الشكوى لنتمكن من مساعدتك.");
+      }
+
+      await addDoc(collection(db, "complaints"), {
+        target,
+        reporter,
+        details,
+        status: "open",
+        createdAt: serverTimestamp()
+      });
+
+      document.getElementById("compTarget").value = "";
+      document.getElementById("compReporter").value = "";
+      document.getElementById("compDetails").value = "";
+      complaintModal.classList.add("hidden");
+      alert("تم إرسال شكواك لإدارة وصلة الفيوم بنجاح، وسنتواصل معك في أقرب وقت.");
+    });
+
+    let allProfessionals = [];
+    const filterVillage = document.getElementById("filterVillage");
+    const filterCraft = document.getElementById("filterCraft");
+    const searchProInput = document.getElementById("searchProInput");
+    const directoryResults = document.getElementById("directoryResults");
+
+    function renderDirectory() {
+      const vVal = filterVillage.value;
+      const cVal = filterCraft.value;
+      const qVal = searchProInput.value.trim().toLowerCase();
+
+      const filtered = allProfessionals
+        .filter(p => {
+          const matchVillage = (vVal === "all" || p.village === vVal);
+          const matchCraft = (cVal === "all" || p.craft === cVal);
+          const matchQuery = !qVal ||
+            (p.name && p.name.toLowerCase().includes(qVal)) ||
+            (p.village && p.village.toLowerCase().includes(qVal)) ||
+            (p.craft && p.craft.toLowerCase().includes(qVal)) ||
+            (p.note && p.note.toLowerCase().includes(qVal));
+          return matchVillage && matchCraft && matchQuery;
+        })
+        .sort((a, b) => (b.isVip ? 1 : 0) - (a.isVip ? 1 : 0));
+
+      if (filtered.length === 0) {
+        directoryResults.innerHTML = `
+          <div class="card" style="text-align:center; color:var(--muted);">
+            <p style="font-size:1rem; font-weight:700; margin-bottom:0.3rem;">لا يوجد صنايعية مسجلين في هذا القسم حالياً</p>
+            <p style="font-size:0.85rem;">جرب اختيار "كل قرى ومراكز الفيوم" أو تخصص آخر</p>
+          </div>
+        `;
+        return;
+      }
+
+      directoryResults.innerHTML = filtered.map(p => {
+        const { callPhone, waPhone } = formatPhones(p.phone);
+        const safeLabel = escapeHTML(`${p.name} (${p.craft} - ${p.village})`);
+        return `
+          <div class="pro-card ${p.isVip ? "vip" : ""}">
+            <div>
+              <div style="display:flex; align-items:center; gap:0.45rem; flex-wrap:wrap; margin-bottom:0.3rem;">
+                <strong style="font-size:1.05rem;">${escapeHTML(p.name)}</strong>
+                ${p.isVip ? `<span class="badge badge-vip">⭐ موثق</span>` : ""}
+                <span class="badge badge-active">${escapeHTML(p.craft)}</span>
+                <span class="badge badge-done">📍 ${escapeHTML(p.village)}</span>
+              </div>
+              <p style="font-size:0.88rem; color:var(--primary-dark); font-weight:700;">📞 ${escapeHTML(callPhone)}</p>
+              ${p.note ? `<p style="font-size:0.82rem; color:var(--muted); margin-top:0.2rem;">${escapeHTML(p.note)}</p>` : ""}
+            </div>
+            <div class="pro-actions">
+              <a href="tel:${callPhone}" class="btn btn-primary">📞 اتصال</a>
+              <a href="https://wa.me/${waPhone}?text=${encodeURIComponent("السلام عليكم، لقيت رقمك على تطبيق وصلة الفيوم")}" target="_blank" class="btn btn-whatsapp">واتساب</a>
+              <button class="btn btn-warning-soft complain-pro-btn" data-target="${safeLabel}">⚠️ شكوى</button>
+            </div>
+          </div>
+        `;
+      }).join("");
+
+      directoryResults.querySelectorAll(".complain-pro-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          window.openComplaintWithTarget(btn.dataset.target);
+        });
+      });
     }
-  }
 
-  function addOfferAdmin() {
-    const storeName = document.getElementById("offStore").value.trim();
-    const area = document.getElementById("offArea").value;
-    const phone = document.getElementById("offPhone").value.replace(/\D/g, "");
-    const title = document.getElementById("offTitle").value.trim();
-    const expires = document.getElementById("offExpires").value.trim() || "عرض الأسبوع 🔥";
-    const oldPrice = Number(document.getElementById("offOld").value);
-    const newPrice = Number(document.getElementById("offNew").value);
-    if (!storeName || phone.length < 10 || !title || !newPrice) return alert("أكمل بيانات العرض ورقم الواتساب الصحيح.");
-    state.offers.unshift({ id: Date.now(), storeName, area, title, oldPrice, newPrice, expires, phone });
-    state.platformProfit += 100;
-    saveState();
-    renderOffers();
-    switchAdminTab("Offers");
-    alert("تم نشر العرض وإضافة 100 ج.م لإجمالي أرباحك!");
-  }
+    filterVillage.addEventListener("change", renderDirectory);
+    filterCraft.addEventListener("change", renderDirectory);
+    searchProInput.addEventListener("input", renderDirectory);
 
-  function showQr(idx) {
-    const s = state.stores[idx];
-    if (!s) return;
-    alert(`جاهز للطباعة لمحل (${s.name}):\nيمكنك تحويل هذا الرابط لـ QR Code مجاني وتعليقه على باب المحل:\n${window.location.href}`);
-  }
+    const prosQuery = query(collection(db, "professionals"), orderBy("createdAt", "desc"));
+    onSnapshot(prosQuery, (snap) => {
+      allProfessionals = [];
+      snap.forEach(d => {
+        allProfessionals.push({ id: d.id, ...d.data() });
+      });
+      renderDirectory();
 
-  function switchTab(tabName, btn) {
-    ["Home", "Offers", "Orders", "Account"].forEach(t => document.getElementById("tab" + t).classList.add("hidden"));
-    document.getElementById("tab" + tabName).classList.remove("hidden");
-    document.querySelectorAll(".nav-item").forEach(n => n.classList.remove("active"));
-    if (btn) btn.classList.add("active");
-  }
+      const adminProsList = document.getElementById("adminProsList");
+      const statPros = document.getElementById("statPros");
+      if (statPros) statPros.textContent = allProfessionals.length;
+      if (adminProsList) {
+        if (allProfessionals.length === 0) {
+          adminProsList.innerHTML = "<p style='color:var(--muted)'>لم تقم بإضافة أي صنايعي بعد.</p>";
+        } else {
+          adminProsList.innerHTML = allProfessionals.map(p => `
+            <div class="order-item" style="display:flex; justify-content:space-between; align-items:center; gap:0.5rem; flex-wrap:wrap;">
+              <div>
+                <strong>${escapeHTML(p.name)}</strong> ${p.isVip ? "⭐" : ""}
+                <span class="badge badge-active">${escapeHTML(p.craft)}</span>
+                <span class="badge badge-done">${escapeHTML(p.village)}</span>
+                <p style="font-size:0.84rem; color:var(--muted); margin-top:0.2rem;">📞 ${escapeHTML(p.phone)} ${p.note ? "| " + escapeHTML(p.note) : ""}</p>
+              </div>
+              <div style="display:flex; gap:0.4rem;">
+                <button class="btn toggle-vip-btn" data-id="${p.id}" data-vip="${!p.isVip}" style="padding:0.4rem 0.65rem; font-size:0.78rem; background:#fef08a;">${p.isVip ? "إلغاء التوثيق" : "⭐ توثيق"}</button>
+                <button class="btn btn-danger delete-pro-btn" data-id="${p.id}" style="padding:0.4rem 0.7rem; font-size:0.78rem;">حذف</button>
+              </div>
+            </div>
+          `).join("");
 
-  function closeModal(id) { document.getElementById(id).classList.add("hidden"); }
+          adminProsList.querySelectorAll(".toggle-vip-btn").forEach(btn => {
+            btn.addEventListener("click", async () => {
+              await updateDoc(doc(db, "professionals", btn.dataset.id), {
+                isVip: btn.dataset.vip === "true"
+              });
+            });
+          });
 
-  function installAppPrompt() {
-    alert("لتثبيت التطبيق على موبايلك:\n1. اضغط على الثلاث نقاط (⋮) في أعلى متصفح جوجل كروم.\n2. اختر (الإضافة إلى الشاشة الرئيسية / Add to Home screen).\nسينزل التطبيق بأيقونة برتقالية على موبايلك فوراً!");
-  }
-</script>
+          adminProsList.querySelectorAll(".delete-pro-btn").forEach(btn => {
+            btn.addEventListener("click", async () => {
+              if (confirm("هل تريد حذف هذا الصنايعي من الدليل نهائياً؟")) {
+                await deleteDoc(doc(db, "professionals", btn.dataset.id));
+              }
+            });
+          });
+        }
+      }
+    });
+
+    document.getElementById("addProBtn").addEventListener("click", async () => {
+      const village = document.getElementById("adminProVillage").value;
+      const craft = document.getElementById("adminProCraft").value;
+      const name = document.getElementById("adminProName").value.trim();
+      const phone = document.getElementById("adminProPhone").value.trim();
+      const note = document.getElementById("adminProNote").value.trim();
+      const isVip = document.getElementById("adminProVip").checked;
+
+      if (!name || !phone) {
+        return alert("يرجى كتابة اسم الصنايعي ورقم الهاتف.");
+      }
+
+      await addDoc(collection(db, "professionals"), {
+        village,
+        craft,
+        name,
+        phone,
+        note,
+        isVip,
+        createdAt: serverTimestamp()
+      });
+
+      document.getElementById("adminProName").value = "";
+      document.getElementById("adminProPhone").value = "";
+      document.getElementById("adminProNote").value = "";
+      document.getElementById("adminProVip").checked = false;
+      alert("تمت إضافة الصنايعي إلى الدليل بنجاح!");
+    });
+
+    let isRegisterMode = false;
+    let selectedRole = "client";
+    let logoClicks = 0;
+
+    const tabLogin = document.getElementById("tabLogin");
+    const tabRegister = document.getElementById("tabRegister");
+    const roleSelectorWrapper = document.getElementById("roleSelectorWrapper");
+    const submitAuthBtn = document.getElementById("submitAuthBtn");
+    const authAlert = document.getElementById("authAlert");
+    const extraFieldGroup = document.getElementById("extraFieldGroup");
+    const extraFieldLabel = document.getElementById("extraFieldLabel");
+    const regExtra = document.getElementById("regExtra");
+
+    function showAlert(msg, type = "error") {
+      authAlert.textContent = msg;
+      authAlert.className = `alert ${type}`;
+    }
+
+    function clearAlert() {
+      authAlert.className = "alert";
+      authAlert.textContent = "";
+    }
+
+    tabLogin.addEventListener("click", () => {
+      isRegisterMode = false;
+      tabLogin.classList.add("active");
+      tabRegister.classList.remove("active");
+      roleSelectorWrapper.classList.add("hidden");
+      submitAuthBtn.textContent = "دخول";
+      clearAlert();
+    });
+
+    tabRegister.addEventListener("click", () => {
+      isRegisterMode = true;
+      tabRegister.classList.add("active");
+      tabLogin.classList.remove("active");
+      roleSelectorWrapper.classList.remove("hidden");
+      submitAuthBtn.textContent = "إنشاء الحساب وإرسال كود التفعيل";
+      clearAlert();
+    });
+
+    document.querySelectorAll(".role-card").forEach(card => {
+      card.addEventListener("click", () => {
+        document.querySelectorAll(".role-card").forEach(c => c.classList.remove("active"));
+        card.classList.add("active");
+        selectedRole = card.dataset.role;
+
+        if (selectedRole === "pilot") {
+          extraFieldGroup.classList.remove("hidden");
+          extraFieldLabel.textContent = "نوع المركبة (موتوسيكل / سيارة) والقرية";
+          regExtra.placeholder = "مثال: موتوسيكل - الكعابي الجديدة";
+        } else if (selectedRole === "merchant") {
+          extraFieldGroup.classList.remove("hidden");
+          extraFieldLabel.textContent = "اسم المحل أو النشاط العقاري";
+          regExtra.placeholder = "مثال: مطعم البركة / مكتب عقارات";
+        } else {
+          extraFieldGroup.classList.add("hidden");
+        }
+      });
+    });
+
+    submitAuthBtn.addEventListener("click", async () => {
+      clearAlert();
+      const email = document.getElementById("authEmail").value.trim().toLowerCase();
+      const password = document.getElementById("authPassword").value;
+
+      if (!email || !password) {
+        return showAlert("يرجى إدخال البريد الإلكتروني وكلمة المرور.");
+      }
+
+      submitAuthBtn.disabled = true;
+
+      try {
+        if (isRegisterMode) {
+          const name = document.getElementById("regName").value.trim();
+          const phone = document.getElementById("regPhone").value.trim();
+          const extra = regExtra.value.trim();
+
+          if (!name || !phone) {
+            submitAuthBtn.disabled = false;
+            return showAlert("يرجى كتابة الاسم ورقم الهاتف.");
+          }
+
+          const cred = await createUserWithEmailAndPassword(auth, email, password);
+          const finalRole = (email === ADMIN_EMAIL) ? "admin" : selectedRole;
+
+          await setDoc(doc(db, "users", cred.user.uid), {
+            name,
+            phone,
+            email,
+            role: finalRole,
+            extra: extra || "",
+            createdAt: serverTimestamp()
+          });
+
+          if (email !== ADMIN_EMAIL) {
+            await sendEmailVerification(cred.user);
+          }
+        } else {
+          await signInWithEmailAndPassword(auth, email, password);
+        }
+      } catch (err) {
+        let msg = "حدث خطأ، تأكد من البيانات وحاول مرة أخرى.";
+        if (err.code === "auth/email-already-in-use") msg = "هذا البريد مسجل بالفعل، اختر تسجيل الدخول.";
+        if (err.code === "auth/invalid-credential" || err.code === "auth/wrong-password") msg = "البريد الإلكتروني أو كلمة المرور غير صحيحة.";
+        if (err.code === "auth/weak-password") msg = "كلمة المرور يجب أن تكون 6 أحرف على الأقل.";
+        showAlert(msg);
+      } finally {
+        submitAuthBtn.disabled = false;
+      }
+    });
+
+    document.getElementById("resendVerifyBtn").addEventListener("click", async () => {
+      if (auth.currentUser) {
+        await sendEmailVerification(auth.currentUser);
+        alert("تم إرسال رابط التفعيل مرة أخرى إلى بريدك الإلكتروني.");
+      }
+    });
+
+    document.getElementById("checkVerifiedBtn").addEventListener("click", async () => {
+      if (auth.currentUser) {
+        await auth.currentUser.reload();
+        if (auth.currentUser.emailVerified) {
+          location.reload();
+        } else {
+          alert("لم يتم الضغط على رابط التفعيل في بريدك الإلكتروني بعد.");
+        }
+      }
+    });
+
+    document.getElementById("logoutBtn").addEventListener("click", () => {
+      clearActiveListeners();
+      signOut(auth);
+    });
+
+    document.getElementById("brandLogo").addEventListener("click", () => {
+      logoClicks++;
+      if (logoClicks >= 5) {
+        logoClicks = 0;
+        navApp.click();
+        if (auth.currentUser && auth.currentUser.email.toLowerCase() === ADMIN_EMAIL) {
+          hideAllAppSections();
+          document.getElementById("adminDashboard").classList.remove("hidden");
+        } else {
+          tabLogin.click();
+          document.getElementById("authEmail").focus();
+        }
+      }
+    });
+
+    function hideAllAppSections() {
+      ["authSection", "verifySection", "clientDashboard", "pilotDashboard", "merchantDashboard", "adminDashboard"]
+        .forEach(id => document.getElementById(id).classList.add("hidden"));
+    }
+
+    onAuthStateChanged(auth, async (user) => {
+      clearActiveListeners();
+      hideAllAppSections();
+      const logoutBtn = document.getElementById("logoutBtn");
+
+      if (!user) {
+        logoutBtn.classList.add("hidden");
+        document.getElementById("authSection").classList.remove("hidden");
+        return;
+      }
+
+      logoutBtn.classList.remove("hidden");
+      const userEmail = user.email.toLowerCase();
+
+      if (!user.emailVerified && userEmail !== ADMIN_EMAIL) {
+        document.getElementById("verifyEmailText").textContent = user.email;
+        document.getElementById("verifySection").classList.remove("hidden");
+        return;
+      }
+
+      const userSnap = await getDoc(doc(db, "users", user.uid));
+      let userData = userSnap.exists() ? userSnap.data() : { name: "صاحب التطبيق", role: "client", phone: "" };
+
+      if (userEmail === ADMIN_EMAIL) {
+        userData.role = "admin";
+        navApp.click();
+      }
+
+      document.querySelectorAll(".userNameDisplay").forEach(el => el.textContent = userData.name);
+
+      if (userData.role === "admin") {
+        document.getElementById("adminDashboard").classList.remove("hidden");
+        loadAdminData();
+      } else if (userData.role === "pilot") {
+        document.getElementById("pilotDashboard").classList.remove("hidden");
+        loadPilotOrders(user.uid, userData);
+      } else if (userData.role === "merchant") {
+        document.getElementById("merchantDashboard").classList.remove("hidden");
+        setupMerchantActions(user.uid, userData);
+      } else {
+        document.getElementById("clientDashboard").classList.remove("hidden");
+        setupClientActions(user.uid, userData);
+      }
+    });
+
+    function setupClientActions(uid, userData) {
+      document.getElementById("createOrderBtn").onclick = async () => {
+        const type = document.getElementById("orderType").value;
+        const pickup = document.getElementById("orderPickup").value.trim();
+        const dropoff = document.getElementById("orderDropoff").value.trim();
+        const details = document.getElementById("orderDetails").value.trim();
+
+        if (!pickup || !dropoff) return alert("يرجى تحديد مكان الاستلام والتسليم.");
+
+        await addDoc(collection(db, "orders"), {
+          clientId: uid,
+          clientName: userData.name,
+          clientPhone: userData.phone,
+          type,
+          pickup,
+          dropoff,
+          details,
+          status: "pending",
+          pilotName: "",
+          createdAt: serverTimestamp()
+        });
+
+        document.getElementById("orderPickup").value = "";
+        document.getElementById("orderDropoff").value = "";
+        document.getElementById("orderDetails").value = "";
+        alert("تم إرسال طلبك بنجاح! سيظهر للطيارين فوراً.");
+      };
+
+      const q = query(collection(db, "orders"), orderBy("createdAt", "desc"));
+      const unsub = onSnapshot(q, (snap) => {
+        const list = document.getElementById("clientOrdersList");
+        list.innerHTML = "";
+        let count = 0;
+        snap.forEach(docSnap => {
+          const o = docSnap.data();
+          if (o.clientId === uid) {
+            count++;
+            list.innerHTML += renderOrderCard(docSnap.id, o, "client");
+          }
+        });
+        if (count === 0) list.innerHTML = "<p style='color:var(--muted)'>لا توجد طلبات حتى الآن.</p>";
+        bindOrderActions(list, uid, userData);
+      });
+      activeListeners.push(unsub);
+    }
+
+    function loadPilotOrders(uid, userData) {
+      const q = query(collection(db, "orders"), orderBy("createdAt", "desc"));
+      const unsub = onSnapshot(q, (snap) => {
+        const list = document.getElementById("pilotOrdersList");
+        list.innerHTML = "";
+        let count = 0;
+        snap.forEach(docSnap => {
+          const o = docSnap.data();
+          if (o.status === "pending" || o.pilotId === uid) {
+            count++;
+            list.innerHTML += renderOrderCard(docSnap.id, o, "pilot", uid, userData);
+          }
+        });
+        if (count === 0) list.innerHTML = "<div class='card'><p style='color:var(--muted)'>لا توجد طلبات متاحة حالياً.</p></div>";
+        bindOrderActions(list, uid, userData);
+      });
+      activeListeners.push(unsub);
+    }
+
+    function setupMerchantActions(uid, userData) {
+      document.getElementById("merchantPostBtn").onclick = async () => {
+        const title = document.getElementById("merchantTitle").value.trim();
+        const address = document.getElementById("merchantAddress").value.trim();
+        const details = document.getElementById("merchantDetails").value.trim();
+
+        if (!title || !address) return alert("يرجى كتابة العنوان والتفاصيل.");
+
+        await addDoc(collection(db, "orders"), {
+          clientId: uid,
+          clientName: `${userData.name} (${userData.extra || "تاجر"})`,
+          clientPhone: userData.phone,
+          type: "طلب محل / عقار",
+          pickup: address,
+          dropoff: title,
+          details,
+          status: "pending",
+          pilotName: "",
+          createdAt: serverTimestamp()
+        });
+
+        document.getElementById("merchantTitle").value = "";
+        document.getElementById("merchantAddress").value = "";
+        document.getElementById("merchantDetails").value = "";
+        alert("تم نشر طلبك بنجاح!");
+      };
+
+      const q = query(collection(db, "orders"), orderBy("createdAt", "desc"));
+      const unsub = onSnapshot(q, (snap) => {
+        const list = document.getElementById("merchantOrdersList");
+        list.innerHTML = "";
+        let count = 0;
+        snap.forEach(docSnap => {
+          const o = docSnap.data();
+          if (o.clientId === uid) {
+            count++;
+            list.innerHTML += renderOrderCard(docSnap.id, o, "client");
+          }
+        });
+        if (count === 0) list.innerHTML = "<p style='color:var(--muted)'>لا توجد نشاطات مسجلة بعد.</p>";
+        bindOrderActions(list, uid, userData);
+      });
+      activeListeners.push(unsub);
+    }
+
+    function loadAdminData() {
+      const compQ = query(collection(db, "complaints"), orderBy("createdAt", "desc"));
+      const unsubComp = onSnapshot(compQ, (snap) => {
+        document.getElementById("statComplaints").textContent = snap.size;
+        const compList = document.getElementById("adminComplaintsList");
+        compList.innerHTML = "";
+        if (snap.empty) {
+          compList.innerHTML = "<p style='color:var(--muted)'>لا توجد شكاوى مسجلة حالياً.</p>";
+          return;
+        }
+        snap.forEach(cDoc => {
+          const c = cDoc.data();
+          compList.innerHTML += `
+            <div class="order-item" style="border-right:4px solid var(--danger);">
+              <div class="order-header">
+                <strong>الشكوى ضد: ${escapeHTML(c.target)}</strong>
+                <span class="badge badge-pending">بلاغ عميل</span>
+              </div>
+              <p style="font-size:0.86rem; margin-bottom:0.3rem;">📝 ${escapeHTML(c.details)}</p>
+              <p style="font-size:0.82rem; color:var(--primary-dark);">👤 الشاكي: ${escapeHTML(c.reporter)}</p>
+              <button class="btn btn-success resolve-comp-btn" data-id="${cDoc.id}" style="margin-top:0.5rem; padding:0.35rem 0.7rem; font-size:0.78rem;">تم الحل / حذف البلاغ</button>
+            </div>
+          `;
+        });
+
+        compList.querySelectorAll(".resolve-comp-btn").forEach(btn => {
+          btn.addEventListener("click", async () => {
+            if (confirm("هل تم حل الشكوى وتريد إغلاقها؟")) {
+              await deleteDoc(doc(db, "complaints", btn.dataset.id));
+            }
+          });
+        });
+      });
+      activeListeners.push(unsubComp);
+
+      const unsubUsers = onSnapshot(collection(db, "users"), (snap) => {
+        document.getElementById("statUsers").textContent = snap.size;
+        const usersList = document.getElementById("adminUsersList");
+        usersList.innerHTML = "";
+        snap.forEach(uDoc => {
+          const u = uDoc.data();
+          const roleArabic = u.role === "admin" ? "مدير" : u.role === "pilot" ? "طيار" : u.role === "merchant" ? "صاحب محل/عقار" : "عميل";
+          usersList.innerHTML += `
+            <div class="order-item">
+              <div class="order-header">
+                <strong>${escapeHTML(u.name)}</strong>
+                <span class="badge badge-done">${roleArabic}</span>
+              </div>
+              <p style="font-size:0.85rem; color:var(--muted)">📞 ${escapeHTML(u.phone)} | ✉️ ${escapeHTML(u.email)}</p>
+              ${u.extra ? `<p style="font-size:0.82rem; margin-top:0.25rem;">📌 ${escapeHTML(u.extra)}</p>` : ""}
+            </div>
+          `;
+        });
+      });
+      activeListeners.push(unsubUsers);
+
+      const q = query(collection(db, "orders"), orderBy("createdAt", "desc"));
+      const unsubOrders = onSnapshot(q, (snap) => {
+        document.getElementById("statOrders").textContent = snap.size;
+        const ordersList = document.getElementById("adminOrdersList");
+        ordersList.innerHTML = "";
+
+        snap.forEach(docSnap => {
+          const o = docSnap.data();
+          ordersList.innerHTML += renderOrderCard(docSnap.id, o, "admin");
+        });
+
+        if (snap.empty) {
+          ordersList.innerHTML = "<p style='color:var(--muted)'>لا توجد طلبات مسجلة في النظام.</p>";
+        } else {
+          bindOrderActions(ordersList);
+        }
+      });
+      activeListeners.push(unsubOrders);
+    }
+
+    function renderOrderCard(id, o, viewerRole, uid = "") {
+      const statusText = o.status === "pending" ? "في انتظار طيار" : o.status === "accepted" ? `جاري التنفيذ (${escapeHTML(o.pilotName)})` : "تم التسليم";
+      const badgeClass = o.status === "pending" ? "badge-pending" : o.status === "accepted" ? "badge-active" : "badge-done";
+
+      let actionButtons = "";
+      if (viewerRole === "pilot" && o.status === "pending") {
+        actionButtons = `<button class="btn btn-success accept-order-btn" data-id="${id}" style="margin-top:0.6rem; width:100%;">قبول الطلب الآن</button>`;
+      } else if (viewerRole === "pilot" && o.status === "accepted" && o.pilotId === uid) {
+        actionButtons = `<button class="btn btn-primary complete-order-btn" data-id="${id}" style="margin-top:0.6rem; width:100%;">تأكيد إتمام التوصيل</button>`;
+      } else if (viewerRole === "client") {
+        const safeOrder = escapeHTML(`طلب ${o.type} (${o.pilotName || "قيد الانتظار"})`);
+        actionButtons = `<button class="btn btn-warning-soft complain-order-btn" data-target="${safeOrder}" style="margin-top:0.6rem;">⚠️ الإبلاغ عن مشكلة في الطلب</button>`;
+      } else if (viewerRole === "admin") {
+        actionButtons = `<button class="btn btn-danger delete-order-btn" data-id="${id}" style="margin-top:0.6rem; padding:0.4rem 0.8rem; font-size:0.8rem;">حذف الطلب</button>`;
+      }
+
+      return `
+        <div class="order-item">
+          <div class="order-header">
+            <strong>${escapeHTML(o.type)}</strong>
+            <span class="badge ${badgeClass}">${statusText}</span>
+          </div>
+          <p style="font-size:0.88rem;"><strong>من:</strong> ${escapeHTML(o.pickup)}</p>
+          <p style="font-size:0.88rem;"><strong>إلى:</strong> ${escapeHTML(o.dropoff)}</p>
+          ${o.details ? `<p style="font-size:0.84rem; color:var(--muted); margin-top:0.3rem;">📝 ${escapeHTML(o.details)}</p>` : ""}
+          <p style="font-size:0.82rem; color:var(--primary); margin-top:0.4rem;">👤 ${escapeHTML(o.clientName)} (${escapeHTML(o.clientPhone)})</p>
+          ${actionButtons}
+        </div>
+      `;
+    }
+
+    function bindOrderActions(container, uid = "", userData = {}) {
+      container.querySelectorAll(".accept-order-btn").forEach(btn => {
+        btn.addEventListener("click", async () => {
+          await updateDoc(doc(db, "orders", btn.dataset.id), {
+            status: "accepted",
+            pilotId: uid,
+            pilotName: `${userData.name} - ${userData.phone}`
+          });
+        });
+      });
+
+      container.querySelectorAll(".complete-order-btn").forEach(btn => {
+        btn.addEventListener("click", async () => {
+          await updateDoc(doc(db, "orders", btn.dataset.id), { status: "completed" });
+        });
+      });
+
+      container.querySelectorAll(".complain-order-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          window.openComplaintWithTarget(btn.dataset.target);
+        });
+      });
+
+      container.querySelectorAll(".delete-order-btn").forEach(btn => {
+        btn.addEventListener("click", async () => {
+          if (confirm("هل أنت متأكد من حذف هذا الطلب؟")) {
+            await deleteDoc(doc(db, "orders", btn.dataset.id));
+          }
+        });
+      });
+    }
+  </script>
 </body>
 </html>
